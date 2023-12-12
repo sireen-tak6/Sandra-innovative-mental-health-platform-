@@ -1,0 +1,36 @@
+.user .car {
+    background-color: #ffffffd5;
+    cursor: pointer;
+}
+
+.user .car:hover {
+    background-color: #198a5d9b;
+    color: #ffffffd5;
+}
+
+.user .doctor {
+    background-color: #5758bb;
+    border: #5758bb;
+}
+
+.user .profile {
+    background-color: #5758bb;
+    border: #5758bb;
+}
+
+.user .best {
+    font-size: large;
+    color: black;
+    font-weight: 800;
+}
+
+.user .doctor:hover {
+    background-color: #9980fa;
+    height: 30%;
+    width: 50%;
+    font-size: x-large;
+}
+
+.user .profile:hover {
+    background-color: #9980fa;
+}
