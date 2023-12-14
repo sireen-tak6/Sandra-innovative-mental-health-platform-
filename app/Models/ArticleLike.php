@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
-class Like extends Model
+class ArticleLike extends Model
 {
     use HasFactory;
     protected $table='Articleslikes';

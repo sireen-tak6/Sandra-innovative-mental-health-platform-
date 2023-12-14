@@ -154,8 +154,6 @@ select:focus {
     cursor: pointer;
     font-size: max(2vmin, 13px);
 }
-.FormCol .setimg {
-}
 .FormCol .imgText {
     position: absolute;
     top: 50%;

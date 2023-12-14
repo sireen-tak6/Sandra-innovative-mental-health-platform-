@@ -16,4 +16,8 @@ class Category extends Model
         return $this->hasMany(Article::class,'specialityID');
 
     }
+    public function Doctors():HasMany{
+        return $this->hasMany(Doctor::class,'specialityID');
+
+    }
 }

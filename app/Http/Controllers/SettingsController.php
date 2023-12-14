@@ -222,4 +222,43 @@ class SettingsController extends Controller
             return response()->json(['status'=>400,'message'=> 'Please check your password']);
         }
     }
+    
+    public function PersonalInfo(Request $request)
+    {
+        
+        $validator = $request->validate([
+            'address' => 'string|max:50|nullable',
+            'phone' => 'string|max:16|nullable',
+            'about' => 'string|max:120|nullable',
+            'university' => 'string|max:100|nullable',
+            'specialization' => 'required|integer|exists:speciality,id|nullable',
+            'userID' => 'required|integer|exists:doctors,id', 
+            'userType'=>'required|string'
+        ]);
+        $userType=$request->input('userType');
+        $userID=intval( $request->input('userID'));
+        
+        if ($request->input('userType')==="doctor") {
+            $user=Doctor::find($userID);
+        }
+        else {
+            return response()->json(['status'=>400,'message'=> "you can't change your personal information"]);
+        }
+        if(!$user){
+            return response()->json(['status'=>400,'message'=> 'user not found']);
+        }
+        
+            try {    
+                $user->address=$request->input('address');
+                $user->about=$request->input('about');
+                $user->university=$request->input('university');
+                $user->phone=$request->input('phone');
+                $user->speciality=$request->input('specialization');
+                $user->save();
+                return response()->json(['status'=>200,'message'=> 'your personal info has been updated successfully']);
+            } catch (\Exception $e) {
+                return response()->json(['status'=>500,'message'=> 'Something went wrong']);
+            }
+      
+    }
 }

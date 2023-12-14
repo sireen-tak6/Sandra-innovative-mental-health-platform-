@@ -31,6 +31,7 @@ export default function Doctor() {
             const response = await axiosClient.get("/get/doctors");
             const data = response.data;
             setDoctors(data.doctors);
+            console.log(data)
             const doctorIds = data.doctors.map((doctor) => doctor.id);
             DoctorLikes(doctorIds);
         } catch (error) {
@@ -146,7 +147,7 @@ export default function Doctor() {
                                     </div>
                                     {/* Doctor Articles */}
                                     <div className="m-2">
-                                        <button className="text-white botton px-2 py-1 rounded-md">
+                                        <button className="text-white botton px-2 py-1 rounded-md" type="button" onClick={()=>navigate(`/doctorProile/${doctor.id}`)}>
                                             Articles
                                         </button>
                                     </div>

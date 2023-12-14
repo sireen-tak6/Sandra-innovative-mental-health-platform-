@@ -169,7 +169,7 @@ class AuthController extends Controller
                     'error' => 'The Password or Email Not Correct ',
                 ]);
             }
-        } else if (Secertarie::where('email', $request->email)->first()) {
+        } /*else if (Secertarie::where('email', $request->email)->first()) {
             $user = Secertarie::where('email', $request->email)->first();
             $passwordHash = $request->password;
             if (Hash::check($request->password, $passwordHash)) {
@@ -190,7 +190,7 @@ class AuthController extends Controller
                 ]);
             }
 
-        } else {
+        } */else {
             return response()->json([
                 'error' => 'Invalid User',
             ]);

@@ -43,6 +43,7 @@ const Cards = () => {
                     }
                 }
                 catch(error){
+                    console.log(error)
                     swalWithBootstrapButtons.fire(
                         error.response.statusText,
                         "error"

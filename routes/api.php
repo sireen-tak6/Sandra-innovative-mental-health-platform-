@@ -45,9 +45,9 @@ Route::post('/login',[AuthController::class,'login']);
 
 //Admin api 
 //for me 
-Route::post('firstAdmin' , [AdminController::class , 'AddFirstAdmin']);
+Route::get('firstAdmin' , [AdminController::class , 'AddFirstAdmin']);
 //for sireen  
-Route::post('secondAdmin' , [AdminController::class , 'AddSecondAdmin']); 
+Route::get('secondAdmin' , [AdminController::class , 'AddSecondAdmin']); 
 
 
 //this section for the ChatController 
@@ -74,7 +74,8 @@ Route::post('/delete-chat/{id}/{user_id}' , [ChatController::class , 'deleteChat
 //this section for doctor controller
 // it's work 
 Route::get('/get/doctors' , [DoctorController::class ,'getAllDoctor']);
-
+Route::post('/doctorInfo/{doctorId}' , [DoctorController::class ,'DoctorInfo']);
+Route::post('/doctorArticles/{doctorId}' , [DoctorController::class ,'DoctorArticles']);
 
 //this section for the LikeController 
 Route::post('/best/doctor' , [LikeController::class ,'BestThreeDoctor']);
@@ -136,3 +137,5 @@ Route::post('Settings/ChangePassword',[SettingsController::class,'ChangePassword
 //done
 Route::post('Settings/info',[SettingsController::class,'show']);
 Route::post('Settings/AccountInfo',[SettingsController::class,'updateAccount']);
+Route::post('Settings/getPersonalInfo',[SettingsController::class,'getPersonalInfo']);
+Route::post('Settings/PersonalInfo',[SettingsController::class,'PersonalInfo']);

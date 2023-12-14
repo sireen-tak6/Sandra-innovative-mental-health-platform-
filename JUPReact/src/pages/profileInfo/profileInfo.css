@@ -1,14 +1,11 @@
 .profileInfo .bodyContainer {
     min-height: 80vh;
-    border-radius: 20px;
     display: flex;
     margin-top: 12vh;
     margin-left: auto;
     margin-right: auto;
-    box-shadow: 4px 4px 8px 2px #6f6f6f82;
-    background-color: #558da39e;
-    width: 80vw;
-    justify-content: center;
+    width: 90vw;
+    justify-content: space-between;
     justify-self: center;
     color: #0d4155;
     font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
@@ -18,8 +15,17 @@
 .profileInfo .partsPart {
     width: 25vw;
     padding: 5vh 1.5vw;
+    background-color: #558da39e;
+    box-shadow: 4px 4px 8px 2px #6f6f6f82;
+    border-radius: 20px;
+
+
 }
 .profileInfo .fieldsPart {
+    background-color: #558da39e;
+    box-shadow: 4px 4px 8px 2px #6f6f6f82;
+    border-radius: 20px;
+
     width: 60vw;
     padding: 4vh 2.2vw;
     justify-content: center;
@@ -28,11 +34,7 @@
     align-content: center;
     display: grid;
 }
-.profileInfo .div {
-    border: 1px solid #c9c9c9c8;
-    margin-top: 1vh;
-    margin-bottom: 1vh;
-}
+
 .profileInfo .partTitle {
     margin-left: 0.5vw;
     font-size: max(3vmin, 12px);
@@ -159,4 +161,21 @@
 .profileInfo .loading {
     height: 7vh;
     padding-left: 8vw;
+}
+.profileInfo .line {
+    display: flex;
+}
+.profileInfo .line input {
+    width: 15vw;
+}
+
+.profileInfo .block {
+    margin-right: 3vw;
+    position: relative;
+}
+.profileInfo .lenght {
+    font-size: max(1.8vmin, 11px);
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }

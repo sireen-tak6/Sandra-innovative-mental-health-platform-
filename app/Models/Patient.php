@@ -16,6 +16,7 @@ class Patient extends Model implements Authenticatable
         'user_name',
         'email',
         'password',
+        'available'
     ];
 
  
@@ -60,13 +61,13 @@ class Patient extends Model implements Authenticatable
     }
     public function likedArticles()
     {
-        return $this->belongsToMany(Article::class, 'likes','patientID','articleID')->withTimestamps();
+        return $this->belongsToMany(Article::class, 'Articleslikes','patientID','articleID')->withTimestamps();
     }
 
     
     public function reportedArticles()
     {
-        return $this->belongsToMany(Article::class, 'reports','patientID','articleID');
+        return $this->belongsToMany(Article::class, 'ArticlesReports','patientID','articleID');
     }
     
 

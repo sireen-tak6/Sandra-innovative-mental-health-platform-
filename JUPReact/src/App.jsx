@@ -38,17 +38,31 @@ import PArticleContent from "./pages/pendingArticless/ArticleContent/ArticleCont
 import MyArticles from "./pages/pendingArticless/myArticles/myArticles";
 import MyArticleContent from "./pages/pendingArticless/myArticleContent/myArticleContent";
 
+import DoctorProfile from "./pages/DoctorProfile/DoctorProfile";
+
 import Settings from "./pages/profileInfo/profileInfo";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<RootLayout />}>
             <Route index element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
             <Route path="/home" element={<Home />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/doctor" element={<Doctor />} />
+            <Route path="/user" element={<User />} />
             <Route path="articles" element={<ShowArticles />} />
             <Route path="articles/pending" element={<PendingArticles />} />
             <Route path="articles/pending/:id" element={<PArticleContent />} />
-            <Route path="articles/AddArticle" element={<AddArticle />} />
+            <Route
+                path="articles/pending/myPendings"
+                element={<MyArticles />}
+            />
+            <Route
+                path="articles/pending/myPendings/:id"
+                element={<MyArticleContent />}
+            />
             <Route path="articles/:category/:id" element={<ArticleContent />} />
             <Route
                 path="articles/:category/:id/update"
@@ -58,22 +72,11 @@ const router = createBrowserRouter(
                 path="articles/:category/:id/update/content"
                 element={<EditArticleContent />}
             />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/doctor" element={<Doctor />} />
-            <Route path="/user" element={<User />} />
-            <Route path="Settings" element={<Settings />} />
-            <Route
-                path="articles/pending/myPendings"
-                element={<MyArticles />}
-            />
-            <Route
-                path="articles/pending/myPendings/:id"
-                element={<MyArticleContent />}
-            />
+            <Route path="articles/AddArticle" element={<AddArticle />} />
             <Route path="/chats" element={<Chats />} />
             <Route path="/chat/messages" element={<ChatMessages />} />
+            <Route path="/doctorProile/:id" element={<DoctorProfile/>}/>
+            <Route path="Settings" element={<Settings />} />
         </Route>
     )
 );

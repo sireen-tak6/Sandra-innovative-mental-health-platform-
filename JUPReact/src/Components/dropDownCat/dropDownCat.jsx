@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-function CategoryDropdown({ selectedCategory, setSelectedCategory }) {
-    const [Categories, setCategories] = useState([]);
+function CategoryDropdown({ selectedCategory, setSelectedCategory ,categories=[]}) {
+    console.log(categories)
+    const [Categories, setCategories] = useState(categories.length===0?[]:categories);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -11,7 +12,6 @@ function CategoryDropdown({ selectedCategory, setSelectedCategory }) {
                     "http://localhost:8000/api/Categories"
                 );
                 setCategories(response.data["Category"]);
-                console.log(Categories[0]["name"]);
             } catch (error) {
                 console.error("Error fetching data:", error);
             }

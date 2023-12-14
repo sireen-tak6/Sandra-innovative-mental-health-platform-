@@ -25,9 +25,9 @@ return new class extends Migration
             $table->integer('likes');
             $table->integer('reports');
             $table->datetime('date');
-            $table->timestamps();
             $table->foreign('specialityID')->references('id')->on('speciality')->onDelete('cascade');
             $table->foreign('doctorID')->references('id')->on('doctors')->onDelete('cascade');
+            $table->timestamps();
 
         });
     }

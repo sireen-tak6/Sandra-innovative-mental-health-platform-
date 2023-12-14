@@ -10,6 +10,7 @@ import "./Navbar2.css";
 //images
 import Logo from "./sandralogo.png";
 import icon from "./usericon.png";
+import { NutFill } from "react-bootstrap-icons";
 
 function Navbarr() {
     const navigate = useNavigate();
@@ -18,6 +19,8 @@ function Navbarr() {
         localStorage.clear();
         navigate("/login");
     }
+    let id=localStorage.getItem("user-id");
+    let Type=localStorage.getItem("user-type");
 
     let user = localStorage.getItem("user-name");
     console.log(user);
@@ -88,6 +91,13 @@ function Navbarr() {
                                             </div>
                                         </Nav.Link>
                                         <NavDropdown title={user} className="o">
+                                            {Type==="doctor"?<NavDropdown.Item
+                                                href={`/doctorProile/${id}`}
+                                                className="o"
+                                            >
+                                                My Profile
+                                            </NavDropdown.Item>:null}
+                                            
                                             <NavDropdown.Item
                                                 onClick={Logout}
                                                 className="o"

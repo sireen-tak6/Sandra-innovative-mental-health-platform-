@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Admin;
+use Illuminate\Support\Facades\Hash;
+
 
 class AdminController extends Controller
 {
@@ -21,8 +24,8 @@ class AdminController extends Controller
         $Admin = new Admin();
         $Admin->id = 2 ;
         $Admin->user_name = 'Sireen' ;
-        $Admin->email = 'siro1234@gmail.com' ;
-        $Admin->password = Hash::make('siro1234');
+        $Admin->email = 'sireen.takriti@gmail.com' ;
+        $Admin->password = Hash::make('123456789');
         $Admin->save(); 
        return $Admin;
     }

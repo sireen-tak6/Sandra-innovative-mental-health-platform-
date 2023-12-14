@@ -16,6 +16,15 @@ return new class extends Migration
             $table->string('email'); 
             $table->string('points')->default(0); 
             $table->string('password'); 
+            $table->string('address')->nullable();
+            $table->string('about')->nullable();
+            $table->string('university')->nullable();
+            $table->string('phone')->nullable();
+            $table->boolean('available')->default(false);
+            $table->unsignedBigInteger('speciality')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('verification_token')->nullable();
+            $table->foreign('speciality')->references('id')->on('speciality')->onDelete('cascade'); 
             $table->timestamps();
         });
     }

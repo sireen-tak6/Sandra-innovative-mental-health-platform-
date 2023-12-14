@@ -23,7 +23,15 @@ class Doctor extends Model implements Authenticatable
         'user_name',
         'email',
         'password',
-        'points'
+        'points',
+        'address',
+        'about',
+        'university',
+        'phone',
+        'available',
+        'speciality',
+        'email_verified_at',
+        'verification_token'
     ];
 
     protected $guard = "doctors" ; 
@@ -32,7 +40,10 @@ class Doctor extends Model implements Authenticatable
     {
         return $this->hasMany(Patient::class, 'doctor_id');
     }
-    
+    public function Category():BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'specialityID');
+    }
     public function Secertarie():HasOne
     {
         return $this->hasOne(Secertarie::class , 'doctor_id'); 

@@ -15,8 +15,7 @@ return new class extends Migration
             $table->string('user_name'); 
             $table->string('email');
             $table->string('password'); 
-            $table->unsignedBigInteger('doctor_id'); 
-            $table->foreign('doctor_id')->references('id')->on('doctors'); 
+            $table->boolean('available')->default(false);
             $table->timestamps();
         });
     }

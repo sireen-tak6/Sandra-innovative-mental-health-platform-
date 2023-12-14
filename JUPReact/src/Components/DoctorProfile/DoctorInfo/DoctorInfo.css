@@ -1,0 +1,130 @@
+.DoctorProfile .infoPart {
+    width: 35vw;
+    height: 100vh;
+}
+
+.DoctorProfile .infoPart .mainInfo {
+    background-color: #ffffffd5;
+    box-shadow: 0px 0px 8px 2px #87bed282;
+    margin-bottom: 5vh;
+    position: relative;
+    border-radius: 20px;
+    padding: 5vh 2vw;
+    min-height: 30vh;
+}
+.DoctorProfile .infoPart .secondaryInfo {
+    background-color: #ffffffd5;
+    box-shadow: 0px 0px 8px 2px #87bed282;
+    border-radius: 20px;
+    padding: 5vh 2vw;
+    min-height: 30vh;
+}
+.DoctorProfile .infoPart .mainInfo .imageframe {
+    background-color: black;
+    height: 10vw;
+    width: 10vw;
+    border: 4px solid #87bed282;
+    border-radius: 13px;
+    margin-bottom: 10vh;
+    position: absolute;
+    top: -15%;
+    left: 10%;
+}
+.DoctorProfile .infoPart .mainInfo .imageframe img {
+    width: 100%;
+    border-radius: 10px;
+}
+.DoctorProfile .infoPart .mainInfo .likes {
+    position: absolute;
+    right: 15%;
+}
+.DoctorProfile .infoPart .mainInfo .likes .likeicon {
+    background-color: rgba(240, 248, 255, 0);
+    background: none;
+    color: rgb(176, 30, 30);
+    border: none;
+    margin-right: 0.5vmin;
+}
+.DoctorProfile .infoPart .mainInfo .points {
+    position: absolute;
+    right: 35%;
+}
+.DoctorProfile .infoPart .mainInfo .points .pointsicon {
+    background-color: rgba(240, 248, 255, 0);
+    background: none;
+    color: rgb(211, 180, 56);
+    border: none;
+    margin-right: 0.5vmin;
+}
+.DoctorProfile .infoPart .mainInfo .info {
+    padding-top: 19%;
+}
+.DoctorProfile .infoPart .mainInfo .info .name {
+    font-size: max(3vmin, 14px);
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.DoctorProfile .infoPart .mainInfo .info .speciality {
+    font-size: max(2vmin, 10px);
+    margin-bottom: 3vh;
+    color: #5490a7;
+}
+.DoctorProfile .infoPart .mainInfo .info .about {
+    font-size: max(2.2vmin, 12px);
+    margin-bottom: 13px;
+    white-space: pre-wrap;
+    overflow: auto;
+    word-wrap: break-word;
+}
+.DoctorProfile .infoPart .secondaryInfo .title {
+    font-size: max(3vmin, 12px);
+    margin-bottom: 4vh;
+    font-weight: 600;
+    color: #1c627e;
+}
+.DoctorProfile .infoPart .secondaryInfo .part {
+    display: flex;
+}
+.DoctorProfile .infoPart .secondaryInfo .keyword {
+    font-size: max(2.3vmin, 13px);
+    font-weight: 500;
+    margin-right: 5px;
+    display: block;
+}
+.DoctorProfile .infoPart .secondaryInfo .address {
+    font-size: max(2.2vmin, 12px);
+    margin-bottom: 13px;
+    white-space: pre-wrap;
+    overflow: auto;
+    word-wrap: break-word;
+}
+.DoctorProfile .infoPart .secondaryInfo .phone {
+    font-size: max(2.2vmin, 12px);
+    margin-bottom: 13px;
+    white-space: pre-wrap;
+    overflow: auto;
+    word-wrap: break-word;
+}
+.DoctorProfile .infoPart .secondaryInfo .university {
+    font-size: max(2.2vmin, 12px);
+    margin-bottom: 13px;
+    white-space: pre-wrap;
+    overflow: auto;
+    word-wrap: break-word;
+}
+.DoctorProfile .infoPart .secondaryInfo .postsCount {
+    font-size: max(2.2vmin, 12px);
+    margin-bottom: 13px;
+}
+.DoctorProfile .infoPart .secondaryInfo .addCertificate button {
+    border: 1px solid #1c627e;
+    border-radius: 6px;
+    padding: 1% 1.5%;
+    text-decoration: none;
+    color: #1c627e;
+    font-weight: 500;
+    margin-top: 2vh;
+    margin-left: auto;
+    margin-right: auto;
+}
