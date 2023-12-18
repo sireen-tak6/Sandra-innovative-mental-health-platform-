@@ -6,7 +6,7 @@ import axiosClient from "../../axios";
 //css
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
-import "./blog.css";
+import "./Cards.css";
 
 //components
 import Card from "./Card";

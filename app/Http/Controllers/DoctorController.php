@@ -25,7 +25,14 @@ class DoctorController extends Controller
     public function DoctorInfo($doctorId){
         try{
             
-            $doctor=Doctor::find($doctorId);
+            $doctor=Doctor::with("Category")->find($doctorId);
+            if(!$doctor){
+                return response()->json(['status'=>402,'message'=>"user not found"]);
+
+            }
+            $doctor->likesCount = $doctor->DoctorLikes->count();
+            $doctor->articlesCount = $doctor->Articles()->where('status','published')->count();
+            
             return response()->json(['status'=>200,'doctor'=>$doctor]);
         }
         catch(\Exception $e){

@@ -4,7 +4,7 @@ import { BsBookmark } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
 //css
-import "./card.css";
+import "./Card.css";
 
 //components
 import LikeButton from "../likeButton/likeButton";

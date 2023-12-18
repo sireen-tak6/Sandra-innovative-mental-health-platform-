@@ -11,6 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 
 
@@ -29,6 +30,7 @@ class Doctor extends Model implements Authenticatable
         'university',
         'phone',
         'available',
+        'gender',
         'speciality',
         'email_verified_at',
         'verification_token'
@@ -42,7 +44,7 @@ class Doctor extends Model implements Authenticatable
     }
     public function Category():BelongsTo
     {
-        return $this->belongsTo(Category::class, 'specialityID');
+        return $this->belongsTo(Category::class, 'speciality');
     }
     public function Secertarie():HasOne
     {

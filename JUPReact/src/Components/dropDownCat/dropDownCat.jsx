@@ -3,7 +3,7 @@ import axios from "axios";
 
 function CategoryDropdown({ selectedCategory, setSelectedCategory ,categories=[]}) {
     console.log(categories)
-    const [Categories, setCategories] = useState(categories.length===0?[]:categories);
+    const [Categories, setCategories] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {

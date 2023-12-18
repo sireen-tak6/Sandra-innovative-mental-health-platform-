@@ -34,12 +34,14 @@ const PArticleContent = () => {
                     setArticle(response.data["Article"]);
                 } else {
                     swalWithBootstrapButtons.fire(
+                        "",
                         response.data.message,
                         "error"
                     );
                 }
             } catch (error) {
                 swalWithBootstrapButtons.fire(
+                    "",
                     error.response.statusText,
                     "error"
                 );
@@ -92,6 +94,7 @@ const PArticleContent = () => {
                         console.log(response.data);
                         if (response.data.status === 200) {
                             swalWithBootstrapButtons.fire(
+                                "",
                                 response.data.message,
                                 "success"
                             );

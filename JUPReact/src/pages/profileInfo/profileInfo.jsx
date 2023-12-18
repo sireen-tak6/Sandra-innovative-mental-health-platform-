@@ -13,7 +13,9 @@ import PersonalInfo from "../../Components/SettingsCompononts/PersonalInfo";
 import ChangePassword from "../../Components/SettingsCompononts/ChangePassowrd";
 
 const Settings = () => {
-    const [part, setpart] = useState("Personal");
+    const userID = localStorage.getItem("user-id");
+    const userType = localStorage.getItem("user-type");
+    const [part, setpart] = useState(userType==="doctor"?"Personal":userType==="admin"?"Password":"Account");
     const [isLoaded, setIsLoaded] = useState(false);
 
     function onUpdate(value) {
@@ -27,6 +29,7 @@ const Settings = () => {
             <div className="bodyContainer">
                 <div className="partsPart">
                     <div className="partTitle">Settings :</div>
+                    {userType==="doctor"?
                     <button
                         className={`part f ${
                             part === "Personal" ? "chossen" : ""
@@ -34,7 +37,8 @@ const Settings = () => {
                         onClick={() => onUpdate("Personal")}
                     >
                         Personal Information
-                    </button>
+                    </button>:null}
+                    {userType!=="admin"?
                     <button
                         className={`part ${
                             part === "Account" ? "chossen" : ""
@@ -42,7 +46,8 @@ const Settings = () => {
                         onClick={() => onUpdate("Account")}
                     >
                         Account Information{" "}
-                    </button>
+                    </button>:null}
+
                     <button
                         className={`part ${
                             part === "Password" ? "chossen" : ""
@@ -51,12 +56,13 @@ const Settings = () => {
                     >
                         Change Password
                     </button>
+                    {userType!=="admin"?
                     <button
                         className={`part ${part === "Delete" ? "chossen" : ""}`}
                         onClick={() => onUpdate("Delete")}
                     >
                         Delete Account
-                    </button>
+                    </button>:null}
                     <button
                         className={`part ${
                             part === "Contact" ? "chossen" : ""

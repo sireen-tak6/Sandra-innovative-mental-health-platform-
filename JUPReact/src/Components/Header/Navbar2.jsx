@@ -19,8 +19,8 @@ function Navbarr() {
         localStorage.clear();
         navigate("/login");
     }
-    let id=localStorage.getItem("user-id");
-    let Type=localStorage.getItem("user-type");
+    let id = localStorage.getItem("user-id");
+    let Type = localStorage.getItem("user-type");
 
     let user = localStorage.getItem("user-name");
     console.log(user);
@@ -62,9 +62,6 @@ function Navbarr() {
                                     <Nav.Link href="/chats" className="l">
                                         Chats
                                     </Nav.Link>
-                                    <Nav.Link href="/Settings" className="l">
-                                        Settings
-                                    </Nav.Link>
                                 </>
                             ) : (
                                 <>
@@ -91,12 +88,20 @@ function Navbarr() {
                                             </div>
                                         </Nav.Link>
                                         <NavDropdown title={user} className="o">
-                                            {Type==="doctor"?<NavDropdown.Item
-                                                href={`/doctorProile/${id}`}
+                                            {Type === "doctor" ? (
+                                                <NavDropdown.Item
+                                                    href={`/doctorProile/${id}`}
+                                                    className="o"
+                                                >
+                                                    My Profile
+                                                </NavDropdown.Item>
+                                            ) : null}
+                                            <NavDropdown.Item
+                                                href="/Settings"
                                                 className="o"
                                             >
-                                                My Profile
-                                            </NavDropdown.Item>:null}
+                                                Settings
+                                            </NavDropdown.Item>
                                             
                                             <NavDropdown.Item
                                                 onClick={Logout}

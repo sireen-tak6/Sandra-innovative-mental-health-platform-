@@ -7,25 +7,35 @@ import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 
 //components
-import CategoryDropdown from "../dropDownCat/dropDownCat";
 import CircularLoading from "../loadingprogress/loadingProgress";
+import { responsivePropType } from "react-bootstrap/esm/createUtilityClasses";
 
 const PersonalInfo = () => {
-    const [doctor, setdoctor] = useState();
-    const [address, setaddress] = useState();
-    const [phone, setphone] = useState();
-    const [specialization, setspecialization] = useState();
-    const [university, setuniversity] = useState();
-    const [about, setabout] = useState();
-    const [certificate, setcertificate] = useState();
     const [phoneLength, setphoneLength] = useState(0);
-    const [AddressLength, setAddressLength] = useState(0);
-    const [specializationLength, setspecializationLength] = useState(0);
+    const [addressLength, setAddressLength] = useState(0);
+
     const [universityLength, setuniversityLength] = useState(0);
     const [aboutLength, setaboutLength] = useState(0);
     const userID = localStorage.getItem("user-id");
     const userType = localStorage.getItem("user-type");
-    const [Categories, setCategories] = useState(0);
+    const [Categories, setCategories] = useState([]);
+    const [doctorInfo, setDoctorInfo] = useState(null);
+    useEffect(() => {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-success",
+                cancelButton: "btn btn-danger",
+            },
+            buttonsStyling: false,
+        });
+        if (userType !== "doctor") {
+            swalWithBootstrapButtons.fire(
+                "you can't edit your personal information",
+                "error"
+            );
+            navigate("/articles");
+        }
+    }, [userType]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -45,16 +55,28 @@ const PersonalInfo = () => {
                     formData
                 );
                 if (response.data.status === 200) {
-                    setdoctor(response.data.user);
-                    setaddress(response.data.user.address );
-                    setabout(response.data.user.about );
-                    setphone(response.data.user.phone );
-                    setuniversity(response.data.user.university );
-                    setspecialization(response.data.user.speciality );
-                    setAddressLength(50 - response.data.user.address.length);
-                    setaboutLength(120 - response.data.user.about.length);
-                    setphoneLength(16-response.data.user.phone.length);
-                    setuniversityLength(100-response.data.user.university.length);
+                    setDoctorInfo(response.data.user);
+                    setDoctorInfo((prevInfo) => ({
+                        ...prevInfo,
+                        ["userID"]: parseInt(userID),
+                    }));
+                    setDoctorInfo((prevInfo) => ({
+                        ...prevInfo,
+                        ["userType"]: userType,
+                    }));
+                    if (response.data.user.speciality === null) {
+                        setDoctorInfo((prevInfo) => ({
+                            ...prevInfo,
+                            ["speciality"]: "",
+                        }));
+                    }
+                    if (response.data.user.gender === null) {
+                        setDoctorInfo((prevInfo) => ({
+                            ...prevInfo,
+                            ["gender"]: "",
+                        }));
+                    }
+                    console.log(doctorInfo);
                 } else {
                     swalWithBootstrapButtons.fire(
                         response.data.message,
@@ -73,16 +95,16 @@ const PersonalInfo = () => {
     }, [userID]);
 
     useEffect(() => {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-success",
+                cancelButton: "btn btn-danger",
+            },
+            buttonsStyling: false,
+        });
         const fetchData = async () => {
-            const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                    confirmButton: "btn btn-success",
-                    cancelButton: "btn btn-danger",
-                },
-                buttonsStyling: false,
-            });
             try {
-                const response = await axiosClient.get("/Categories");
+                const response = await axiosClient.get("Categories");
                 if (response.data.status === 200) {
                     setCategories(response.data["Category"]);
                 } else {
@@ -102,31 +124,19 @@ const PersonalInfo = () => {
         fetchData();
     }, []);
 
-    const addressChange = (event) => {
-        const value = event.target.value;
-        setaddress(value);
-        setAddressLength(value.length);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+
+        setDoctorInfo((prevInfo) => ({
+            ...prevInfo,
+            [name]: value,
+        }));
+
+        console.log(doctorInfo);
     };
-    const phoneChange = (event) => {
-        const value = event.target.value;
-        setphone(value);
-        setphoneLength(value.length);
-    };
-    const universityChange = (event) => {
-        const value = event.target.value;
-        setuniversity(value);
-        setuniversityLength(value.length);
-    };
-    const aboutChange = (event) => {
-        const value = event.target.value;
-        setabout(value);
-        setaboutLength(value.length);
-    };
-    const certificateChange = (event) => {
-        const value = event.target.value;
-        setcertificate(value);
-    };
-    const handleSubmit = async (event) => {
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: "btn btn-success",
@@ -134,43 +144,58 @@ const PersonalInfo = () => {
             },
             buttonsStyling: false,
         });
-        event.preventDefault();
+        swalWithBootstrapButtons
+            .fire({
+                title: "Are you sure?",
+                text: "Do you want to update your personal information!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, update!",
+                cancelButtonText: "No, cancel!",
+                reverseButtons: true,
+            })
+            .then(async (result) => {
+                if (result.isConfirmed) {
+                    if (doctorInfo.userID && doctorInfo.userType) {
+                        if (doctorInfo.speciality === "") {
+                            doctorInfo.speciality = null;
+                        }
+                        if (doctorInfo.gender === "") {
+                            doctorInfo.gender = null;
+                        }
+                        console.log(doctorInfo);
 
-        const userID = localStorage.getItem("user-id");
-        const userType = localStorage.getItem("user-type");
-        const formData = new FormData();
-        formData.append("address", address);
-        formData.append("phone", phone);
-        formData.append("about", about);
-        formData.append("university", university);
-        formData.append("specialization", specialization);
-        formData.append("userID", parseInt(userID));
-        formData.append("userType", userType);
-
-        try {
-            const response = await axiosClient.post(
-                "Settings/PersonalInfo",
-                formData
-            );
-            console.log(response);
-            if (response.data.status === 200) {
-                swalWithBootstrapButtons.fire(
-                    "your password has been updated.",
-                    "success"
-                );
-            } else {
-                swalWithBootstrapButtons.fire(
-                    response.data.message,
-                    "Your Password can not been updated",
-                    "error"
-                );
-            }
-        } catch (error) {
-            console.log(error);
-            swalWithBootstrapButtons.fire(error.response.statusText, "error");
-        }
+                        try {
+                            // Send updated doctor information to the server
+                            const response = await axiosClient.post(
+                                "Settings/PersonalInfo",
+                                doctorInfo
+                            );
+                            if (response.data.status === 200) {
+                                swalWithBootstrapButtons.fire(
+                                    "",
+                                    response.data.message,
+                                    "success"
+                                );
+                            } else {
+                                swalWithBootstrapButtons.fire(
+                                    "",
+                                    response.data.message,
+                                    "error"
+                                );
+                            }
+                        } catch (error) {
+                            console.log(error);
+                            swalWithBootstrapButtons.fire(
+                                error.response.statusText,
+                                "error"
+                            );
+                        }
+                    }
+                }
+            });
     };
-    if (doctor !== null) {
+    if (doctorInfo !== null) {
         return (
             <div className="j">
                 <div className="title">Personal Information</div>
@@ -184,12 +209,19 @@ const PersonalInfo = () => {
                             <input
                                 placeholder="address"
                                 type="text"
-                                value={address}
+                                value={doctorInfo.address}
                                 name="address"
-                                onChange={addressChange}
                                 className="input"
                                 maxLength={50}
+                                onChange={handleChange}
                             />
+                            <span className="lenght">
+                                {doctorInfo.address &&
+                                doctorInfo.address.length > 0
+                                    ? doctorInfo.address.length
+                                    : 0}
+                                /{50}
+                            </span>
                         </div>
                         <div className="block">
                             {" "}
@@ -199,60 +231,102 @@ const PersonalInfo = () => {
                             <input
                                 placeholder="phone"
                                 type="text"
-                                value={phone}
+                                value={doctorInfo.phone}
                                 name="phone"
-                                onChange={phoneChange}
                                 className="input"
                                 maxLength={16}
+                                onChange={handleChange}
                             />
                             <span className="lenght">
-                                {phoneLength}/{16}
+                                {doctorInfo.phone && doctorInfo.phone.length > 0
+                                    ? doctorInfo.phone.length
+                                    : 0}
+                                /{16}
                             </span>
                         </div>
                     </div>
-                    <div className="block">
-                        <div>
-                            <label>specialization :</label>
-                        </div>
+                    <div className="line">
+                        <div className="block">
+                            <div>
+                                <label>Specialization :</label>
+                            </div>
 
-                        <CategoryDropdown
-                            selectedCategory={specialization}
-                            setSelectedCategory={setspecialization}
-                            Categories={Categories}
-                        />
+                            <select
+                                value={doctorInfo.speciality}
+                                onChange={handleChange}
+                                name="speciality"
+                            >
+                                <option value="">Speciality</option>
+                                {Categories.map((category) => (
+                                    <option
+                                        key={category.id}
+                                        value={category.id}
+                                    >
+                                        {category.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="block">
+                            <div>
+                                <label>Gender :</label>
+                            </div>
+
+                            <select
+                                value={doctorInfo.gender}
+                                onChange={handleChange}
+                                name="gender"
+                            >
+                                <option value="">Gender</option>
+                                <option key="male" value={0}>
+                                    male
+                                </option>
+                                <option key="female" value={1}>
+                                    female
+                                </option>
+                            </select>
+                        </div>
                     </div>
                     <div className="block">
                         <div>
-                            <label>university :</label>
+                            <label>University :</label>
                         </div>
                         <input
                             placeholder="university"
                             type="text"
-                            value={university}
+                            value={doctorInfo.university}
                             name="university"
-                            onChange={universityChange}
                             className="input"
                             maxLength={100}
+                            onChange={handleChange}
                         />
                         <span className="lenght">
-                            {universityLength}/{100}
+                            {doctorInfo.university &&
+                            doctorInfo.university.length > 0
+                                ? doctorInfo.university.length
+                                : 0}
+                            /{100}
                         </span>
                     </div>
                     <div className="block">
                         <div>
-                            <label>about :</label>
+                            <label>About :</label>
                         </div>
+
                         <textarea
                             placeholder="about"
                             type="text"
-                            value={about}
+                            value={doctorInfo.about}
                             name="about"
-                            onChange={aboutChange}
-                            className="input"
+                            className="textarea"
                             maxLength={120}
+                            onChange={handleChange}
                         />
                         <span className="lenght">
-                            {aboutLength}/{120}
+                            {doctorInfo.about && doctorInfo.about.length > 0
+                                ? doctorInfo.about.length
+                                : 0}
+                            /{120}
                         </span>
                     </div>
                     <button className="saveButton"> save</button>
@@ -260,10 +334,14 @@ const PersonalInfo = () => {
             </div>
         );
     } else {
-        <div className="j">
-            <div className="title">Personal Information</div>
-            <CircularLoading />;
-        </div>;
+        return (
+            <div className="j">
+                <div className="title">Personal Information</div>
+                <div className="loading">
+                    <CircularLoading />
+                </div>
+            </div>
+        );
     }
 };
 export default PersonalInfo;

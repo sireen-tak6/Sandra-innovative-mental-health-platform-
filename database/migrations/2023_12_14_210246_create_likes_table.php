@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('likes', function (Blueprint $table) {
             $table->id();
             $table->integer('like');
-            $table->integer('dislike');
+            $table->integer('dislike')->default(0);
             //this for doctor foreign key id from doctors table 
             $table->unsignedBigInteger('doctor_id');
             $table->foreign('doctor_id')->references('id')->on('doctors');

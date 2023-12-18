@@ -1,6 +1,6 @@
 .boxItems {
     margin: 5% 8%;
-    border-radius: 10px;
+    border-radius: 20px;
     background-color: #ffffffc8;
     transition: 0.5s;
     text-decoration: none;
@@ -24,7 +24,7 @@
 .boxItems img {
     width: 100%;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 20px;
     margin-bottom: 0.2vmin;
     aspect-ratio: 2/1;
 }

@@ -14,10 +14,10 @@
 }
 .posts .myArticleCard .image,
 .posts .myArticleCard img {
-    width: 10vw;
+    width: 30vmin;
     border-radius: 15px;
     margin-right: 2vw;
-    height: 15vh;
+    height: 15vmin;
     margin-top: auto;
     margin-bottom: auto;
 

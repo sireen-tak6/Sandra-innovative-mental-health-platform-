@@ -8,6 +8,8 @@ use App\Models\Admin;
 use App\Models\Patient;
 use Illuminate\Support\Facades\Hash;
 use League\CommonMark\Extension\SmartPunct\EllipsesParser;
+use Illuminate\Support\Facades\Log;
+
 
 class SettingsController extends Controller
 {
@@ -129,11 +131,7 @@ class SettingsController extends Controller
      */
 
      
-    public function updatePersonal(Request $request, $id)
-    {
-        //
-    }
-    
+ 
     //change doctor's info 
     public function updateAccount(Request $request)
     {
@@ -149,13 +147,8 @@ class SettingsController extends Controller
             $user=Doctor::find($userID);
         }
         else if($request->input('userType')==="admin"){
-            $validator = $request->validate([
-                'userName' => 'required|string',
-                'email' => 'required|email|string|unique:admins,email',
-                'userID' => 'required|integer', 
-                'userType'=>'required|string'
-            ]);
-            $user=Admin::find($userID);
+            return response()->json(['status'=>400,'message'=> "you can't update your account information"]);
+
         }
         else if($request->input('userType')==="patient"){
             $validator = $request->validate([
@@ -225,40 +218,36 @@ class SettingsController extends Controller
     
     public function PersonalInfo(Request $request)
     {
-        
-        $validator = $request->validate([
-            'address' => 'string|max:50|nullable',
-            'phone' => 'string|max:16|nullable',
-            'about' => 'string|max:120|nullable',
+        $validatedData = $request->validate([
+            'userID' => 'required|exists:doctors,id',
+            'userType' => 'required|string', // Assuming 'user_type' is the key in the request
+            'address' => 'nullable|string',
+            'phone' => 'nullable|string',
+            'speciality' => 'nullable|integer|exists:speciality,id|',
+            'about' => 'nullable|string',
             'university' => 'string|max:100|nullable',
-            'specialization' => 'required|integer|exists:speciality,id|nullable',
-            'userID' => 'required|integer|exists:doctors,id', 
-            'userType'=>'required|string'
+            'gender'=>'boolean|nullable'
+
         ]);
-        $userType=$request->input('userType');
-        $userID=intval( $request->input('userID'));
-        
-        if ($request->input('userType')==="doctor") {
-            $user=Doctor::find($userID);
+        if($validatedData['userType']==="admin"||$validatedData['userType']==="patient"){
+            return response()->json(['status'=>400,'message'=> "you can't update your personal information"]);
+
         }
-        else {
-            return response()->json(['status'=>400,'message'=> "you can't change your personal information"]);
-        }
-        if(!$user){
+        $doctor = Doctor::findOrFail($validatedData['userID']);
+        if(!$doctor){
+            // Find the doctor by ID
             return response()->json(['status'=>400,'message'=> 'user not found']);
         }
+        try{
+            // Update the doctor's information with the validated data
+            $doctor->update($validatedData); 
+            return response()->json(['status'=>200,'message'=> 'your personal information has been updated successfully']);
+        }
+        catch (\Exception $e) {
+            return response()->json(['status'=>500,'message'=> 'Something went wrong']);
+        }
         
-            try {    
-                $user->address=$request->input('address');
-                $user->about=$request->input('about');
-                $user->university=$request->input('university');
-                $user->phone=$request->input('phone');
-                $user->speciality=$request->input('specialization');
-                $user->save();
-                return response()->json(['status'=>200,'message'=> 'your personal info has been updated successfully']);
-            } catch (\Exception $e) {
-                return response()->json(['status'=>500,'message'=> 'Something went wrong']);
-            }
-      
+    
+        
     }
 }

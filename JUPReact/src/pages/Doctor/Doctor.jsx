@@ -31,7 +31,7 @@ export default function Doctor() {
             const response = await axiosClient.get("/get/doctors");
             const data = response.data;
             setDoctors(data.doctors);
-            console.log(data)
+            console.log(data);
             const doctorIds = data.doctors.map((doctor) => doctor.id);
             DoctorLikes(doctorIds);
         } catch (error) {
@@ -41,6 +41,7 @@ export default function Doctor() {
 
     //here section for add likes
     const addLike = async (doctorId) => {
+        console.log("like")
         try {
             const userId = localStorage.getItem("user-id");
             await axiosClient.post(`/add/like/${doctorId}/${userId}`);
@@ -147,7 +148,15 @@ export default function Doctor() {
                                     </div>
                                     {/* Doctor Articles */}
                                     <div className="m-2">
-                                        <button className="text-white botton px-2 py-1 rounded-md" type="button" onClick={()=>navigate(`/doctorProile/${doctor.id}`)}>
+                                        <button
+                                            className="text-white botton px-2 py-1 rounded-md"
+                                            type="button"
+                                            onClick={() =>
+                                                navigate(
+                                                    `/doctorProile/${doctor.id}`
+                                                )
+                                            }
+                                        >
                                             Articles
                                         </button>
                                     </div>

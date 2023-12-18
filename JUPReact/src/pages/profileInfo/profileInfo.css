@@ -18,14 +18,11 @@
     background-color: #558da39e;
     box-shadow: 4px 4px 8px 2px #6f6f6f82;
     border-radius: 20px;
-
-
 }
 .profileInfo .fieldsPart {
     background-color: #558da39e;
     box-shadow: 4px 4px 8px 2px #6f6f6f82;
     border-radius: 20px;
-
     width: 60vw;
     padding: 4vh 2.2vw;
     justify-content: center;
@@ -77,17 +74,18 @@
 }
 .profileInfo label {
     margin-bottom: 2vh;
+    font-size: max(2.3vmin, 12px);
 }
 .profileInfo .input {
     background-color: rgba(0, 0, 0, 0.036);
     margin-bottom: 0.2vh;
     box-shadow: 0 4px 5px 0 #4e798877;
     height: 6vh;
-    font-size: max(2vmin, 11px);
+    font-size: max(1.8vmin, 11px);
     border: none;
     width: 30vw;
     margin-bottom: 5vh;
-    padding-left: 2vw;
+    padding-left: 1vw;
 }
 .profileInfo form {
     display: grid;
@@ -101,7 +99,7 @@
     font-size: max(2vmin, 13px);
     font-weight: 600;
     background-image: linear-gradient(140deg, #b9f7eb8c 20%, #87bed28c 60%);
-    color: #0d4155;
+    color: #226e8c;
     border: none;
     height: 5vh;
     font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
@@ -160,22 +158,65 @@
 }
 .profileInfo .loading {
     height: 7vh;
-    padding-left: 8vw;
 }
 .profileInfo .line {
     display: flex;
+    justify-content:space-between;
 }
 .profileInfo .line input {
-    width: 15vw;
+    width: 13vw;
 }
 
 .profileInfo .block {
-    margin-right: 3vw;
     position: relative;
 }
-.profileInfo .lenght {
+.profileInfo .block select {
+    background-color: rgba(0, 0, 0, 0.036);
+    margin-bottom: 0.2vh;
+    box-shadow: 0 4px 5px 0 #4e798877;
+    height: 6vh;
     font-size: max(1.8vmin, 11px);
+    border: none;
+    margin-bottom: 5vh;
+    padding-left: 1vw;
+    border-radius: 0px;
+    width: 13vw;
+}
+.profileInfo .lenght {
+    font-size: max(1.8vmin, 8px);
     position: absolute;
     right: 0;
     bottom: 0;
+    padding-bottom: 5px;
+}
+.profileInfo .textarea {
+    background-color: rgba(0, 0, 0, 0.036);
+    margin-bottom: 0.2vh;
+    box-shadow: 0 4px 5px 0 #4e798877;
+    height: 15vh;
+    font-size: max(1.8vmin, 11px);
+    border: none;
+    width: 30vw;
+    margin-bottom: 5vh;
+    padding: 1vh 1vw;
+}
+@media screen and (max-width: 750px) {
+    .profileInfo .bodyContainer {
+        display: block;
+    }
+    .profileInfo .partsPart {
+        display: flex;
+        width: 88vw;
+        margin-bottom: 3vh;
+    }
+    .profileInfo .partTitle {
+        flex: 100;
+    }
+    .profileInfo .fieldsPart {
+        display: flex;
+        width: 88vw;
+    }
+    .profileInfo .part {
+       flex: 0;
+    }
 }

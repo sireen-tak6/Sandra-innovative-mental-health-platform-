@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('university')->nullable();
             $table->string('phone')->nullable();
             $table->boolean('available')->default(false);
+            $table->boolean('gender')->nullable();
             $table->unsignedBigInteger('speciality')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('verification_token')->nullable();

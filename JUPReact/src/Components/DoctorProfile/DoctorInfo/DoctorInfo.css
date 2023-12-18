@@ -37,9 +37,10 @@
 .DoctorProfile .infoPart .mainInfo .likes {
     position: absolute;
     right: 15%;
+    display: flex;
+    
 }
 .DoctorProfile .infoPart .mainInfo .likes .likeicon {
-    background-color: rgba(240, 248, 255, 0);
     background: none;
     color: rgb(176, 30, 30);
     border: none;
@@ -48,6 +49,8 @@
 .DoctorProfile .infoPart .mainInfo .points {
     position: absolute;
     right: 35%;
+    display: flex;
+
 }
 .DoctorProfile .infoPart .mainInfo .points .pointsicon {
     background-color: rgba(240, 248, 255, 0);

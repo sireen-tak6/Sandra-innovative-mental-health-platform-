@@ -7,6 +7,8 @@ import { AiFillHeart, AiOutlineWarning } from "react-icons/ai";
 import "./ProfileArticle.css";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
+import NoData from "../../NoData/NoData";
+import CircularLoading from "../../loadingprogress/loadingProgress";
 function ProfileArticle({ id }) {
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -15,7 +17,7 @@ function ProfileArticle({ id }) {
         },
         buttonsStyling: false,
     });
-    const [articles, setarticles] = useState([]);
+    const [articles, setarticles] = useState(null);
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -37,8 +39,9 @@ function ProfileArticle({ id }) {
     }, [id]);
     return (
         <div className="posts">
-            {articles.length === 0 ? (
-                <div></div>
+            {articles===null? <CircularLoading/> :
+            articles.length === 0 ? (
+                <NoData content={"There is no articles yet :("}/>
             ) : (
                 articles.map((item) => (
                     <Link
