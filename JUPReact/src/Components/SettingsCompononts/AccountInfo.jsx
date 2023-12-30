@@ -111,33 +111,35 @@ const AccountInfo = () => {
     };
     if (userName !== null && Email !== null) {
         return (
-            <div className="j">
+            <div>
                 <div className="title">Account Information</div>
                 <form onSubmit={handleSubmit}>
-                    <div>
-                        <label>User-Name :</label>
+                    <div className="j">
+                        <div className="labelInput">
+                                <label>User-Name :</label>
+                            <input
+                                placeholder="User Name"
+                                type="text"
+                                value={userName ?? ""}
+                                name="userName"
+                                required
+                                onChange={(e) => setUsername(e.target.value)}
+                                className="input"
+                            />
+                        </div>
+                        <div className="labelInput">
+                                <label>Email :</label>
+                            <input
+                                placeholder="Email@gmail.com"
+                                type="email"
+                                value={Email ?? ""}
+                                name="email"
+                                required
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="input"
+                            />
+                        </div>
                     </div>
-                    <input
-                        placeholder="User Name"
-                        type="text"
-                        value={userName ?? ""}
-                        name="userName"
-                        required
-                        onChange={(e) => setUsername(e.target.value)}
-                        className="input"
-                    />
-                    <div>
-                        <label>Email :</label>
-                    </div>
-                    <input
-                        placeholder="Email@gmail.com"
-                        type="email"
-                        value={Email ?? ""}
-                        name="email"
-                        required
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="input"
-                    />
                     <button
                         type="submit"
                         className="saveButton"

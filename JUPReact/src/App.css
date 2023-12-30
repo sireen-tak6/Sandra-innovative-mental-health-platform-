@@ -79,3 +79,6 @@ span.swal2-x-mark {
 div.swal2-popup.swal2-modal.swal2-show{
     border-radius: 20px;
 }
+::-webkit-scrollbar {
+    display: none;
+}

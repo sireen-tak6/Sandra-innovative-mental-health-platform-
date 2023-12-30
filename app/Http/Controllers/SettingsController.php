@@ -54,10 +54,7 @@ class SettingsController extends Controller
      //show doctor's info
     public function show(Request $request)
     {
-        $validator = $request->validate([
-            'userID' => 'required|integer', 
-            'userType'=>'required|string'
-        ]); 
+        
         $userID=intval( $request->input('userID'));
 
         if ($request->input('userType')==="doctor") {
@@ -68,6 +65,9 @@ class SettingsController extends Controller
         }
         else if($request->input('userType')==="patient"){
             $user=Patient::find($userID);
+        }
+        else{
+            return response()->json(['status'=>400,'message'=> 'You must login first']);
         }
         if(!$user){
             return response()->json(['status'=>400,'message'=> 'user not found']);
@@ -89,8 +89,7 @@ class SettingsController extends Controller
         $validator = $request->validate([
             'oldPassword' => 'required|string',
             'newPassword' => 'required|string',
-            'userID' => 'required|integer', 
-            'userType'=>'required|string'
+            
         ]);
 
         $userID=intval( $request->input('userID'));
@@ -103,6 +102,9 @@ class SettingsController extends Controller
         }
         else if($request->input('userType')==="patient"){
             $user=Patient::find($userID);
+        }
+        else{
+            return response()->json(['status'=>400,'message'=> 'You must login first']);
         }
         if(!$user){
             return response()->json(['status'=>400,'message'=> 'user not found']);
@@ -141,8 +143,7 @@ class SettingsController extends Controller
             $validator = $request->validate([
                 'userName' => 'required|string',
                 'email' => 'required|email|string|unique:doctors,email',
-                'userID' => 'required|integer', 
-                'userType'=>'required|string'
+               
             ]);
             $user=Doctor::find($userID);
         }
@@ -158,6 +159,9 @@ class SettingsController extends Controller
                 'userType'=>'required|string'
             ]);
             $user=Patient::find($userID);
+        }
+        else{
+            return response()->json(['status'=>400,'message'=> 'You must login first']);
         }
         if(!$user){
             return response()->json(['status'=>400,'message'=> 'user not found']);
@@ -184,8 +188,7 @@ class SettingsController extends Controller
         
         $validator = $request->validate([
             'password' => 'required|string',
-            'userID' => 'required|integer', 
-            'userType'=>'required|string'
+          
         ]);
         
         $userID=intval( $request->input('userID'));
@@ -198,6 +201,9 @@ class SettingsController extends Controller
         }
         else if($request->input('userType')==="patient"){
             $user=Patient::find($userID);
+        }
+        else{
+            return response()->json(['status'=>400,'message'=> 'You must login first']);
         }
         if(!$user){
             return response()->json(['status'=>400,'message'=> 'user not found']);

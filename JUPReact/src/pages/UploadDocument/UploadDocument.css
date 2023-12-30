@@ -1,0 +1,108 @@
+.UploadDocument *
+{
+    margin: 0%;
+    padding: 0%;
+}
+
+.UploadDocument .u form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #558da3d3;
+    height: 300px;
+    width: 500px;
+    cursor: pointer;
+    border-radius: 30px;
+    background-color: #ffffff96;
+    box-shadow: -5px 0px 10px -2px #01010152;
+    font-weight: 900;
+}
+
+.UploadDocument .u span 
+{
+    display: flex ;
+    color: #010101d1 ;
+    flex-direction: column ;
+    justify-content: center;
+    border: 3px solid #ffffff49 ;
+    background-color: #ffffffbc ;
+    width: 500px;
+    border-radius: 5%;
+    font-weight: 900;
+    box-shadow: -5px 0px 10px -2px #01010152;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.UploadDocument .u span img
+{
+    border-radius: 50%; 
+    box-shadow: -5px 0px 10px -2px #01010152;  
+}
+
+.UploadDocument .u span p 
+{
+    color: rgb(198,12,220);
+    font-weight: 900;
+}
+
+
+.UploadDocument .u form img
+{
+    box-shadow: -5px 0px 10px -2px #01010152;
+    border-radius: 50%;
+}
+
+.UploadDocument .u div p
+{
+    color:rgb(198,12,220) ;
+    font-weight: bold ;
+    opacity: 0.7;
+}
+
+.UploadDocument .mainForm
+{
+    border: 3px solid #ffffff49;
+    background-color: #ffffff96;
+    box-shadow: -5px 0px 10px -2px #01010152;
+    height: 370px;
+    width: 530px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5%;
+}
+ 
+.UploadDocument .BUTTON
+{
+    background-color: rgb(198,12,220);
+    box-shadow: -5px 0px 10px -2px #01010152;
+    font-weight: 600;
+    opacity: 0.7;
+}
+ 
+.UploadDocument .success-message {
+    animation: fade-in 0.5s ease-in;
+  }
+  
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+.UploadDocument  .verfiyIcon
+  {
+     background-size: 4em 2em;
+     height: 2em;
+     width: 2em;
+     content:"";
+     display: inline-block;
+  }
+  

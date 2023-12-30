@@ -41,6 +41,13 @@ import MyArticleContent from "./pages/pendingArticless/myArticleContent/myArticl
 import DoctorProfile from "./pages/DoctorProfile/DoctorProfile";
 
 import Settings from "./pages/profileInfo/profileInfo";
+import SearchProv from "./Providers/SearchProvider";
+import SearchResult from "./pages/SearchResult/SearchResult";
+
+import UploadDocument from './pages/UploadDocument/UploadDocument'; 
+import AdminDoctors from './pages/AdminDoctors/AdminDoctors';
+import RequestVerfiy from './pages/RequestVerfiy/RequestVerfiy';
+
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -52,6 +59,8 @@ const router = createBrowserRouter(
             <Route path="/admin" element={<Admin />} />
             <Route path="/doctor" element={<Doctor />} />
             <Route path="/user" element={<User />} />
+            <Route path="/SearchResult" element={<SearchResult />} />
+
             <Route path="articles" element={<ShowArticles />} />
             <Route path="articles/pending" element={<PendingArticles />} />
             <Route path="articles/pending/:id" element={<PArticleContent />} />
@@ -75,15 +84,21 @@ const router = createBrowserRouter(
             <Route path="articles/AddArticle" element={<AddArticle />} />
             <Route path="/chats" element={<Chats />} />
             <Route path="/chat/messages" element={<ChatMessages />} />
-            <Route path="/doctorProile/:id" element={<DoctorProfile/>}/>
+            <Route path="/doctorProile/:id" element={<DoctorProfile />} />
             <Route path="Settings" element={<Settings />} />
+            
+            <Route path='/verfiy' element={<UploadDocument/>}/>
+            <Route path='/control/doctors' element={<AdminDoctors/>}/>
+            <Route path='/request/verfiy' element={<RequestVerfiy/>}/>
         </Route>
     )
 );
 const App = () => {
     return (
         <div className="body">
-            <RouterProvider router={router} />
+            <SearchProv>
+                <RouterProvider router={router} />
+            </SearchProv>
         </div>
     );
 };

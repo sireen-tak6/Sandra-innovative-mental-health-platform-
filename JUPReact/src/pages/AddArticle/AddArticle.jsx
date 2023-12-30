@@ -140,8 +140,11 @@ const AddArticle = () => {
                             );
                         }
                     } catch (error) {
+                        setIsLoading(false); // Show loading indicator
+
+                        console.log(error)
                         swalWithBootstrapButtons.fire(
-                            error.response.statusText,
+                            error.response.data.message,
                             "error"
                         );
                     }

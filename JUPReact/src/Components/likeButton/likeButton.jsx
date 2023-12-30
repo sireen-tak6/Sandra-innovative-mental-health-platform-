@@ -4,7 +4,7 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 //css
 import "./likeButton.css";
 
-const LikeButton = ({ handleLike, handleDislike, isLiked, likes, button }) => {
+const LikeButton = ({ handleLike, handleDislike, isLiked, likes, button ,size }) => {
     console.log(isLiked);
 
     if (button === "no") {
@@ -12,12 +12,12 @@ const LikeButton = ({ handleLike, handleDislike, isLiked, likes, button }) => {
             <div className="likebutton">
                 {!isLiked ? (
                     <div className="dislike">
-                        <AiOutlineHeart className="dislikeicon" />{" "}
+                        <AiOutlineHeart className="dislikeicon" size={size}/>{" "}
                         <label htmlFor="">{likes}</label>
                     </div>
                 ) : (
                     <div className="like">
-                        <AiFillHeart className="likeicon" />{" "}
+                        <AiFillHeart className="likeicon"  size={size}/>{" "}
                         <label htmlFor="">{likes}</label>
                     </div>
                 )}
@@ -32,7 +32,7 @@ const LikeButton = ({ handleLike, handleDislike, isLiked, likes, button }) => {
                         onClick={handleLike}
                         disabled={isLiked}
                     >
-                        <AiOutlineHeart className="dislikeicon" />{" "}
+                        <AiOutlineHeart className="dislikeicon" size={size}/>{" "}
                         <label htmlFor="">{likes}</label>
                     </button>
                 ) : (
@@ -41,7 +41,7 @@ const LikeButton = ({ handleLike, handleDislike, isLiked, likes, button }) => {
                         onClick={handleDislike}
                         disabled={!isLiked}
                     >
-                        <AiFillHeart className="likeicon" />{" "}
+                        <AiFillHeart className="likeicon" size={size}/>{" "}
                         <label htmlFor="">{likes}</label>
                     </button>
                 )}

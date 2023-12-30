@@ -197,137 +197,153 @@ const PersonalInfo = () => {
     };
     if (doctorInfo !== null) {
         return (
-            <div className="j">
+            <div className="personal">
                 <div className="title">Personal Information</div>
-
                 <Form onSubmit={handleSubmit}>
-                    <div className="line">
-                        <div className="block">
-                            <div>
-                                <label>Address :</label>
-                            </div>
-                            <input
-                                placeholder="address"
-                                type="text"
-                                value={doctorInfo.address}
-                                name="address"
-                                className="input"
-                                maxLength={50}
-                                onChange={handleChange}
-                            />
-                            <span className="lenght">
-                                {doctorInfo.address &&
-                                doctorInfo.address.length > 0
-                                    ? doctorInfo.address.length
-                                    : 0}
-                                /{50}
-                            </span>
-                        </div>
-                        <div className="block">
-                            {" "}
-                            <div>
-                                <label>Phone :</label>
-                            </div>
-                            <input
-                                placeholder="phone"
-                                type="text"
-                                value={doctorInfo.phone}
-                                name="phone"
-                                className="input"
-                                maxLength={16}
-                                onChange={handleChange}
-                            />
-                            <span className="lenght">
-                                {doctorInfo.phone && doctorInfo.phone.length > 0
-                                    ? doctorInfo.phone.length
-                                    : 0}
-                                /{16}
-                            </span>
-                        </div>
-                    </div>
-                    <div className="line">
-                        <div className="block">
-                            <div>
-                                <label>Specialization :</label>
-                            </div>
+                    <div className="j">
+                        <div className="line">
+                            <div className="block">
+                                <div>
+                                    <div className="labelInput">
+                                        <label>Address :</label>
+                                        <input
+                                            placeholder="address"
+                                            type="text"
+                                            value={doctorInfo.address}
+                                            name="address"
+                                            className="input"
+                                            maxLength={50}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                    <div className="lenght">
+                                        {doctorInfo.address &&
+                                        doctorInfo.address.length > 0
+                                            ? doctorInfo.address.length
+                                            : 0}
+                                        /{50}
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="labelInput">
+                                        <label>Specialization :</label>
 
-                            <select
-                                value={doctorInfo.speciality}
-                                onChange={handleChange}
-                                name="speciality"
-                            >
-                                <option value="">Speciality</option>
-                                {Categories.map((category) => (
-                                    <option
-                                        key={category.id}
-                                        value={category.id}
-                                    >
-                                        {category.name}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="block">
-                            <div>
-                                <label>Gender :</label>
+                                        <select
+                                            value={doctorInfo.speciality}
+                                            onChange={handleChange}
+                                            name="speciality"
+                                        >
+                                            <option value="">Speciality</option>
+                                            {Categories.map((category) => (
+                                                <option
+                                                    key={category.id}
+                                                    value={category.id}
+                                                >
+                                                    {category.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    <div className="lenght">
+                                        
+                                    </div>
+                                </div>
                             </div>
+                            <div className="block">
+                                <div className="n">
+                                    <div className="labelInput">
+                                        {" "}
+                                        <label>Phone :</label>
+                                        <input
+                                            placeholder="phone"
+                                            type="text"
+                                            value={doctorInfo.phone}
+                                            name="phone"
+                                            className="input"
+                                            maxLength={16}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                    <div className="lenght">
+                                        {doctorInfo.phone &&
+                                        doctorInfo.phone.length > 0
+                                            ? doctorInfo.phone.length
+                                            : 0}
+                                        /{16}
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="labelInput">
+                                        <label>Gender :</label>
 
-                            <select
-                                value={doctorInfo.gender}
-                                onChange={handleChange}
-                                name="gender"
-                            >
-                                <option value="">Gender</option>
-                                <option key="male" value={0}>
-                                    male
-                                </option>
-                                <option key="female" value={1}>
-                                    female
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div className="block">
-                        <div>
-                            <label>University :</label>
-                        </div>
-                        <input
-                            placeholder="university"
-                            type="text"
-                            value={doctorInfo.university}
-                            name="university"
-                            className="input"
-                            maxLength={100}
-                            onChange={handleChange}
-                        />
-                        <span className="lenght">
-                            {doctorInfo.university &&
-                            doctorInfo.university.length > 0
-                                ? doctorInfo.university.length
-                                : 0}
-                            /{100}
-                        </span>
-                    </div>
-                    <div className="block">
-                        <div>
-                            <label>About :</label>
+                                        <select
+                                            value={doctorInfo.gender}
+                                            onChange={handleChange}
+                                            name="gender"
+                                        >
+                                            <option value="">Gender</option>
+                                            <option key="male" value={0}>
+                                                male
+                                            </option>
+                                            <option key="female" value={1}>
+                                                female
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div className="lenght">
+                                      
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <textarea
-                            placeholder="about"
-                            type="text"
-                            value={doctorInfo.about}
-                            name="about"
-                            className="textarea"
-                            maxLength={120}
-                            onChange={handleChange}
-                        />
-                        <span className="lenght">
-                            {doctorInfo.about && doctorInfo.about.length > 0
-                                ? doctorInfo.about.length
-                                : 0}
-                            /{120}
-                        </span>
+                        <div className="block">
+                            <div className="">
+                                <div className="labelInput">
+                                    <label>University :</label>
+                                    <input
+                                        placeholder="university"
+                                        type="text"
+                                        value={doctorInfo.university}
+                                        name="university"
+                                        className="input uni"
+                                        maxLength={100}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className="lenght">
+                                    {doctorInfo.university &&
+                                    doctorInfo.university.length > 0
+                                        ? doctorInfo.university.length
+                                        : 0}
+                                    /{100}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="block">
+                            <div className="">
+                                <div className="labelInput">
+                                    <label>About :</label>
+
+                                    <textarea
+                                        placeholder="about"
+                                        type="text"
+                                        value={doctorInfo.about}
+                                        name="about"
+                                        className="textarea"
+                                        maxLength={120}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className="lenght">
+                                    {doctorInfo.about &&
+                                    doctorInfo.about.length > 0
+                                        ? doctorInfo.about.length
+                                        : 0}
+                                    /{120}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <button className="saveButton"> save</button>
                 </Form>

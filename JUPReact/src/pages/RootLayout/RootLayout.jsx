@@ -1,14 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect ,useContext} from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 //components
-import Navbars from "../../Components/Header/Navbars";
 import Footer2 from "../../Components/Footer/Footer2";
 import Navbarr from "../../Components/Header/Navbar2";
+import { SearchContext } from "../../Providers/SearchProvider";
+import SearchScreen from "../../Components/Search/Search";
 
 const RootLayout = () => {
     const excludedPaths = ["/login", "/signup", "/AddArticle"];
+    const excludedPaths2 = [
+        "/pending",
+        "/update",
+        "/AddArticle",
+        "/chats",
+        "/chat",
+        "/Settings",
+    ];
 
     const location = useLocation();
     const boole =
@@ -17,13 +26,12 @@ const RootLayout = () => {
         excludedPaths.some((path) => location.pathname.includes(path));
 
     const navigate = useNavigate();
-
+    const { query ,setQuery,click,setClick } = useContext(SearchContext);
     console.log(localStorage.getItem("user-info"));
     useEffect(() => {
         if (
             !localStorage.getItem("user-info") &&
-            !location.pathname.includes("/login") &&
-            !location.pathname.includes("/signup")
+            excludedPaths2.some((path) => location.pathname.includes(path))
         ) {
             navigate("/login");
         }
@@ -35,7 +43,8 @@ const RootLayout = () => {
                 <Navbarr />
             </header>
             <main>
-                <Outlet />
+                    <Outlet />
+                    {click && <SearchScreen></SearchScreen>}
             </main>
 
             {!boole ? (

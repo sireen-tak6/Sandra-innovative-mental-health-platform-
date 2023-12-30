@@ -1,0 +1,70 @@
+.ArticleCard {
+    display: flex;
+    border-radius: 20px;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.504),
+        rgba(255, 255, 255, 0.247)
+    );
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 4px 4px 8px 2px #6f6f6f82;
+    margin: 3vh 0;
+}
+.ArticleCard .image {
+    width: 14vw;
+    height: 14vw;
+}
+.ArticleCard .image img {
+    
+    height: 14vw;
+    aspect-ratio: 1/1;
+    border-radius: 20px 0 0px 20px;
+}
+.ArticleCard .info {
+    padding: 2vh 2vw;
+    height: 14vw;
+    width: 54vw;
+}
+.ArticleCard .nameLikes {
+    display: flex;
+}
+.ArticleCard .likes{
+    display: flex;
+}
+
+.ArticleCard .likeicon{
+    background: none;
+    color: rgb(176, 30, 30);
+    border: none;
+    margin-right: 0.5vmin;
+}
+.ArticleCard .name {
+    font-size: max(3vmin, 14px);
+    font-weight: 600;
+    margin-bottom: 3px;
+    margin-right: 5vw;
+}
+.ArticleCard .speciality {
+    font-size: max(2vmin, 10px);
+    margin-bottom: 2vh;
+    color: #5490a7;
+}
+.ArticleCard .content {
+    overflow: auto; /* إما auto أو hidden لمنع الخروج من ال div */
+    word-wrap: break-word;
+    font-size: max(2.2vmin, 13px);
+    color: black;
+}
+.ArticleCard .date{
+    position: absolute;
+    bottom: 2vh;
+    color: rgb(116, 116, 116);
+    font-size: max(2.1vmin, 12px);
+    display: flex;
+    align-items: center;
+}
+.ArticleCard .date .icon{
+    margin-right: 10px;
+    font-size: max(2.5vmin, 13px);
+}

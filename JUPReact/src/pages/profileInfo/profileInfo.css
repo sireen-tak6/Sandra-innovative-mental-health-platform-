@@ -4,51 +4,52 @@
     margin-top: 12vh;
     margin-left: auto;
     margin-right: auto;
-    width: 90vw;
+    width: 80vw;
     justify-content: space-between;
     justify-self: center;
     color: #0d4155;
     font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
         "Lucida Sans", Arial, sans-serif;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.504),
+        rgba(255, 255, 255, 0.247)
+    );
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 4px 4px 8px 2px #6f6f6f82;
+    border-radius: 20px;
 }
 
 .profileInfo .partsPart {
-    width: 25vw;
-    padding: 5vh 1.5vw;
-    background-color: #558da39e;
-    box-shadow: 4px 4px 8px 2px #6f6f6f82;
-    border-radius: 20px;
+    width: 22vw;
+    padding: 5vh 0vw;
 }
 .profileInfo .fieldsPart {
-    background-color: #558da39e;
-    box-shadow: 4px 4px 8px 2px #6f6f6f82;
-    border-radius: 20px;
-    width: 60vw;
-    padding: 4vh 2.2vw;
-    justify-content: center;
-    align-items: center;
-    justify-items: center;
-    align-content: center;
+    width: 68vw;
+    padding: 5vh 1.5vw;
     display: grid;
 }
 
 .profileInfo .partTitle {
-    margin-left: 0.5vw;
-    font-size: max(3vmin, 12px);
-    font-weight: 500;
-    margin-bottom: 2vh;
-    color: white;
+    margin-left: 3vw;
+    font-size: max(2.9vmin, 12px);
+    font-weight: 600;
+    margin-bottom: 10vh;
+    color: #0d4155;
+}
+.profileInfo .settingsicon {
+    color: #4a4949;
+    margin-right: 1vw;
+    height: 3.5vmin;
+    vertical-align: middle;
 }
 .profileInfo .j {
     display: grid;
-    justify-content: center;
-    border: #194c619e 2px solid;
-    width: 40vw;
+    width: 50vw;
     height: fit-content;
     padding: 5vh;
     border-radius: 20px;
-    background-color: rgb(247, 247, 240);
-    box-shadow: 0px 0px 8px 6px #6f6f6f82 inset;
 }
 .profileInfo .title {
     font-size: max(3vmin, 14px);
@@ -65,30 +66,40 @@
     text-align: start;
     border-bottom: #c9c9c9c8 solid 2px;
     display: grid;
-    padding-left: 1vw;
-    color: #1c627e;
+    padding-left: 2vw;
     font-size: max(2vmin, 12px);
     font-weight: 500;
     background-color: #5d8da000;
-    color: white;
+    color: #1c627e;
+}
+.profileInfo .labelInput {
+    display: flex;
+    align-items: center;
 }
 .profileInfo label {
     margin-bottom: 2vh;
     font-size: max(2.3vmin, 12px);
+    text-wrap: nowrap;
+    margin-right: auto;
+    height: 6vh;
 }
 .profileInfo .input {
-    background-color: rgba(0, 0, 0, 0.036);
     margin-bottom: 0.2vh;
-    box-shadow: 0 4px 5px 0 #4e798877;
     height: 6vh;
-    font-size: max(1.8vmin, 11px);
-    border: none;
-    width: 30vw;
+    width: 32vw;
     margin-bottom: 5vh;
     padding-left: 1vw;
+    background-color: rgba(255, 255, 255, 0.573);
+    color: #0d4155;
+    border-radius: 10px;
+    font-size: max(2vmin, 12px);
+    box-shadow: 2px 2px 5px 0 #4e798877 inset;
 }
 .profileInfo form {
     display: grid;
+    height: 100%;
+    align-items: center;
+    padding-bottom: 8vh;
 }
 .profileInfo .saveButton {
     font-weight: 500;
@@ -106,7 +117,7 @@
         "Lucida Sans", Arial, sans-serif;
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
     min-width: 70px;
-    width: 10vw;
+    width: 8vw;
     margin-left: auto;
     margin-right: auto;
     margin-top: 1vh;
@@ -116,38 +127,52 @@
     color: rgb(228, 228, 228);
 }
 .profileInfo .check {
-    margin-bottom: 3vh;
+    margin-top: 3vh;
 }
 .profileInfo .check input {
     margin-right: 1vw;
 }
-.profileInfo .chossen {
-    background-color: #38768f49;
-    color: white;
+.profileInfo .delete .j {
+    margin-top: 5vh;
 }
-
+.profileInfo .chossen {
+    color: rgba(255, 255, 255, 0.722);
+    font-weight: 600;
+    font-size: max(2.25vmin, 14px);
+    background: linear-gradient(90deg, #226e8c 0%, rgba(255, 255, 255, 0) 90%);
+}
+.profileInfo .contactPart {
+    justify-content: center;
+}
+.profileInfo .contactPart .j {
+    display: grid;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10vh;
+}
 .profileInfo .contactBody {
+    justify-content: center;
     width: 30vw;
     font-size: max(2.3vmin, 14px);
     color: black;
     font-weight: 400;
     display: flex;
-    margin-left: 2vw;
     margin-bottom: 4vh;
 }
 .profileInfo .contactBody2 {
-    width: 30vw;
     font-size: max(2.3vmin, 14px);
     color: black;
     font-weight: 400;
     display: flex;
-    margin-left: 2vw;
+    justify-content: center;
 }
 .profileInfo .contactdiv {
     border-bottom: #0d4155 1px solid;
-    width: 100%;
+    width: 15vw;
     margin-bottom: auto;
     margin-top: auto;
+    justify-content: center;
 }
 .profileInfo .contact {
     font-size: max(2.2vmin, 14px);
@@ -155,68 +180,104 @@
     margin-top: 4vh;
     font-weight: 400;
     text-align: center;
+    justify-content: center;
+    text-align: center;
 }
 .profileInfo .loading {
     height: 7vh;
 }
 .profileInfo .line {
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
 }
 .profileInfo .line input {
-    width: 13vw;
+    width: 16vw;
+    margin-left: 2vw;
 }
 
 .profileInfo .block {
     position: relative;
+    margin-right: 3vw;
 }
 .profileInfo .block select {
     background-color: rgba(0, 0, 0, 0.036);
-    margin-bottom: 0.2vh;
     box-shadow: 0 4px 5px 0 #4e798877;
     height: 6vh;
     font-size: max(1.8vmin, 11px);
     border: none;
-    margin-bottom: 5vh;
     padding-left: 1vw;
     border-radius: 0px;
     width: 13vw;
+    background-color: rgba(255, 255, 255, 0.573);
+    color: #0d4155;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px 0 #4e798877 inset;
+}
+.profileInfo .personal .input {
+    margin-bottom: 0;
+}
+.profileInfo .personal .uni {
+    width: 38vw;
+}
+.profileInfo .personal label {
+    margin-bottom: 0;
+    height: min-content;
+}
+.profileInfo .personal .labelInput {
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
 }
 .profileInfo .lenght {
     font-size: max(1.8vmin, 8px);
-    position: absolute;
-    right: 0;
-    bottom: 0;
+    width: 100%;
     padding-bottom: 5px;
+    text-align: end;
+    margin-bottom: 2vh;
+    height: 3vh;
 }
 .profileInfo .textarea {
-    background-color: rgba(0, 0, 0, 0.036);
-    margin-bottom: 0.2vh;
-    box-shadow: 0 4px 5px 0 #4e798877;
     height: 15vh;
     font-size: max(1.8vmin, 11px);
     border: none;
-    width: 30vw;
-    margin-bottom: 5vh;
     padding: 1vh 1vw;
+    width: 38vw;
+    background-color: rgba(255, 255, 255, 0.573);
+    color: #0d4155;
+    border-radius: 10px;
+    font-size: max(2vmin, 12px);
+    box-shadow: 2px 2px 5px 0 #4e798877 inset;
 }
+.profileInfo .personal .j{
+    padding-bottom: 0;
+  
+}
+
 @media screen and (max-width: 750px) {
     .profileInfo .bodyContainer {
         display: block;
     }
     .profileInfo .partsPart {
-        display: flex;
         width: 88vw;
         margin-bottom: 3vh;
     }
-    .profileInfo .partTitle {
-        flex: 100;
-    }
+
     .profileInfo .fieldsPart {
-        display: flex;
         width: 88vw;
     }
+    .profileInfo .Titles {
+        display: flex;
+    }
     .profileInfo .part {
-       flex: 0;
+        border-bottom: none;
+        border-right: #c9c9c9c8 solid 2px;
+        justify-content: center;
+    }
+    .profileInfo .Contact {
+        border-right: none;
+    }
+    .profileInfo .j {
+        width: 80vw;
     }
 }

@@ -1,0 +1,63 @@
+.doctorCard {
+    display: flex;
+    border-radius: 20px;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.504),
+        rgba(255, 255, 255, 0.247)
+    );
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 4px 4px 8px 2px #6f6f6f82;
+    margin: 3vh 0;
+}
+.doctorCard .image {
+    width: 14vw;
+
+}
+.doctorCard .image img{
+    width: 14vw;
+    aspect-ratio: 1/1;
+    border-radius: 20px 0 0px 20px;
+}
+.doctorCard .info{
+    padding: 2vh 2vw;
+    height: 14vw;
+    width: 54vw;
+
+}
+.doctorCard .name {
+    font-size: max(3vmin, 14px);
+    font-weight: 600;
+    margin-bottom: 3px;
+    margin-right: 5vw;
+}
+.doctorCard .nameLikes {
+    display: flex;
+    width: 100%;
+}
+.doctorCard .likes{
+    display: flex;
+}
+.doctorCard .likeicon{
+    background: none;
+    color: rgb(176, 30, 30);
+    border: none;
+    margin-right: 0.5vmin;
+}
+.doctorCard .speciality {
+    font-size: max(2vmin, 10px);
+    margin-bottom: 2vh;
+    color: #5490a7;
+}
+.doctorCard .part {
+    display: flex;
+    font-size: max(2.1vmin, 13px);
+
+}
+.doctorCard .label {
+    font-size: max(2.1vmin, 13px);
+    font-weight: 500;
+    margin-right: 5px;
+    display: block;
+}

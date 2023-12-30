@@ -1,3 +1,4 @@
+
 .Nav {
     font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
         sans-serif;
@@ -9,6 +10,12 @@
     padding-bottom: 0;
     box-shadow: 0px 0px 10px 8px rgba(0, 0, 0, 0.2);
     height: 8vh;
+    background:linear-gradient(135deg,rgba(255, 255, 255, 0.504),rgba(255, 255, 255, 0.247));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
 }
 .Nav .logoImage {
     border-radius: 5px;
@@ -34,6 +41,13 @@
     margin-left: auto;
     margin-right: 5vmin;
     display: flex;
+}
+.Nav .button{
+    border: none;
+    margin-left: 0;
+    padding-left: 0;
+    
+    
 }
 @media screen and (max-width: 750px) {
     .Nav .me-auto .info {

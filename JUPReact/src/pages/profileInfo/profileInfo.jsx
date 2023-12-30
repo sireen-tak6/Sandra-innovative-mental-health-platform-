@@ -3,6 +3,8 @@ import React, { useState } from "react";
 //css
 import "sweetalert2/src/sweetalert2.scss";
 import "./profileInfo.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCog } from "@fortawesome/free-solid-svg-icons";
 
 //components
 import CircularLoading from "../../Components/loadingprogress/loadingProgress";
@@ -15,7 +17,13 @@ import ChangePassword from "../../Components/SettingsCompononts/ChangePassowrd";
 const Settings = () => {
     const userID = localStorage.getItem("user-id");
     const userType = localStorage.getItem("user-type");
-    const [part, setpart] = useState(userType==="doctor"?"Personal":userType==="admin"?"Password":"Account");
+    const [part, setpart] = useState(
+        userType === "doctor"
+            ? "Personal"
+            : userType === "admin"
+            ? "Password"
+            : "Account"
+    );
     const [isLoaded, setIsLoaded] = useState(false);
 
     function onUpdate(value) {
@@ -28,49 +36,60 @@ const Settings = () => {
         <div className="profileInfo">
             <div className="bodyContainer">
                 <div className="partsPart">
-                    <div className="partTitle">Settings :</div>
-                    {userType==="doctor"?
-                    <button
-                        className={`part f ${
-                            part === "Personal" ? "chossen" : ""
-                        }`}
-                        onClick={() => onUpdate("Personal")}
-                    >
-                        Personal Information
-                    </button>:null}
-                    {userType!=="admin"?
-                    <button
-                        className={`part ${
-                            part === "Account" ? "chossen" : ""
-                        }`}
-                        onClick={() => onUpdate("Account")}
-                    >
-                        Account Information{" "}
-                    </button>:null}
+                    <div className="partTitle">
+                        {" "}
+                        <FontAwesomeIcon icon={faCog} className="settingsicon"/>
+                        Settings{" "}
+                    </div>
+                    <div className="Titles">
+                        {userType === "doctor" ? (
+                            <button
+                                className={`part f ${
+                                    part === "Personal" ? "chossen" : ""
+                                }`}
+                                onClick={() => onUpdate("Personal")}
+                            >
+                                Personal Information
+                            </button>
+                        ) : null}
+                        {userType !== "admin" ? (
+                            <button
+                                className={`part ${
+                                    part === "Account" ? "chossen" : ""
+                                }`}
+                                onClick={() => onUpdate("Account")}
+                            >
+                                Account Information{" "}
+                            </button>
+                        ) : null}
 
-                    <button
-                        className={`part ${
-                            part === "Password" ? "chossen" : ""
-                        }`}
-                        onClick={() => onUpdate("Password")}
-                    >
-                        Change Password
-                    </button>
-                    {userType!=="admin"?
-                    <button
-                        className={`part ${part === "Delete" ? "chossen" : ""}`}
-                        onClick={() => onUpdate("Delete")}
-                    >
-                        Delete Account
-                    </button>:null}
-                    <button
-                        className={`part ${
-                            part === "Contact" ? "chossen" : ""
-                        }`}
-                        onClick={() => onUpdate("Contact")}
-                    >
-                        Contact us
-                    </button>
+                        <button
+                            className={`part ${
+                                part === "Password" ? "chossen" : ""
+                            }`}
+                            onClick={() => onUpdate("Password")}
+                        >
+                            Change Password
+                        </button>
+                        {userType !== "admin" ? (
+                            <button
+                                className={`part ${
+                                    part === "Delete" ? "chossen" : ""
+                                }`}
+                                onClick={() => onUpdate("Delete")}
+                            >
+                                Delete Account
+                            </button>
+                        ) : null}
+                        <button
+                            className={`part Contact ${
+                                part === "Contact" ? "chossen" : ""
+                            }`}
+                            onClick={() => onUpdate("Contact")}
+                        >
+                            Contact us
+                        </button>
+                    </div>
                 </div>
                 <div className="div"></div>
                 <div className="fieldsPart">

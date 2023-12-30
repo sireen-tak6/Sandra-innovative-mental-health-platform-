@@ -298,8 +298,7 @@ const ArticleContent = () => {
     }
     return (
         <div className="ArticleContent">
-            <Row>
-                <Col md={8} className="ContentSide">
+                <div className="ContentSide">
                     {Article.length === 0 || date === null ? (
                         <CircularLoading />
                     ) : (
@@ -413,8 +412,8 @@ const ArticleContent = () => {
                         </div>
                     )}
                     <div></div>
-                </Col>
-                <Col md={3} className="ArticlesSide">
+                </div>
+                <div className="ArticlesSide">
                     {Articles.length === 0 ? (
                         <CircularLoading />
                     ) : (
@@ -442,8 +441,7 @@ const ArticleContent = () => {
                             )}
                         </div>
                     )}
-                </Col>
-            </Row>
+                </div>
         </div>
     );
 };

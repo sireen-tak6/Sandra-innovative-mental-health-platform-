@@ -1,0 +1,130 @@
+.RequestVerfiy * {
+    margin: 0%;
+    padding: 0%;
+    
+}
+
+.RequestVerfiy .main {
+    border: 3px solid #ffffff49;
+    background-color: rgba(255, 255, 250, 0.6);
+    box-shadow: -5px 0px 10px -2px #01010152;
+    width: 80%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3%;
+}
+
+.RequestVerfiy .main div div img {
+    border-radius: 50%;
+    width: 40%;
+}
+
+.RequestVerfiy .adminsection {
+    font-size: large;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    font-weight: 600;
+    display: flexbox;
+}
+
+.RequestVerfiy .main .drc {
+    border: 3px solid #ffffff49;
+    box-shadow: -5px 0px 10px -2px #01010152;
+    border-radius: 5%;
+    width: 250px;
+    height: auto;
+    text-align: center;
+    color: #010101a7;
+    background-color: rgba(255, 255, 250, 0.87);
+    font-weight: 700;
+    font-size: x-large;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+}
+
+.RequestVerfiy .main .itemm
+{
+    border:  rgba(255, 255, 250, 0.87) solid 3px;
+    box-shadow: -5px 0px 10px -2px #01010152;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: rgba(255, 255, 250, 0.87);
+    border-radius: 5%;
+}
+
+
+
+.RequestVerfiy .main .itemm .doctorRequest
+{
+    border: rgba(0, 0, 0, 0.6) solid 4px;
+    border-radius: 5%;
+    height: 140px;
+    width: 160px;
+    box-shadow: -5px 0px 10px -2px #01010152;
+}
+
+.RequestVerfiy .main .itemm .medaliaicon
+{
+    height: 30px;
+    width: 30px;
+}
+
+.RequestVerfiy .verfiyinfo 
+{
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+    display: inline;
+}
+
+
+
+.RequestVerfiy .main .itemm div .buttons
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.RequestVerfiy .rejectbutton
+{
+    border-radius: 10%;
+    border: #ff0000b7 solid 2px;
+    color: rgba(255, 255, 250,0.87);
+    background-color: #ff0000b7;
+    box-shadow: -5px 0px 10px -2px #01010152;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+.RequestVerfiy .acceptbutton
+{
+    border-radius: 10%;
+    border: #00ff88b7 solid 2px;
+    color: rgba(255, 255, 250,0.87);
+    background-color: #00ff88b7;
+    box-shadow: -5px 0px 10px -2px #01010152;  
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif; 
+}
+
+.RequestVerfiy .main .itemm div .file
+{
+    height: 60px;
+    width: 60px;
+    box-shadow: -5px 0px 10px -2px #01010152; 
+}
+
+.RequestVerfiy .signture
+{
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;  
+}
+    
+.RequestVerfiy .messagee
+{
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif; 
+    font-weight: 600;
+    color: rgb(10, 95, 112);
+}

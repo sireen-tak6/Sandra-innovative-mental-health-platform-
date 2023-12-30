@@ -13,11 +13,12 @@ use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+use Laravel\Scout\Searchable;
 
 
-class Doctor extends Model implements Authenticatable
+class Doctor extends Model implements Authenticatable, MustVerifyEmailContract
 {
-    use HasFactory , HasApiTokens ,Notifiable;
+    use HasFactory , HasApiTokens ,Notifiable,Searchable;
 
     
     protected $fillable = [
@@ -123,5 +124,45 @@ class Doctor extends Model implements Authenticatable
     public function reviewedArticles()
     {
         return $this->belongsToMany(Review::class, 'reviews','doctorID','articleID');
+    }
+    public function toSearchableArray()
+    {
+        return [
+        'user_name' => $this->user_name,
+        'points' => $this->points,
+        'address' => $this->address,
+        'about' => $this->about,
+        'university' => $this->university,
+        'phone' => $this->phone,
+        'gender' => $this->gender,
+        'speciality' => $this->speciality
+        ];
+    }
+    
+    public function getDocumentAttribute()
+    {
+        $document = DoctorVerfiy::select('filename')
+            ->where('doctor_id', $this->id)
+            ->first();
+
+        if ($document) {
+            $url = stripslashes(asset('storage/app/uploads/' . $document->filename));
+            return $url;
+        }
+
+        return null;
+    }
+
+
+
+    public function getIsVerfiyAttribute()
+    {
+        $doctorVerfiy = DoctorVerfiy::where('doctor_id', $this->id)->first();
+
+        if ($doctorVerfiy) {
+            return $doctorVerfiy->isVerfiy;
+        }
+
+        return false;
     }
 }

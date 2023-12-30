@@ -39,7 +39,7 @@ class ArticlesController extends Controller
                 return response()->json(['status'=>404,'message'=> 'user not found']);
             }
             try{
-                $articles = Article::whereDoesntHave('reports', function ($query) use ($patient) {
+                $articles = Article::where('status', 'published')->whereDoesntHave('reports', function ($query) use ($patient) {
                     $query->where('patientID', $patient->id);
                 })->with('Category','Doctor')->get();
                
@@ -84,7 +84,7 @@ class ArticlesController extends Controller
             'name' => 'required|string',
             'specialityID' => 'required|integer|exists:speciality,id', 
             'content' => 'required|mimetypes:text/plain|max:10000', 
-            'image' => 'nullable|image|max:2048', 
+            'image' => 'nullable|image', 
             'doctorID' => 'required|integer|exists:doctors,id',
             'userType'=>'required|string'
         ]);
@@ -158,6 +158,7 @@ class ArticlesController extends Controller
     //show specific article by id
     public function show($ArticleID,Request $request)
     {
+       
         $userID=$request->userID;
         $userType=$request->userType;
         if($userType==='patient')
@@ -432,22 +433,28 @@ class ArticlesController extends Controller
     {
         $userID=$request->userID;
         $articleID=$ArticleID;
-        $patient=Patient::find($userID);
-        if(!$patient){
-            return response()->json(['status'=>404,'massage'=>"the user does not exist."]);
+        if($userID){
+            $patient=Patient::find($userID);
+            if(!$patient){
+                return response()->json(['status'=>404,'massage'=>"the user does not exist."]);
+            }
+            $article=Article::where('status', 'published')->find($articleID);
+            if(!$article){
+                return response()->json(['status'=>404,'massage'=>"the article does not exist."]);
+            }
+            if (!$patient->reportedArticles->contains($article->id)) {
+                $report=new ArticleReport();
+                $report->patientID=$patient->id;
+                $report->articleID=$article->id;
+                $report->save();
+                $article->refresh();
+            }           
+            return response()->json(['status'=>200,'message' => 'Article reported']);
         }
-        $article=Article::where('status', 'published')->find($articleID);
-        if(!$article){
-            return response()->json(['status'=>404,'massage'=>"the article does not exist."]);
+        else{
+            return response()->json(['status'=>404,'message' => "you can't report articles"]);
         }
-        if (!$patient->reportedArticles->contains($article->id)) {
-            $report=new ArticleReport();
-            $report->patientID=$patient->id;
-            $report->articleID=$article->id;
-            $report->save();
-            $article->refresh();
-        }           
-        return response()->json(['status'=>200,'message' => 'Article reported']);
+        
     }
 
 
@@ -493,8 +500,11 @@ class ArticlesController extends Controller
                 return response()->json(['status'=>500,'massage'=>"something went wrong."]);
             }
         }
-        else{
+        else if($userType==='patient'){
             return response()->json(['status'=>404,'massage'=>"you can't delete articles."]);
+        }
+        else{
+            return response()->json(['status'=>400,'message'=> 'You must login first']);
         }
     }
     

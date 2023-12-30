@@ -1,0 +1,108 @@
+.AdminDoctors *
+{
+    margin: 0%;
+    padding: 0%; 
+}
+
+.AdminDoctors .mainform
+{
+    border: 3px solid #ffffff49;
+    background-color: rgba(255, 255, 250,0.6);
+    box-shadow: -5px 0px 10px -2px #01010152;
+    width: 80%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3%;
+}
+
+.AdminDoctors .drc
+{
+    border:3px solid #ffffff49;
+    box-shadow: -5px 0px 10px -2px #01010152;
+    border-radius: 5%;
+    width: 250px;
+    height: auto;
+    text-align: center;
+    color: #010101a7;
+    background-color: rgba(255, 255, 250,0.87);
+    font-weight: 700;
+    font-size: x-large;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.AdminDoctors .admininfo
+{
+    font-size: large;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 600;
+}
+
+.AdminDoctors .secondform .admininfo p 
+{
+    font-size: medium;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 500;
+    display: inline;
+}
+
+.AdminDoctors .item    
+{
+    border: #ffffff49 solid 5px;
+    border-radius: 3%;
+    background-color: #ffffff49;
+    box-shadow: -5px 0px 10px -2px #01010152;
+}
+
+
+.AdminDoctors .secondform .admininfo p img
+{
+    border-radius: 50%;
+    box-shadow: -5px 0px 10px -2px #01010152;
+}
+
+.AdminDoctors .doctors
+{
+    border-radius: 50%;
+    box-shadow: -5px 0px 10px -2px #01010152;
+}
+
+.AdminDoctors .items
+{
+    border: #ffffff49 solid 5px;
+    border-radius: 5%;
+    background-color: #ffffff49;
+    box-shadow: -5px 0px 10px -2px #01010152;
+    font-size: medium;
+    font-weight: 500;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    display: flex;
+}
+
+.AdminDoctors .doctors{
+    border-radius: 50%;
+}
+
+.AdminDoctors .button
+{
+    border-radius: 10%;
+    border: #ff0000b7 solid 2px;
+    color: rgba(255, 255, 250,0.87);
+    background-color: #ff0000b7;
+    box-shadow: -5px 0px 10px -2px #01010152;
+}
+
+
+/*this is for scrollbar hidden when i put it 0px */
+.AdminDoctors::-webkit-scrollbar
+{
+     width:0px;
+     
+}
+
+.AdminDoctors .sandralogo
+{
+    border-radius: 50%;
+}

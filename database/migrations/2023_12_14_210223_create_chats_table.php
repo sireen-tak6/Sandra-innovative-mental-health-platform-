@@ -15,9 +15,9 @@ return new class extends Migration {
             $table->id();
             //and those colomn will be the participants in the chat 
             $table->unsignedBigInteger('patient_id');
-            $table->foreign('patient_id')->references('id')->on('patients');
+            $table->foreign('patient_id')->references('id')->on('patients')->onDelete('cascade');
             $table->unsignedBigInteger('doctor_id');
-            $table->foreign('doctor_id')->references('id')->on('doctors');
+            $table->foreign('doctor_id')->references('id')->on('doctors')->onDelete('cascade');
             // this is to know the time that created this chat 
             $table->timestamps();
         });

@@ -12,12 +12,15 @@
     display: block;
     border-radius: 20px;
     box-shadow: 0px 0px 8px 3px #00000030;
+    height: min-content;
+
 }
 .MyArticlesContainer .ArticlesPart {
     width: 68vw;
     background-color: rgba(255, 255, 255, 0.821);
     border-radius: 20px;
     box-shadow: 0px 0px 8px 3px #00000030;
+    height: min-content;
 }
 .MyArticlesContainer .noArticles {
     font-size: max(3.5vmin, 14px);

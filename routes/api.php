@@ -13,6 +13,8 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DislikeController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\DoctorVerfiyController; 
 
 /*
 
@@ -42,18 +44,33 @@ Route::get('/verify-email/{token}',
 [AuthController::class, 'verifyEmail'])
 ->name('verify.email');
 Route::post('/login',[AuthController::class,'login']);
+Route::post('/logout/{type}/{id}', [AuthController::class , 'logout']); 
 
 //Admin api 
 //for me 
 Route::get('firstAdmin' , [AdminController::class , 'AddFirstAdmin']);
 //for sireen  
 Route::get('secondAdmin' , [AdminController::class , 'AddSecondAdmin']); 
+//for accept or reject doctors depend on them documents 
+Route::post('/AcceptOrReject/{doctorId}' , [AdminController::class , 'acceptOrRejectDoctor']); 
+//for show all doctor 
+Route::get('/show/doctor' , [AdminController::class , 'getAllDoctors']);
+//for delete doctor 
+Route::delete('/delete/doctor/{doctorId}', [AdminController::class, 'deleteDoctor']);
+//for show admin information 
+Route::post('/show/admin/info/{id}' , [AdminController::class , 'getAdminById']); 
+//for get document and doctor info 
+Route::get('/admin/file-info', [AdminController::class, 'getFileAndDoctorInfo']);
+//for get images 
+Route::get('/get/images' , [AdminController::class , 'getImages']); 
+
+
 
 
 //this section for the ChatController 
 //first function openChat 
 //it's work
-Route::post('/open-chat/{patient_id}/{doctor_id}' , [ChatController::class , 'openChat']);
+Route::post('/open-chat/{user_type}/{user_id}/{other_user_id}' , [ChatController::class , 'openChat']);
 //second function sendMessage
 //it's work  
 Route::post('/send-message/{sender_id}/{receiver_id}', [ChatController::class, 'sendMessage']);
@@ -90,6 +107,16 @@ Route::post('/add/like/{doctor_id}/{patient_id}', [LikeController::class ,'AddLi
 Route::post('/add/dislike/{doctor_id}/{patient_id}' , [DislikeController::class , 'AddDislike']);
 //it's work 
 Route::post('/show/dislike/{doctor_id}', [DislikeController::class ,'showDislikes']);
+
+//this funcitons for Doctor verfiy controller 
+Route::post('/verfiy/{doctor_id}' , [DoctorVerfiyController::class , 'uploadFile']); 
+
+
+//this section for DoctorController 
+Route::post('/isVerfiy/{id}', [DoctorController::class , 'isVerfiyDoctor']);
+
+
+Route::post('/Search' , [SearchController::class , 'Search']);
 
 
 //articles section

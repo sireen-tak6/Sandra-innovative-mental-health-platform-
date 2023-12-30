@@ -63,33 +63,38 @@ const DeleteAcount = () => {
         }
     };
     return (
-        <div className="j">
+        <div className="delete">
             <div className="title">Delete Account</div>{" "}
-            <div>
-                <label> Password :</label>
-            </div>
             <form onSubmit={handleSubmit}>
-                <input
-                    placeholder="Password"
-                    type="password"
-                    name="Password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="input"
-                />
-                <div className="check">
-                    <input
-                        type="checkbox"
-                        checked={checked}
-                        onChange={(e) => setChecked(e.target.checked)}
-                    />
-                    I understand that this will delete my account permanently.
+                <div className="j">
+                    <div className="labelInput">
+                        <label> Password :</label>
+
+                        <input
+                            placeholder="Password"
+                            type="password"
+                            name="Password"
+                            required
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="input"
+                        />
+                    </div>
+
+                    <div className="check">
+                        <input
+                            type="checkbox"
+                            checked={checked}
+                            onChange={(e) => setChecked(e.target.checked)}
+                        />
+                        I understand that this will delete my account
+                        permanently.
+                    </div>
                 </div>
-                <button className="saveButton" type="submit">
-                    {" "}
-                    save
-                </button>
+                    <button className="saveButton" type="submit">
+                        {" "}
+                        save
+                    </button>
             </form>
         </div>
     );

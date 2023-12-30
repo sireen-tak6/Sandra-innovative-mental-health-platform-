@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
- 
+
 use App\Models\Chat;
 use App\Models\Doctor;
 use App\Models\Patient;
@@ -15,51 +15,59 @@ class ChatController extends Controller
 
     //when the patient open chat with doctor i will called this function 
     //here i just using the chats table in this function   
-    public function openChat($patient_id, $doctor_id)
+    public function openChat($user_type, $user_id, $other_user_id)
     {
-        $patient = Patient::find($patient_id);
-        $doctor = Doctor::find($doctor_id);
-
+        if ($user_type === 'patient') {
+            $patient = Patient::find($user_id);
+            $doctor = Doctor::find($other_user_id);
+        } elseif ($user_type === 'doctor') {
+            $patient = Patient::find($other_user_id);
+            $doctor = Doctor::find($user_id);
+        } else {
+            return response()->json(['message' => 'Invalid user type.'], 404);
+        }
+    
         // Check if both the patient and doctor exist
         if (!$patient || !$doctor) {
             return response()->json(['message' => 'Cannot start this chat.'], 404);
         }
-
+    
+        // Generate unique prefixed IDs for patient and doctor
+        $prefixed_patient_id = 'P-' . $patient->id;
+        $prefixed_doctor_id = 'D-' . $doctor->id;
+    
         // Check if a chat already exists between the patient and doctor
         $chat = Chat::where('patient_id', $patient->id)
             ->where('doctor_id', $doctor->id)
             ->first();
-
+    
         if ($chat) {
-            // If a chat already exists, return the chat information along with patient and doctor details
+            // If a chat already exists, return the chat information along with prefixed patient and doctor IDs
             return response()->json([
-                'message' => 'chat already exist .',
+                'message' => 'Chat already exists.',
                 'chat' => $chat,
-                'patient_id' => $patient->id,
-                'doctor_id' => $doctor->id,
+                'patient_id' => $prefixed_patient_id,
+                'doctor_id' => $prefixed_doctor_id,
                 'patient_name' => $patient->user_name,
                 'doctor_name' => $doctor->user_name,
             ]);
         }
-
+    
         // If a chat does not exist, create a new chat
         $chat = Chat::create([
             'patient_id' => $patient->id,
             'doctor_id' => $doctor->id,
         ]);
-
+    
         return response()->json([
-            'message' => 'chat created successfully',
+            'message' => 'Chat created successfully',
             'chat' => $chat,
-            'patient_id' => $patient->id,
-            'doctor_id' => $doctor->id,
+            'patient_id' => $prefixed_patient_id,
+            'doctor_id' => $prefixed_doctor_id,
             'patient_name' => $patient->user_name,
             'doctor_name' => $doctor->user_name,
         ]);
     }
-
-
-
 
 
     //here the for show the user what he has of chats 
@@ -98,8 +106,6 @@ class ChatController extends Controller
             return response()->json(['message' => 'No Chats Available'], 200);
         }
     }
-
-
 
 
 
@@ -170,38 +176,23 @@ class ChatController extends Controller
     }
 
 
-
-
-
-
     //when doctor or patient open the chat i will call this function to show the message if exist 
     public function showMessages(Request $request, $id)
     {
         $chat = Chat::where('id', $id)->first();
-        
+
         if (!$chat) {
             return response()->json(['error' => 'Chat not found'], 404);
         }
 
         // Fetch all the messages of this chat
         $messages = Message::where('chat_id', $chat->id)->get();
-        
+
         return response()->json([
             'messages' => $messages,
-            'chat' => $chat , 
+            'chat' => $chat,
         ]);
     }
-
-
-
-
-
-
-
-
-
-
-
 
     public function GetChatByID($id)
     {
@@ -218,27 +209,24 @@ class ChatController extends Controller
     }
 
 
-
-
     //this function for delete chat 
     public function deleteChat($id, $user_id)
     {
         $chat = Chat::find($id);
-    
+
         if ($chat) {
             // to delete the messages associated by it 
             $chat->messages()->delete();
-    
+
             // to delet the chat 
             $chat->delete();
-    
+
             // to show the list of the user
             return $this->showChat($user_id);
         }
-    
-        return response()->json(['message' => 'الدردشة غير موجودة.'], 404);
-    }
 
+        return response()->json(['message' => 'the chat does not exist'], 404);
+    }
 
 
     //this funcion for detect if the user active or not 
@@ -246,6 +234,5 @@ class ChatController extends Controller
     {
         //i solve it in another way .. 
     }
-
 
 }

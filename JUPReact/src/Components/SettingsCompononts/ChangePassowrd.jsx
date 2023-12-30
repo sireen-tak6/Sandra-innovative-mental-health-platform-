@@ -69,46 +69,48 @@ const ChangePassword = () => {
         }
     };
     return (
-        <div className="j">
+        <div>
             <div className="title">Change Password</div>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Old password :</label>
-                </div>
+                <div className="j">
+                    <div className="labelInput">
+                        <label>Old password :</label>
 
-                <input
-                    placeholder="OldPassword"
-                    type="password"
-                    value={oldpassword}
-                    name="password"
-                    required
-                    onChange={(e) => setoldPassword(e.target.value)}
-                    className="input"
-                />
-                <div>
-                    <label>New password :</label>
+                        <input
+                            placeholder="OldPassword"
+                            type="password"
+                            value={oldpassword}
+                            name="password"
+                            required
+                            onChange={(e) => setoldPassword(e.target.value)}
+                            className="input"
+                        />
+                    </div>
+                    <div className="labelInput">
+                        <label>New password :</label>
+                        <input
+                            placeholder="NewPassword"
+                            type="password"
+                            value={password}
+                            name="newpassword"
+                            required
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="input"
+                        />
+                    </div>
+                    <div className="labelInput">
+                        <label> Confirm password :</label>
+                        <input
+                            placeholder="NewPassword"
+                            type="password"
+                            value={newpassword}
+                            name="checkPassword"
+                            required
+                            onChange={(e) => setnewPassword(e.target.value)}
+                            className="input"
+                        />
+                    </div>
                 </div>
-                <input
-                    placeholder="NewPassword"
-                    type="password"
-                    value={password}
-                    name="newpassword"
-                    required
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="input"
-                />
-                <div>
-                    <label> Confirm password :</label>
-                </div>
-                <input
-                    placeholder="NewPassword"
-                    type="password"
-                    value={newpassword}
-                    name="checkPassword"
-                    required
-                    onChange={(e) => setnewPassword(e.target.value)}
-                    className="input"
-                />
                 <button type="submit" className="saveButton">
                     {" "}
                     save

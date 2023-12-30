@@ -1,4 +1,4 @@
-import React, { useContext,  useState } from "react";
+import React, { useContext, useState } from "react";
 
 //css
 import "./articleTypes.css";
@@ -22,7 +22,7 @@ const ArticleTypes = () => {
 
     return (
         <div className="Types">
-            Types :
+            <div className="partTitle">Types :</div>
             <div className="Type">
                 {Types.map((item) => (
                     <div>

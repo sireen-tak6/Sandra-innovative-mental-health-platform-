@@ -31,25 +31,25 @@
 }
 
 
-.posforMessages ::-webkit-scrollbar
+.posforMessages::-webkit-scrollbar
 {
      width:0px;
      
 }
 
-.posforMessages ::-webkit-scrollbar-track
+.posforMessages::-webkit-scrollbar-track
 {
      background: white;
      border-radius: 15px;
 }
 
-.posforMessages ::-webkit-scrollbar-thumb
+.posforMessages::-webkit-scrollbar-thumb
 {
      background: gray;
      border-radius: 15px;
 }
 
-.posforMessages ::-webkit-scrollbar-thumb:hover
+.posforMessages::-webkit-scrollbar-thumb:hover
 {
      background: burlywood;
 }

@@ -1,59 +1,61 @@
 .ArticleContent {
     margin-top: 15vmin;
     height: auto;
-}
-@media screen and (max-width: 600px) {
-    .ArticleContent {
-        margin-top: 20%;
-    }
+    display: flex;
 }
 
 .ArticleContent .ContentSide {
     height: min-content;
     background-color: white;
-    margin-right: 5vmin;
-    margin-left: 5vmin;
+    margin-right: 2vw;
+    margin-left: 4vw;
     border-radius: 20px;
-    margin-bottom: 5vmin;
+    margin-bottom: 5vh;
+    width: 60vw;
 }
 .ArticleContent .ArticlesSide {
     background-color: white;
     margin-left: auto;
-    margin-right: 5vmin;
+    margin-right: 4vw;
     border-radius: 20px;
-    margin-bottom: 5vmin;
+    margin-bottom: 5vh;
     height: min-content;
+    width: 30vw;
 }
 .ArticleContent .contentContainer {
-    margin: 5vmin 2vmin;
+    margin: 4vh 2vw;
 }
 .ArticleContent .title {
     font-size: 3.5vmin;
     font-weight: 600;
     display: flex;
     justify-content: space-between;
-    margin-top: 30px;
-    margin-bottom: 20px;
+    margin-top: 4vh;
+    margin-bottom: 2vh;
     color: #0d4155;
 }
 .ArticleContent .catLikes {
-    width: 80vmin;
+    width: 100%;
     justify-content: space-between;
     display: flex;
+    margin-bottom: 2vh;
 }
 .ArticleContent .cat {
     font-size: 2.5vmin;
     font-weight: 400;
-    margin-bottom: 20px;
     color: rgb(80, 80, 80);
+    display: flex;
+    align-items: center;
 }
 .ArticleContent .icon {
     size: 2.5vmin;
-    margin-right: 5px;
+    margin-right: 0.5vw;
 }
 .ArticleContent .reports {
     font-size: 3.2vmin;
     padding: 0;
+    display: flex;
+    align-items: center;
 }
 
 .ArticleContent .reports .icon {
@@ -62,6 +64,8 @@
 .ArticleContent .likes {
     font-size: 3.2vmin;
     padding: 0;
+    display: flex;
+    align-items: center;
 }
 .ArticleContent .likes .icon {
     size: 3vmin;
@@ -73,18 +77,18 @@
 }
 
 .ArticleContent .info {
-    margin: 0px 2vmin;
+    margin: 0px 0.5vw;
 }
 .ArticleContent .content {
     font-size: 2.6vmin;
-    margin-bottom: 10vmin;
+    margin-bottom: 10vh;
     white-space: pre-wrap;
     overflow: auto;
     word-wrap: break-word;
 }
 .ArticleContent .publisher {
     font-size: 2.2vmin;
-    margin-bottom: 2vmin;
+    margin-bottom: 2vh;
     color: rgb(80, 80, 80);
 }
 .ArticleContent .date {
@@ -93,10 +97,10 @@
 }
 
 .ArticleContent .related {
-    margin: 5vmin 2vmin;
+    margin: 5vh 2vw;
 }
 .ArticleContent .relatedTitle {
-    margin-bottom: 2vmin;
+    margin-bottom: 2vh;
     font-size: 3.2vmin;
     font-weight: 500;
 }
@@ -133,7 +137,7 @@
 }
 
 .dropdown-menu li {
-    padding: 12px 16px;
+    padding: 1vh 1vw;
     width: 100%;
     border-bottom: 0.5px solid rgb(232, 232, 232);
 }
@@ -168,4 +172,24 @@
     background: none;
     color: black;
     border: none;
+}
+@media screen and (max-width: 600px) {
+    .ArticleContent {
+        margin-top: 12vh;
+        display: block;
+    }
+
+    .ArticleContent .ContentSide {
+        width: 90vw;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0.1vh 1vw;
+    }
+    .ArticleContent .ArticlesSide {
+        width: 90vw;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0.1vh 1vw;
+
+    }
 }

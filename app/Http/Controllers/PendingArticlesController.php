@@ -42,7 +42,7 @@ class PendingArticlesController extends Controller
             }
             return response()->json(['status'=>200,'Articles'=>$articles]);    
         }
-        else{
+        else if($userType==="admin"){
             $articles = Article::where('status', 'adminChoice')->orderBy('date', 'desc')->with('Category','reviews')->get();
             foreach ($articles as $article) {
                 $acceptCount=0;
@@ -67,6 +67,8 @@ class PendingArticlesController extends Controller
                 $article->rejectCount=$rejectCount;
             }
             return response()->json(['status'=>200,'Articles'=>$articles]);    
+        }else{
+            return response()->json(['status'=>400,'message'=> 'You must login first']);
         }
     }
     
@@ -128,7 +130,7 @@ class PendingArticlesController extends Controller
         {
             return response()->json(['status'=>404,'message'=> "you can't review articles"]);
         }
-        else{
+        else if($userType==='doctor'||$userType==='admin'){
              
             $Article= Article::with('Category','reviews')->find($ArticleID);
             if(!$Article){
@@ -163,7 +165,9 @@ class PendingArticlesController extends Controller
              }
              
              return response()->json(['status'=>200,'Article'=>$Article,'path'=>$textPath]);
-         }
+         }else{
+            return response()->json(['status'=>400,'message'=> 'You must login first']);
+        }
      }
 
      //accept specific pending article(doctor,admin)
@@ -197,7 +201,7 @@ class PendingArticlesController extends Controller
  
              }
          }
-         else{
+         else if($userType==='admin'){
              try{
                  $Article= Article::find($ArticleID);
                  if(!$Article)
@@ -212,7 +216,9 @@ class PendingArticlesController extends Controller
                  return response()->json(['status'=>500,'message'=>'something went wrong']);
  
              }
-         }
+         }else{
+            return response()->json(['status'=>400,'message'=> 'You must login first']);
+        }
          
      }
      
@@ -249,7 +255,7 @@ class PendingArticlesController extends Controller
              }
             
          }
-         else{
+         else if($userType==='admin'){
              try{
                  $Article= Article::find($ArticleID);
                  if(!$Article)
@@ -264,7 +270,9 @@ class PendingArticlesController extends Controller
                  return response()->json(['status'=>500,'message'=>'something went wrong']);
  
              }
-         }
+         }else{
+            return response()->json(['status'=>400,'message'=> 'You must login first']);
+        }
          
      }
 }

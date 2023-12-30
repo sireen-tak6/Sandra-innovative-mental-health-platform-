@@ -1,4 +1,5 @@
-.main {
+.main
+{
     margin-left: 10%;
     margin-right: 10%;
     padding: 30px;
@@ -6,15 +7,8 @@
     display: flex;
 }
 
-.main .video {
-    height: 500px;
-    width: 660px;
-    position: relative;
-    left: 128px;
-    border-radius: 5px;
-}
-
-.main .content {
+.main .content
+{
     border: 1px solid;
     box-shadow: -5px 0px 10px -2px #01010149;
     border-radius: 5px;
@@ -26,18 +20,22 @@
     height: 280px;
     width: 440px;
     margin-top: 50px;
+    
 }
 
-.main .h2 {
+.main .h2{
     margin-top: 15px;
 }
 
-.main .h4 {
+.main .h4
+{
     text-align: left;
-    margin-left: 20px;
+    margin-left: 20px ;
 }
 
-.main .btn {
+
+.main .btn
+{
     margin-top: 30px;
     background-color: #fff;
     text-align: center;
@@ -46,62 +44,72 @@
 }
 
 @keyframes mover {
-    0% {
+  
+    0%{
         transform: translateY(-40px);
     }
-    100% {
+    100%{
         transform: translateY(0px);
     }
-}
 
-@-webkit-keyframes mover {
-    0% {
+ }
+
+ @-webkit-keyframes mover {
+  
+    0%{
         transform: translateY(-40px);
     }
-    100% {
+    100%{
         transform: translateY(0px);
     }
-}
 
-@-moz-keyframes mover {
-    0% {
+ }
+
+ @-moz-keyframes mover {
+  
+    0%{
         transform: translateY(-40px);
     }
-    100% {
+    100%{
         transform: translateY(0px);
     }
-}
 
-@-o-keyframes mover {
-    0% {
+ }
+
+ @-o-keyframes mover 
+ {
+  
+    0%{
         transform: translateY(-40px);
     }
-    100% {
+    100%{
         transform: translateY(0px);
     }
-}
 
-.main .cube {
-    top: 18%;
+ }
+
+
+.main .cube{
+    top:18%;
     left: 30%;
     rotate: 45deg;
     opacity: 0.2;
     animation: mover 2s infinite alternate !important;
-}
+ }
 
-.main .line {
-    top: -00%;
-    left: 50%;
+.main .line{
+    top:-00%;
+    left:50%;
     rotate: 90 deg;
-    opacity: 0.2;
+    opacity: 0.2; 
     animation: mover 2s infinite alternate !important;
-}
+ }
 
-.main .square {
+.main .square{
     rotate: 45deg;
     position: absolute;
-    top: 75%;
-    right: 57%;
+    top:75%;
+    right: 57%;    
     opacity: 0.2;
-    animation: mover 2s infinite alternate !important;
-}
+    animation: mover 2s infinite alternate !important; 
+ }

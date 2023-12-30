@@ -5,12 +5,24 @@ use App\Models\Doctor;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Laravel\Scout\Searchable;
 
 class Article extends Model
 {
-    use HasFactory;
+    use HasFactory,Searchable;
     protected $table='articles';
-    protected $fillable=['name','specialityID','content','image','date','doctorID','likes','reports','status','reviews_count'];
+    protected $fillable=[
+        'name',
+        'specialityID',
+        'content',
+        'image',
+        'date',
+        'doctorID',
+        'likes',
+        'reports',
+        'status',
+        'reviews_count'
+    ];
     public function Category():BelongsTo
     {
         return $this->belongsTo(Category::class, 'specialityID');
@@ -63,5 +75,15 @@ class Article extends Model
             }
             $this->save();
         }       
+    }
+    public function toSearchableArray()
+    {
+
+    
+        return [
+            'name' => $this->name,
+            'content' => $this->content,
+            'date' => $this->date,
+        ];
     }
 }

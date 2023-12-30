@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { AiFillHeart, AiFillStar } from "react-icons/ai";
 import axiosClient from "../../../axios";
+
 //css
 import "./DoctorInfo.css";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
+
+//components
 import CircularLoading from "../../loadingprogress/loadingProgress";
+import LikeButton from "../../likeButton/likeButton";
 
 function DoctorInfo({ id }) {
     const [doctorInfo, setdoctorInfo] = useState(null);
+    const [isLiked, setIsLiked] = useState(false);
+    const [likes, setLikes] = useState(0);
+
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: "btn btn-success",
@@ -16,14 +23,22 @@ function DoctorInfo({ id }) {
         },
         buttonsStyling: false,
     });
+    const userType = localStorage.getItem("user-type")??"none";
 
     useEffect(() => {
         const fetchData = async () => {
+            const userID = localStorage.getItem("user-id");
+            const userType = localStorage.getItem("user-type");
             try {
-                const response = await axiosClient.post(`/doctorInfo/${id}`);
+                const response = await axiosClient.post(`/doctorInfo/${id}`, {
+                    userType,
+                    userID,
+                });
                 if (response.data.status === 200) {
                     console.log(response.data);
                     setdoctorInfo(response.data["doctor"]);
+                    setIsLiked(response.data["doctor"].isLiked);
+                    setLikes(response.data["doctor"].likesCount);
                 } else {
                     console.log(response.data);
 
@@ -38,40 +53,88 @@ function DoctorInfo({ id }) {
         };
         fetchData();
     }, [id]);
-    return (
-        <div className="infoPart">
-            {doctorInfo === null ? (
+
+    const handleLike = async () => {
+        const userID = localStorage.getItem("user-id");
+        const userType = localStorage.getItem("user-type");
+        console.log("liks");
+        try {
+            const response = await axiosClient.post(
+                `/add/like/${doctorInfo.id}/${userID}`
+            );
+            setLikes(response.data.likes);
+            setIsLiked(!isLiked);
+            console.log(response.data.likes);
+            console.log("Likes after like:", likes);
+        } catch (error) {
+            console.log(error);
+            swalWithBootstrapButtons.fire(error.response.statusText, "error");
+        }
+    };
+    if (doctorInfo === null) {
+        return (
+            <div className="infoPart">
                 <div className="mainInfo">
                     <div className="imageframe"> </div>
                     <CircularLoading />
                 </div>
-            ) : (
-                <div className="mainInfo">
-                    <div className="imageframe">
-                        {doctorInfo.gender===null||doctorInfo.gender===0?<img src="../images/maleDoctor.jpg" alt="" />:<img src="../images/femaleDoctor.jpg" alt="" />}
-                        
-                    </div>
-                    <div className="likes">
-                        <AiFillHeart className="likeicon" size={25} /> {doctorInfo.likesCount}
-                    </div>
-                    <div className="points">
-                        <AiFillStar className="pointsicon" size={25} />{" "}
-                        {doctorInfo.points}
-                    </div>
 
-                    <div className="info">
-                        <div className="name">{doctorInfo.user_name}</div>
-                        <div className="speciality"> {doctorInfo.category.name}</div>
-                        <div className="about">{doctorInfo.about}</div>
-                    </div>
-                </div>
-            )}
-            {doctorInfo === null ? (
                 <div className="secondaryInfo">
                     {" "}
                     <CircularLoading />
                 </div>
-            ) : (
+            </div>
+        );
+    } else {
+        return (
+            <div className="infoPart">
+                <div className="mainInfo">
+                    <div className="imageframe">
+                        {doctorInfo.gender === null ||
+                        doctorInfo.gender === 0 ? (
+                            <img src="../images/maleDoctor.jpg" alt="" />
+                        ) : (
+                            <img src="../images/femaleDoctor.jpg" alt="" />
+                        )}
+                    </div>
+                    <div className="likes">
+                        {userType === "patient" ? (
+                            <div className="likes">
+                                <LikeButton
+                                    handleDislike={handleLike}
+                                    handleLike={handleLike}
+                                    likes={likes}
+                                    isLiked={isLiked}
+                                    button="yes"
+                                    size={30}
+                                />
+                            </div>
+                        ) : (
+                            <div className="likes">
+                                <LikeButton
+                                    handleDislike={handleLike}
+                                    handleLike={handleLike}
+                                    likes={likes}
+                                    isLiked={isLiked}
+                                    button="no"
+                                    size={30}
+
+                                />
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="info">
+                        <div className="name">{doctorInfo.user_name}</div>
+                        <div className="speciality">
+                            {" "}
+                            {doctorInfo.category.name} (points:
+                            {doctorInfo.points})
+                        </div>
+                        <div className="about">{doctorInfo.about}</div>
+                    </div>
+                </div>
+
                 <div className="secondaryInfo">
                     <div className="title">
                         {" "}
@@ -100,8 +163,8 @@ function DoctorInfo({ id }) {
                         </div>
                     ) : null}
                 </div>
-            )}
-        </div>
-    );
+            </div>
+        );
+    }
 }
 export default DoctorInfo;

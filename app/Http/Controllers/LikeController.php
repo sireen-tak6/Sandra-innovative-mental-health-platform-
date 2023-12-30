@@ -38,7 +38,9 @@ class LikeController extends Controller
         if ($like) {
             // Delete the existing like record
             $like->delete();
-            return response()->json(['message' => 'Like removed successfully'], 200);
+            $doctor=Doctor::find($doctor_id);
+            $likes = $doctor->DoctorLikes->count();
+            return response()->json(['message' => 'Like removed successfully','likes'=>$likes], 200);
         } else {
             // If the like record doesn't exist, create a new one
             $newLike = new Like();
@@ -46,7 +48,9 @@ class LikeController extends Controller
             $newLike->patient_id = $patient_id;
             $newLike->like = 1;
             $newLike->save();
-            return response()->json(['message' => 'Like added successfully'], 200);
+            $doctor=Doctor::find($doctor_id);
+            $likes = $doctor->DoctorLikes->count();
+            return response()->json(['message' => 'Like added successfully','likes'=>$likes], 200);
         }
     }
 

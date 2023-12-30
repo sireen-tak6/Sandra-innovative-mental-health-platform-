@@ -16,7 +16,6 @@ import "./Chats.css";
 const Chats = () => {
     const doctorImg = "../assetss/doctoricon.png";
     const avatar = "../assetss/avatar.png";
-
     const [chats, setChats] = useState([]);
     const [users, setUsers] = useState([]);
     const [chat, setChat] = useState(null);
@@ -61,9 +60,13 @@ const Chats = () => {
                 user.id === selectedChat.doctor_id
         );
 
-        // Store the user_name in localStorage
+        // Store the user_name and user_type in localStorage
         if (user) {
             localStorage.setItem("chatting-with", user.user_name);
+            localStorage.setItem(
+                "chatting-with-type",
+                user.role === 0 ? "patient" : "doctor"
+            );
         }
 
         navigate("/chat/messages");
@@ -88,97 +91,151 @@ const Chats = () => {
         handleDeleteChat(chatId);
     };
 
-
     return (
-        <div className='posforChat'>
-          <div className='w-screen flex'>
-            {/*just for size screen and figures*/}
-            <div className='w-[30%]'>
-              <FontAwesomeIcon className='cube ml-10 mt-12' icon={faCube}></FontAwesomeIcon>
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
-              <FontAwesomeIcon className='star ml-20' icon={faStar}></FontAwesomeIcon>
-            </div>
-    
-            {/*here i will show my chats */}
-            <div className='w-[40%] border border-light h-[600px] chat-section'>
-              <div className='flex justify-center items-center my-2'>
-                <div className='border border-secondary p-[5px] rounded-full'>
-                  {localStorage.getItem('user-type') === 'doctor' ? (
-                    <img src={doctorImg} height={60} width={60} />
-                  ) : (
-                    <img src={avatar} height={60} width={60} />
-                  )}
+        <div className="posforChat">
+            <div className="w-screen flex">
+                {/*just for size screen and figures*/}
+                <div className="w-[30%]">
+                    <FontAwesomeIcon
+                        className="cube ml-10 mt-12"
+                        icon={faCube}
+                    ></FontAwesomeIcon>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <FontAwesomeIcon
+                        className="star ml-20"
+                        icon={faStar}
+                    ></FontAwesomeIcon>
                 </div>
-                <div className='ml-4'>
-                  <h3 className='text-2xl'>{User_Name}</h3>
-                  <p className='text-m font-light text-white'>My Account</p>
+
+                {/*here i will show my chats */}
+                <div className="w-[40%] border border-light h-[600px] chat-section">
+                    <div className="flex justify-center items-center my-2">
+                        <div className="border border-secondary p-[5px] rounded-full">
+                            {localStorage.getItem("user-type") === "doctor" ? (
+                                <img src={doctorImg} height={60} width={60} />
+                            ) : (
+                                <img src={avatar} height={60} width={60} />
+                            )}
+                        </div>
+                        <div className="ml-4">
+                            <h3 className="text-2xl">{User_Name}</h3>
+                            <p className="text-m font-light text-white">
+                                My Account
+                            </p>
+                        </div>
+                    </div>
+
+                    <hr className="my-2" />
+
+                    <div className="ml-10 mt-6">
+                        <div className="text-lg text-white ">Chats</div>
+                        <div>
+                            <ul className="chatList">
+                                {chats && chats.length > 0 ? (
+                                    chats.map((chat) => {
+                                        const user = users.find(
+                                            (user) =>
+                                                user.id === chat.patient_id ||
+                                                user.id === chat.doctor_id
+                                        );
+
+                                        return (
+                                            <div className="items-center flex">
+                                                <li
+                                                    key={chat.id}
+                                                    className="flex items-center text-bg-secondary my-2 border border-secondary li rounded-full cursor-auto overflow-hidden"
+                                                    onClick={() =>
+                                                        handleSelected(
+                                                            chat.chat_id
+                                                        )
+                                                    }
+                                                >
+                                                    {user && user.role === 0 ? (
+                                                        <img
+                                                            src={avatar}
+                                                            alt="user"
+                                                            height={40}
+                                                            width={40}
+                                                            className="ml-3 border border-primary p-[2px] rounded-full "
+                                                        />
+                                                    ) : (
+                                                        <img
+                                                            src={doctorImg}
+                                                            alt="user"
+                                                            height={40}
+                                                            width={40}
+                                                            className="ml-3 border border-primary p-[2px] rounded-full "
+                                                        />
+                                                    )}
+
+                                                    <div className="ml-9 cursor-pointer w-[10%]">
+                                                        {user && (
+                                                            <span className="text-white">
+                                                                {user.user_name}
+                                                            </span>
+                                                        )}
+                                                        {user.available == 1 ? (
+                                                            <p className="text-sm paragraph">
+                                                                online
+                                                            </p>
+                                                        ) : (
+                                                            <p className="text-sm paragraph">
+                                                                offline
+                                                            </p>
+                                                        )}
+                                                    </div>
+                                                    {/* Render your chat component here */}
+                                                    <div>
+                                                        <FontAwesomeIcon
+                                                            icon={faTrash}
+                                                            className="ml-[1700%] trash"
+                                                            onClick={(event) =>
+                                                                handleTrashClick(
+                                                                    event,
+                                                                    chat.chat_id
+                                                                )
+                                                            }
+                                                        />
+                                                    </div>
+                                                </li>
+                                            </div>
+                                        );
+                                    })
+                                ) : (
+                                    <div className="flex items-center my-8">
+                                        <li className="text-primary text-xl pl-[40%]">
+                                            No Chats
+                                        </li>
+                                    </div>
+                                )}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-              </div>
-    
-              <hr className='my-2' />
-    
-              <div className='ml-10 mt-6'>
-                <div className='text-lg text-white '>Chats</div>
-                <div >
-                  <ul className='chatList'>
-                    {chats && chats.length > 0 ? (
-                      chats.map((chat) => {
-                        const user = users.find((user) => user.id === chat.patient_id || user.id === chat.doctor_id);
-    
-    
-                        return (
-                          <div className='items-center flex'>
-                            <li key={chat.id} className='flex items-center text-bg-secondary my-2 border border-secondary li rounded-full cursor-auto overflow-hidden' onClick={() => handleSelected(chat.chat_id)}>
-                              {user && user.role === 0 ? (
-                                <img src={avatar} alt='user' height={40} width={40} className='ml-3 border border-primary p-[2px] rounded-full ' />
-                              ) : (
-                                <img src={doctorImg} alt='user' height={40} width={40} className='ml-3 border border-primary p-[2px] rounded-full ' />
-                              )}
-    
-                              <div className='ml-9 cursor-pointer w-[10%]'>
-                                {user && <span className='text-white'>{user.user_name}</span>}
-                                <p className='text-sm paragraph'>available</p>
-                              </div>
-                              {/* Render your chat component here */}
-                              <div>
-                                <FontAwesomeIcon icon={faTrash} className="ml-[1700%] trash" onClick={(event) => handleTrashClick(event, chat.chat_id)} />
-                              </div>
-                            </li>
-    
-                          </div>
-    
-                        );
-                      })
-                    ) : (
-                      <div className='flex items-center my-8'>
-                        <li className="text-primary text-xl pl-[40%]">No Chats</li>
-                      </div>
-                    )}
-    
-                  </ul>
+
+                {/*just for size screen and figures*/}
+                <div className="w-[30%]">
+                    <FontAwesomeIcon
+                        className="cube ml-10 mt-12"
+                        icon={faMessage}
+                    ></FontAwesomeIcon>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <FontAwesomeIcon
+                        className="star ml-20"
+                        icon={faSquare}
+                    ></FontAwesomeIcon>
                 </div>
-              </div>
-    
-    
             </div>
-    
-            {/*just for size screen and figures*/}
-            <div className='w-[30%]'>
-              <FontAwesomeIcon className='cube ml-10 mt-12' icon={faMessage}></FontAwesomeIcon>
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
-              <FontAwesomeIcon className='star ml-20' icon={faSquare}></FontAwesomeIcon>
-            </div>
-          </div>
         </div>
-      );
+    );
 };
 
 export default Chats;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axiosClient from "../../../axios";
 import { Link } from "react-router-dom";
-import { AiFillHeart, AiOutlineWarning } from "react-icons/ai";
+import { AiFillHeart, AiOutlineWarning, AiOutlineHeart } from "react-icons/ai";
 
 //css
 import "./ProfileArticle.css";
@@ -21,8 +21,11 @@ function ProfileArticle({ id }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                const userID = localStorage.getItem("user-id");
+                const userType = localStorage.getItem("user-type");
                 const response = await axiosClient.post(
-                    `/doctorArticles/${id}`
+                    `/doctorArticles/${id}`,
+                    { userID, userType }
                 );
                 if (response.data.status === 200) {
                     console.log(response.data);
@@ -33,15 +36,18 @@ function ProfileArticle({ id }) {
                         "error"
                     );
                 }
-            } catch (error) {console.log(error)}
+            } catch (error) {
+                console.log(error);
+            }
         };
         fetchData();
     }, [id]);
     return (
         <div className="posts">
-            {articles===null? <CircularLoading/> :
-            articles.length === 0 ? (
-                <NoData content={"There is no articles yet :("}/>
+            {articles === null ? (
+                <CircularLoading />
+            ) : articles.length === 0 ? (
+                <NoData content={"There is no articles yet :("} />
             ) : (
                 articles.map((item) => (
                     <Link
@@ -50,7 +56,10 @@ function ProfileArticle({ id }) {
                         key={item.id}
                     >
                         <div className="image">
-                            <img src={"http://localhost:8000/" +item.image} alt="" />
+                            <img
+                                src={"http://localhost:8000/" + item.image}
+                                alt=""
+                            />
                         </div>
                         <div className="cardInfo">
                             <div className="name">{item.name}</div>
@@ -66,12 +75,20 @@ function ProfileArticle({ id }) {
                                     published at: {item.created_at}
                                 </div>
                                 <div className="like">
-                                    {" "}
-                                    <AiFillHeart
-                                        className="likeicon"
-                                        size="3vmin"
-                                    />{item.likes}
-                                    
+                                    {item.isLiked ? (
+                                        <AiFillHeart
+                                            className="likeicon"
+                                            size="3vmin"
+                                        />
+                                    ) : (
+                                        <AiOutlineHeart
+                                            className="likeicon"
+                                            size="3vmin"
+                                            color="black"
+                                        />
+                                    )}
+
+                                    {item.likes}
                                 </div>
                                 <div className="report">
                                     {" "}
