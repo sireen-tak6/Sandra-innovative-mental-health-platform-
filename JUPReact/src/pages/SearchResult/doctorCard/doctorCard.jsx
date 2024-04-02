@@ -45,7 +45,9 @@ const DoctorCard = ({ id, item }) => {
                             {item.likesCount}
                         </div>
                     </div>
-                    <div className="speciality">{item.category.name}</div>
+                    <div className="speciality">
+                        {item.category !== null ? item.category.name : ""}
+                    </div>
                     <div className="part">
                         <div className="label">points :</div>
                         {item.points}

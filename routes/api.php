@@ -12,6 +12,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DislikeController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\DoctorVerfiyController; 
@@ -38,11 +39,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/signup/user' , [AuthController::class , 'signup']); 
 Route::post('/signup/doctor',[AuthController::class , 'signupDoctor']);
 
-
+//this api for verfiy patient email before login 
+Route::get('/verify-email-patient/{token}', 
+[AuthController::class, 'verifyEmailUser'])
+->name('verify.email.user');
 //this api for verify doctor email before login 
 Route::get('/verify-email/{token}', 
 [AuthController::class, 'verifyEmail'])
 ->name('verify.email');
+Route::get('/verify-new-email/{token}', 
+[SettingsController::class, 'verifyEmail'])
+->name('verify.new.email');
 Route::post('/login',[AuthController::class,'login']);
 Route::post('/logout/{type}/{id}', [AuthController::class , 'logout']); 
 
@@ -94,8 +101,12 @@ Route::get('/get/doctors' , [DoctorController::class ,'getAllDoctor']);
 Route::post('/doctorInfo/{doctorId}' , [DoctorController::class ,'DoctorInfo']);
 Route::post('/doctorArticles/{doctorId}' , [DoctorController::class ,'DoctorArticles']);
 
+//this section for the HomeController 
+Route::post('BestArticles' , [HomeController::class ,'BestArticles']);
+Route::post('/best/doctor' , [HomeController::class ,'getBestDoctors']);
+Route::post('/numbers' , [HomeController::class ,'numbers']);
+
 //this section for the LikeController 
-Route::post('/best/doctor' , [LikeController::class ,'BestThreeDoctor']);
 // it's work
 Route::post('/show/likes/{doctor_id}', [LikeController::class, 'showLikes']);
 // it's work 
@@ -128,6 +139,8 @@ Route::get('Categories/insert',[CategoriesController::class,'insert']);
 
 //done
 Route::post('Articles',[ArticlesController::class,'index']);
+//done
+Route::post('Articles/Liked',[ArticlesController::class,'Liked']);
 //done
 Route::post('Articles/cat/{catID}',[ArticlesController::class,'showCategory']);
 //done

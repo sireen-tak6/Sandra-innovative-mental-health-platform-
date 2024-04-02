@@ -227,6 +227,9 @@ class PendingArticlesController extends Controller
      {
          $userID=$request->doctorID;
          $userType=$request->userType;
+         if($request->notes==null){
+            return response()->json(['status'=>404,'message'=> "you have to add reject note"]);
+        }
          if($userType==='patient')
          {
              return response()->json(['status'=>404,'message'=> "you can't review articles"]);
@@ -262,6 +265,8 @@ class PendingArticlesController extends Controller
                  {
                      return response()->json(['status'=>500,'message'=>'Article not found']);
                  }
+                 $note=$request->notes;
+                 $Article->adminReview=$note;
                  $Article->status="rejected";
                  $Article->save();
                  return response()->json(['status'=>200,'message'=>'this article rejected successfully']);

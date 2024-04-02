@@ -16,13 +16,13 @@ const Login = () => {
     useEffect(() => {
         if (localStorage.getItem("user-info")) {
             if (localStorage.getItem("user-type") === "patient") {
-                navigate("/user");
+                navigate("/Home");
             } else if (localStorage.getItem("user-type") === "doctor") {
-                navigate("/doctor");
+                navigate("/Home");
             } else if (localStorage.getItem("user-type") === "secertarie") {
-                navigate("/secertarie");
+                navigate("/Home");
             } else if (localStorage.getItem("user-type") === "admin") {
-                navigate("/admin");
+                navigate("/Home");
             }
         }
     }, []);
@@ -30,8 +30,10 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState({ __html: "" });
+    const [isloading, setloading] = useState(false);
 
     const onsubmit = async (ev) => {
+        setloading(true);
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: "btn btn-success",
@@ -57,25 +59,25 @@ const Login = () => {
                     localStorage.setItem("token", response.data.token);
                     localStorage.setItem("user-id", response.data.user_id);
                     localStorage.setItem("user-type", response.data.user_type);
-                    localStorage.setItem("user-name",response.data.user.user_name);
-                    localStorage.setItem('email' , response.data.user.email); 
+                    localStorage.setItem(
+                        "user-name",
+                        response.data.user.user_name
+                    );
+                    localStorage.setItem("email", response.data.user.email);
+                    if (response.data.user_type == "doctor") {
+                        if (response.data.user.isVerfiy == 1) {
+                            localStorage.setItem("doctor-verify", true);
+                        } else {
+                            localStorage.setItem("doctor-verify", false);
+                        }
+                    }
                     console.log(response.data.user);
                     console.log(response.data.token);
                     console.log(response.data.user_id);
                     console.log(response.data.user_type);
                     console.log("Login successfully");
 
-                    if (localStorage.getItem("user-type") === "patient") {
-                        navigate("/user");
-                    } else if (localStorage.getItem("user-type") === "doctor") {
-                        navigate("/doctor");
-                    } else if (
-                        localStorage.getItem("user-type") === "secertarie"
-                    ) {
-                        navigate("/secertarie");
-                    } else if (localStorage.getItem("user-type") === "admin") {
-                        navigate("/admin");
-                    }
+                    navigate("/Home");
                 } else {
                     swalWithBootstrapButtons.fire(
                         "something went wrong",
@@ -98,6 +100,7 @@ const Login = () => {
                 }
                 console.error(error);
             });
+        setloading(false);
     };
     return (
         <div className="bod">
@@ -118,6 +121,8 @@ const Login = () => {
                         setEmail={setEmail}
                         setPassword={setPassword}
                         Type="Login"
+                        setloading={setloading}
+                        isloading={isloading}
                     />
                 </div>
             </div>

@@ -17,10 +17,10 @@ return new class extends Migration
             $table->integer('dislike')->default(0);
             //this for doctor foreign key id from doctors table 
             $table->unsignedBigInteger('doctor_id');
-            $table->foreign('doctor_id')->references('id')->on('doctors');
+            $table->foreign('doctor_id')->references('id')->on('doctors')->onDelete('cascade'); 
             //this for patient foreign key id from patients table
             $table->unsignedBigInteger('patient_id');
-            $table->foreign('patient_id')->references('id')->on('patients');
+            $table->foreign('patient_id')->references('id')->on('patients')->onDelete('cascade'); 
             $table->timestamps();
         });
     }

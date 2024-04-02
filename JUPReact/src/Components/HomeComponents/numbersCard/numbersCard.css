@@ -1,0 +1,36 @@
+.HomePage .numbersSection .cards .numbersCard {
+    padding: 2vh 2vw;
+    width: 33.33vw;
+    height: 40vh;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    display: grid;
+}
+.HomePage .numbersSection .cards .green {
+    background-color: rgb(169, 196, 191);
+}
+
+.HomePage .numbersSection .cards .blue {
+    background-color: rgb(170, 179, 218);
+}
+.HomePage .numbersSection .cards .yellow {
+    background-color: rgb(235, 229, 186);
+}
+.HomePage .numbersSection .cards .numbersCard .content {
+    display: flex;
+}
+.HomePage .numbersSection .cards .numbersCard .cardTitle {
+    font-size: max(5vmin, 20px);
+    margin-bottom: 3vh;
+    margin-right: 2vw;
+}
+.HomePage .numbersSection .cards .numbersCard .CardCount {
+    font-size: max(5vmin, 20px);
+}
+.HomePage .numbersSection .cards .numbersCard .image {
+    height: 10vw;
+    width: 10vw;
+    margin-left: auto;
+    margin-right: auto;
+}

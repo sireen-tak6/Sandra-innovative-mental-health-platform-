@@ -1,5 +1,5 @@
-import React, {  useEffect, useState } from "react";
-import { Button} from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 import axiosClient from "../../../axios";
 
 //css
@@ -25,6 +25,19 @@ const PendingArticles = () => {
                 },
                 buttonsStyling: false,
             });
+
+            if (
+                !localStorage.getItem("doctor-verify") &&
+                localStorage.getItem("user-type") == "doctor"
+            ) {
+                swalWithBootstrapButtons.fire(
+                    "please verify your account by certificate first.",
+                    "just verified accounts can review articles",
+                    "warning"
+                );
+                navigate("/articles");
+            }
+
             const userID = localStorage.getItem("user-id");
             const userType = localStorage.getItem("user-type");
             console.log(`userID:${userID}`);
@@ -83,8 +96,8 @@ const PendingArticles = () => {
                                     image={item.image}
                                     content={item.content}
                                     date={item.date}
-                                    accept={item.acceptCount??null}
-                                    reject={item.rejectCount??null}
+                                    accept={item.acceptCount ?? null}
+                                    reject={item.rejectCount ?? null}
                                 />
                             ))}
                         </div>
@@ -96,11 +109,9 @@ const PendingArticles = () => {
     } else {
         return (
             <>
-            <PendingArticlesHeader />
+                <PendingArticlesHeader />
 
-            <section className="blog">
                 <NoData content="No Pending Articles :)" />
-            </section>
             </>
         );
     }

@@ -6,10 +6,11 @@ import axiosClient from "../../axios";
 
 //css
 import "./Doctor.css";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 export default function Doctor() {
-    const doctorImg = "../assetss/doctoricon.png";
+    const doctorImg = "../images/maleDoctor.jpg";
+    const doctorImgfemale = "../images/femaleDoctor.jpg";
     const medalia = "../assetss/medaliaicon.png";
     const love = "../assetss/hand.png";
 
@@ -18,6 +19,8 @@ export default function Doctor() {
     const [visibleDoctors, setVisibleDoctors] = useState(8);
     const [likes, setLikes] = useState([]);
     const [likedDoctors, setLikedDoctors] = useState([]);
+    const userType = localStorage.getItem("user-type");
+    const userId = localStorage.getItem("user-id");
 
     useEffect(() => {
         if (!localStorage.getItem("user-info")) {
@@ -27,15 +30,13 @@ export default function Doctor() {
         }
     }, [navigate]);
     const handleError = () => {
-        Swal.fire(
-          {
-            'title': "OPPS...",
-            'icon': "error",
-            'text': "Something went wrong",
-          }
-        );
-      }
-    
+        Swal.fire({
+            title: "OPPS...",
+            icon: "error",
+            text: "Something went wrong",
+        });
+    };
+
     const fetchDoctors = async () => {
         try {
             const response = await axiosClient.get("/get/doctors");
@@ -46,12 +47,13 @@ export default function Doctor() {
             DoctorLikes(doctorIds);
         } catch (error) {
             console.error("Error fetching doctors:", error);
+            handleError();
         }
     };
 
     //here section for add likes
     const addLike = async (doctorId) => {
-        console.log("like")
+        console.log("like");
         try {
             const userId = localStorage.getItem("user-id");
             await axiosClient.post(`/add/like/${doctorId}/${userId}`);
@@ -66,6 +68,7 @@ export default function Doctor() {
             DoctorLikes([doctorId]);
         } catch (error) {
             console.error("Error adding like:", error);
+            handleError();
         }
     };
 
@@ -92,15 +95,18 @@ export default function Doctor() {
             setLikes(updatedLikes);
         } catch (error) {
             console.error("Error fetching Likes:", error);
+            handleError();
         }
     };
 
     //section here for open chat with doctor
     const openChatWithDoctor = async (doctorId) => {
         try {
-            const userId = localStorage.getItem('user-id');
-            const userType = localStorage.getItem('user-type'); // Add this line to get the user type
-            const response = await axiosClient.post(`/open-chat/${userType}/${userId}/${doctorId}`); 
+            const userId = localStorage.getItem("user-id");
+            const userType = localStorage.getItem("user-type"); // Add this line to get the user type
+            const response = await axiosClient.post(
+                `/open-chat/${userType}/${userId}/${doctorId}`
+            );
             const data = response.data;
             // Handle the response data as needed
             console.log(data);
@@ -108,7 +114,13 @@ export default function Doctor() {
             navigate("/chats");
         } catch (error) {
             console.error("Error opening chat:", error);
+            handleError();
         }
+    };
+
+    // here section for load more doctor
+    const showProfile = (id) => {
+        navigate(`/doctorProile/${id}`);
     };
 
     // here section for load more doctor
@@ -118,83 +130,154 @@ export default function Doctor() {
 
     return (
         <div className="Doctor">
-      {/* Cards section */}
-      <div className='p-3 mt-5 ml-5'>
-        <div className='max-h-[480px]' style={{ overflowX: 'hidden' }}>
-          <div className='flex flex-wrap -mx-1 mt-0'>
-            {doctors.slice(0, visibleDoctors).map((doctor) => (
-              <div key={doctor.id} className='w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 h-3/5 px-4 pl-1'>
-                <div className='flex flex-col rounded-xl mt-4 cards p-2'>
-                  {/* Image section */}
-                  <div className='flex justify-content-between'>
-                    <img
-                      className='object-fit-cover rounded-full border border-secondary border-3 border-info-subtle'
-                      src={doctorImg}
-                      alt=''
-                      height='90'
-                      width='90'
-                    />
-                    {doctor.isVerfiy == 1 ?
-                      <img className='medalia'
-                        src={medalia}
-                      />
-                      :
-                      ""
-                    }
+            {/* Cards section */}
+            <div className="p-3 mt-5 ml-5">
+                <div className="max-h-[480px]" style={{ overflowX: "hidden" }}>
+                    <div className="flex flex-wrap -mx-1 mt-0">
+                        {doctors.slice(0, visibleDoctors).map((doctor) =>
+                            doctor.id != userId ? (
+                                <div
+                                    key={doctor.id}
+                                    className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 h-3/5 px-4 pl-1"
+                                >
+                                    <div className="flex flex-col rounded-xl mt-4 cards p-2">
+                                        {/* Image section */}
+                                        <div className="flex justify-content-between">
+                                            {doctor.gender === null ||
+                                            doctor.gender === 0 ? (
+                                                <img
+                                                    className="object-fit-cover rounded-full border border-secondary border-3 border-info-subtle"
+                                                    src={doctorImg}
+                                                    alt=""
+                                                    height="90"
+                                                    width="90"
+                                                />
+                                            ) : (
+                                                <img
+                                                    className="object-fit-cover rounded-full border border-secondary border-3 border-info-subtle"
+                                                    src={doctorImgfemale}
+                                                    alt=""
+                                                    height="90"
+                                                    width="90"
+                                                />
+                                            )}
 
-                  </div>
-                  {/* Doctor Information */}
-                  <div className='p-2 doctorInfo'>
-                    {/* Doctor Name */}
-                    <div className='font-bold text-black text-lg-center'>{doctor.user_name}</div>
-                    {/* Doctor info */}
-                    <div className='text-sm text-black max-h-32'>
-                      Email:{doctor.email}
-                      <br />
-                      more Information
+                                            {doctor.isVerfiy == 1 ? (
+                                                <img
+                                                    className="medalia"
+                                                    src={medalia}
+                                                />
+                                            ) : (
+                                                ""
+                                            )}
+                                        </div>
+                                        {/* Doctor Information */}
+                                        <div className="p-2 doctorInfo">
+                                            {/* Doctor Name */}
+                                            <div className="font-bold text-black text-lg-center">
+                                                {doctor.user_name}
+                                            </div>
+                                            {/* Doctor info */}
+                                            <div className="text-sm text-black max-h-32">
+                                                {doctor.category != null
+                                                    ? doctor.category.name
+                                                    : ""}
+                                                <br />
+                                            </div>
+                                        </div>
+                                        {/* Doctor Articles */}
+                                        <div className="m-2">
+                                            <button
+                                                className="text-white botton px-2 py-1 rounded-md"
+                                                onClick={() =>
+                                                    showProfile(doctor.id)
+                                                }
+                                            >
+                                                Profile
+                                            </button>
+                                        </div>
+                                        {userType !== "patient" ? null : (
+                                            /* for open chat */
+                                            <div className="m-2">
+                                                <a
+                                                    className="text-sm text-white botton px-2 py-1 rounded-md cursor-pointer"
+                                                    onClick={() =>
+                                                        openChatWithDoctor(
+                                                            doctor.id
+                                                        )
+                                                    }
+                                                >
+                                                    Chatting With{" "}
+                                                    <FontAwesomeIcon
+                                                        icon={faMessage}
+                                                        className="pl-2 text-white"
+                                                    />
+                                                </a>
+                                            </div>
+                                        )}
+                                        {/* display it here  */}
+                                        <div className="mt-1 pl-[45%]">
+                                            <div
+                                                className={
+                                                    userType === "admin"
+                                                        ? "text-lg"
+                                                        : "text-lg cursor-pointer"
+                                                }
+                                                onClick={
+                                                    userType === "admin"
+                                                        ? () => {}
+                                                        : () =>
+                                                              addLike(doctor.id)
+                                                }
+                                            >
+                                                {likedDoctors.includes(
+                                                    doctor.id
+                                                ) ? (
+                                                    <div className="text-warning flex">
+                                                        <img
+                                                            src={love}
+                                                            height="40"
+                                                            width="40"
+                                                            className="pl-2"
+                                                        />
+                                                        <span className="pl-2 text-warning">
+                                                            {likes[doctor.id] ||
+                                                                0}
+                                                        </span>
+                                                    </div>
+                                                ) : (
+                                                    <div className="text-warning flex">
+                                                        <img
+                                                            src={love}
+                                                            height="40"
+                                                            width="40"
+                                                            className="pl-2"
+                                                        />
+                                                        <span className="pl-2 text-warning">
+                                                            {likes[doctor.id] ||
+                                                                0}
+                                                        </span>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ) : null
+                        )}
                     </div>
-                  </div>
-                  {/* Doctor Articles */}
-                  <div className='m-2'>
-                    <button className='text-white botton px-2 py-1 rounded-md'>Articles</button>
-                  </div>
-                  {/* for open chat */}
-                  <div className='m-2'>
-                    <a className='text-sm text-white botton px-2 py-1 rounded-md cursor-pointer'
-                      onClick={() => openChatWithDoctor(doctor.id)}>
-                      Chatting With <FontAwesomeIcon icon={faMessage} className='pl-2 text-white' />
-                    </a>
-                  </div>
-                  {/* display it here  */}
-                  <div className='mt-1 pl-[45%]'>
-                    <div className="text-lg cursor-pointer" onClick={() => addLike(doctor.id)}>
-                      {likedDoctors.includes(doctor.id) ? (
-                        <div className='text-warning flex'>
-                          <img src={love} height='40' width='40' className="pl-2" />
-                          <span className='pl-2 text-warning'>{likes[doctor.id] || 0}</span>
-
-                        </div>
-                      ) : (
-                        <div className='text-warning flex' >
-                          <img src={love} height='40' width='40' className='pl-2' />
-                          <span className='pl-2 text-warning'>{likes[doctor.id] || 0}</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+                {visibleDoctors < doctors.length && (
+                    <div className="text-center mt-2">
+                        <button
+                            className="text-white botton px-1 py-1 rounded-md"
+                            onClick={loadMoreDoctors}
+                        >
+                            Load More
+                        </button>
+                    </div>
+                )}
+            </div>
         </div>
-        {visibleDoctors < doctors.length && (
-          <div className='text-center mt-2'>
-            <button className='text-white botton px-1 py-1 rounded-md' onClick={loadMoreDoctors}>
-              Load More
-            </button>
-          </div>
-        )}
-      </div>
-    </div>
     );
 }

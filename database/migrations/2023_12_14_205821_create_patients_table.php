@@ -16,6 +16,10 @@ return new class extends Migration
             $table->string('email');
             $table->string('password'); 
             $table->boolean('available')->default(false);
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('verification_token')->nullable();            
+            $table->string('new_verification_token')->nullable();
+            $table->string('new_email')->nullable(); 
             $table->timestamps();
         });
     }

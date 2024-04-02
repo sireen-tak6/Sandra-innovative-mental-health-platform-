@@ -104,6 +104,18 @@ const Categories = () => {
                                   </button>
                               ))
                             : null}
+                        {userType == "patient" ? (
+                            <button
+                                onClick={() => onUpdate(11)}
+                                id={0}
+                                className={
+                                    Category === 11 ? "selected" : "none"
+                                }
+                            >
+                                {" "}
+                                Favorite
+                            </button>
+                        ) : null}
                     </div>
                 </Col>
             </Row>

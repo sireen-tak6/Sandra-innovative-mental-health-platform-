@@ -1,0 +1,44 @@
+.HomePage .useCaseSection .UseCaseCard {
+    align-items: center;
+    width: 22vw;
+    height: 50vh;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.204);
+    border-radius: 20px;
+    padding: 1vw;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.504),
+        rgba(255, 255, 255, 0.247)
+    );
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 4px 4px 8px 2px #6f6f6f82;
+    position: relative;
+}
+
+.HomePage .useCaseSection .UseCaseCard .title {
+    font-size: max(2.8vmin, 13px);
+    margin-bottom: 2vh;
+    color: #1c627e;
+}
+.HomePage .useCaseSection .UseCaseCard .content {
+    align-items: center;
+    font-size: max(2.3vmin, 13px);
+    font-weight: 500;
+    margin-bottom: 2vh;
+}
+.HomePage .useCaseSection .UseCaseCard .image {
+    text-align: center;
+    align-items: center;
+    position: absolute;
+    bottom: 3vh;
+    left: 3.5%;
+    right: 3.5%;
+    display: flex;
+    justify-content: center;
+}
+.HomePage .useCaseSection .UseCaseCard .image img {
+    height: 13vw;
+    width: 13vw;
+}

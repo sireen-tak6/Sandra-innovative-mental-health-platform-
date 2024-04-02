@@ -1,0 +1,79 @@
+.HomePage .headingSection {
+    background-image: url("../images/homecover.png");
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    padding: 20vh 5vw;
+    flex-direction: column;
+    align-content: flex-start;
+    margin-bottom: 8vh;
+}
+
+.HomePage .headingSection .headingContent {
+    width: 40vw;
+    justify-content: center;
+    padding: 4vh 2vw;
+}
+.HomePage .headingSection .headingContent .websiteTitle {
+    font-size: max(4.3vmin, 15px);
+    color: #08384c;
+    margin-bottom: 3vh;
+}
+.HomePage .headingSection .headingContent .headingtext {
+    margin-bottom: 5vh;
+    font-size: max(3.2vmin, 15px);
+    font-weight: 400;
+    font-style: italic;
+    width: 30vw;
+}
+.HomePage .headingSection .headingContent .headingtext p {
+    color: white;
+}
+
+.HomePage .headingSection .headingContent .headingbuttons {
+    width: 18vw;
+    display: flex;
+    justify-content: space-evenly;
+}
+.HomePage .headingSection .headingContent .headingbuttons .button {
+    font-weight: 500;
+    padding: 0.5vh 1vw;
+    background-color: #b9f7eb;
+    border-radius: 6px;
+    min-height: 25px;
+    font-size: max(2.5vmin, 13px);
+    font-weight: 600;
+    background-image: linear-gradient(140deg, #b9f7eb8c 20%, #87bed28c 60%);
+    color: #0d4155;
+    border: none;
+    height: 6vh;
+    width: 7vw;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+    margin-bottom: 2vh;
+    min-width: 70px;
+}
+.HomePage .headingSection .headingContent .headingbuttons .s {
+    font-weight: 500;
+    padding: 0.5vh 1vw;
+    background-color: #b9f7eb00;
+    border-radius: 6px;
+    min-height: 25px;
+    font-size: max(2.5vmin, 13px);
+    font-weight: 600;
+    background-image: none;
+
+    color: #b9f7eb;
+    border: 2px solid #b9f7eb;
+    height: 6vh;
+    width: 7vw;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+    margin-bottom: 2vh;
+    min-width: 70px;
+}

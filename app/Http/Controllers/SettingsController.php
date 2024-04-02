@@ -9,40 +9,14 @@ use App\Models\Patient;
 use Illuminate\Support\Facades\Hash;
 use League\CommonMark\Extension\SmartPunct\EllipsesParser;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ChangeEmail;
 
 class SettingsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -142,9 +116,15 @@ class SettingsController extends Controller
         if ($request->input('userType')==="doctor") {
             $validator = $request->validate([
                 'userName' => 'required|string',
-                'email' => 'required|email|string|unique:doctors,email',
-               
+                'email' => 'required|email|string',
+                'changeUserName'=>'required|integer',
+                'changeEmail'=>'required|integer'
             ]);
+            if($request->input('changeEmail') ){
+                $validator2 = $request->validate([
+                    'password' => 'required|string',
+                ]); 
+            }
             $user=Doctor::find($userID);
         }
         else if($request->input('userType')==="admin"){
@@ -154,10 +134,18 @@ class SettingsController extends Controller
         else if($request->input('userType')==="patient"){
             $validator = $request->validate([
                 'userName' => 'required|string',
-                'email' => 'required|email|string|unique:patients,email',
+                'email' => 'required|email|string',
                 'userID' => 'required|integer', 
-                'userType'=>'required|string'
+                'userType'=>'required|string',
+                'changeUserName'=>'required|integer',
+                'changeEmail'=>'required|integer'
             ]);
+            if($request->input('changeEmail') ){
+                $validator2 = $request->validate([
+                    'password' => 'required|string',
+                    'email' => 'required|email|string|unique:doctors,email|unique:patients,email',
+                ]); 
+            }
             $user=Patient::find($userID);
         }
         else{
@@ -166,14 +154,68 @@ class SettingsController extends Controller
         if(!$user){
             return response()->json(['status'=>400,'message'=> 'user not found']);
         }
-            try {    
-                $user->email=$request->input('email');
-                $user->user_name=$request->input('userName');
-                $user->save();
-                return response()->json(['status'=>200,'message'=> 'your password has been updated successfully']);
-            } catch (\Exception $e) {
-                return response()->json(['status'=>500,'message'=> 'Something went wrong']);
+        
+        try {   
+            if($request->input('changeEmail')==1){
+
+                $passwordHash = $user->password;
+                if (Hash::check($request->input('password'), $passwordHash)) {
+                    $verificationToken = Str::random(32);
+                    $user->new_verification_token = $verificationToken;
+                    $user->new_email=$request->input('email');
+                    $user->save();
+                    Mail::to($user->new_email)->send(new ChangeEmail($user));
+                    return response()->json(['status'=>200,'message'=> 'please verify your new email to complete the change']);
+
+                   
+                }
+                else{
+                    return response()->json(['status'=>404,'message'=> 'your password is wrong']);
+
+                }
             }
+            if($request->input('changeUserName')==1){
+                $user->user_name=$request->input('userName');        
+                $user->save();
+            }
+            return response()->json(['status'=>200,'message'=> 'your information has been updated successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['status'=>500,'message'=> 'Something went wrong']);
+        }
+    }
+    public function verifyEmail($token)
+    {
+        // Find the doctor with the given verification token
+        $doctor = Doctor::where('new_verification_token', $token)->first();
+        $patient=Patient::where('new_verification_token',$token)->first();
+        // If the doctor is not found, return an error response
+        if (!$doctor&&!$patient) {
+            return response()->json(['error' => 'Invalid verification token.'], 400);
+        }
+        if($patient){
+            $user=$patient;
+        }
+        else{
+          $user=$doctor;  
+        }
+        $user->email_verified_at = Carbon::parse($user->email_verified_at);
+        $email_verified_at = $user->email_verified_at->toDateTimeString();
+        $user->email=$user->new_email;
+        $user->verification_token=$user->new_verification_token;
+        $user->new_verification_token=NULL;
+        $user->new_email=NULL;
+        $user->save();
+        // Update the doctor's status as verified and clear the verification token
+        $user->update([
+            'email_verified_at' => $email_verified_at,
+        ]);
+        // Return a success response
+        $data=[
+            'message' => 'Email verification successful , You can now log in.',
+            'email_verified_at' => $email_verified_at
+        ];
+        return view('change-success', $data);
+   
     }
     /**
      * Remove the specified resource from storage.

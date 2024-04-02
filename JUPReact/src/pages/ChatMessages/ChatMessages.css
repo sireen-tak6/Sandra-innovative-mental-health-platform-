@@ -1,55 +1,46 @@
- 
-.posforMessages
-{
-  position: relative;
-  top: 40px;
+.posforMessages {
+    position: relative;
+    top: 40px;
+    margin-top: 8vh;
+    margin-bottom: 10vh;
 }
 
-.posforMessages .messages-section
-{
-  background-color: #558da39e;
-  border-radius: 10px;
-  box-shadow: -5px 0px 10px -2px #01010149;
-  height: 600px;
+.posforMessages .messages-section {
+    background-color: #558da39e;
+    border-radius: 10px;
+    box-shadow: -5px 0px 10px -2px #01010149;
+    height: 600px;
 }
 
-.posforMessages .input
-{
-  border-radius: 10%;
-  box-shadow: -5px 0px 10px -2px #01010149;
-  color: #000000;
+.posforMessages .input {
+    border-radius: 10px;
+    margin-left: auto;
+    box-shadow: -5px 0px 10px -2px #01010149;
+    color: #000000;
 }
 
-.posforMessages .img:hover
-{
-  color: aqua;
+.posforMessages .img:hover {
+    color: aqua;
 }
 
-
-.posforMessages img{
-  border-radius: 50%;
+.posforMessages img {
+    border-radius: 50%;
 }
 
-
-.posforMessages::-webkit-scrollbar
-{
-     width:0px;
-     
+.posforMessages::-webkit-scrollbar {
+    width: 0px;
 }
 
-.posforMessages::-webkit-scrollbar-track
-{
-     background: white;
-     border-radius: 15px;
+.posforMessages::-webkit-scrollbar-track {
+    background: white;
+    border-radius: 15px;
 }
 
-.posforMessages::-webkit-scrollbar-thumb
-{
-     background: gray;
-     border-radius: 15px;
+.posforMessages::-webkit-scrollbar-thumb {
+    background: gray;
+    border-radius: 15px;
 }
 
-.posforMessages::-webkit-scrollbar-thumb:hover
-{
-     background: burlywood;
+.posforMessages::-webkit-scrollbar-thumb:hover {
+    background: burlywood;
 }

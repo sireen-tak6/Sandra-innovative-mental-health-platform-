@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 //css
 import "sweetalert2/src/sweetalert2.scss";
 import "./SignUpLoginForm.css";
+import CircularLoading from "../../loadingprogress/loadingProgress";
 
 const SignUpLoginForm = ({
     onsubmit,
@@ -16,6 +17,8 @@ const SignUpLoginForm = ({
     email,
     password,
     confirmpassword,
+    setloading,
+    isloading,
 }) => {
     return (
         <form onSubmit={onsubmit}>
@@ -69,7 +72,7 @@ const SignUpLoginForm = ({
                             type="password"
                             id="confirmpassword"
                             name="confirmpassword"
-                            className="form-control form-control-lg"
+                            className="form-control form-control-lg "
                             placeholder="Confirm Password"
                             value={confirmpassword}
                             onChange={(ev) =>
@@ -78,25 +81,37 @@ const SignUpLoginForm = ({
                         />
                         <label htmlFor="password"></label>
                     </div>
-                    <div className="submitPart">
-                        <button type="submit" className="button">
-                            Sign Up
-                        </button>
-                    </div>
-                    <div className="LoginButton">
-                        you already have an account ?{" "}
-                        <Link to="/login">Login</Link>
-                    </div>
+                    {isloading ? (
+                        <CircularLoading />
+                    ) : (
+                        <>
+                            <div className="submitPart">
+                                <button type="submit" className="button">
+                                    Sign Up
+                                </button>
+                            </div>
+                            <div className="LoginButton">
+                                you already have an account ?{" "}
+                                <Link to="/login">Login</Link>
+                            </div>
+                        </>
+                    )}
                 </>
             ) : (
                 <>
-                    <div className="submitPart">
-                        <button type="submit">Login</button>
-                    </div>
-                    <div className="signupButton">
-                        you don't have an account :{" "}
-                        <Link to="/signup">Sign Up</Link>
-                    </div>
+                    {isloading ? (
+                        <CircularLoading />
+                    ) : (
+                        <>
+                            <div className="submitPart">
+                                <button type="submit">Login</button>
+                            </div>
+                            <div className="signupButton">
+                                you don't have an account :{" "}
+                                <Link to="/signup">Sign Up</Link>
+                            </div>
+                        </>
+                    )}
                 </>
             )}
         </form>

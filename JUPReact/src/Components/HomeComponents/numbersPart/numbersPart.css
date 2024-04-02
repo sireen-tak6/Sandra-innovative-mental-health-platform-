@@ -1,0 +1,15 @@
+.HomePage .numbersSection {
+    padding: 5vh 0vw 0vh 0vw;
+    margin-bottom: 8vh;
+    text-align: center;
+}
+.HomePage .numbersSection .cards {
+    display: flex;
+}
+.HomePage .numbersSection .Title {
+    font-size: max(5vmin, 18px);
+    margin: 0 0 6vh 0;
+    color: #1c627e;
+    font-family: TubularHollow;
+    padding: 0;
+}

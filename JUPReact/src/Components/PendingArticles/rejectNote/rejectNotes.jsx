@@ -71,47 +71,43 @@ const RejectNote = ({ onClose, id }) => {
     const handleContentChange = (e) => {
         setNotes(e.target.value);
     };
-    if (userType !== "admin") {
-        return (
-            <div className="noteOverlay">
-                <div className="noteContainer">
-                    <div className="titlePart">
-                        <p>Write your notes here please..</p>
+    return (
+        <div className="noteOverlay">
+            <div className="noteContainer">
+                <div className="titlePart">
+                    <p>Write your notes here please..</p>
+                    <button
+                        type="button"
+                        className="closeButton"
+                        onClick={onClose}
+                    >
+                        X
+                    </button>
+                </div>
+
+                <form className="noteForm">
+                    <div className="noteArea">
+                        <textarea
+                            type="text"
+                            className="notes"
+                            onChange={handleContentChange}
+                            value={notes}
+                        />
+                    </div>
+                    <div>
                         <button
                             type="button"
-                            className="closeButton"
-                            onClick={onClose}
+                            className="saveButton"
+                            onClick={reject}
+                            disabled={!notes}
                         >
-                            X
+                            save
                         </button>
                     </div>
-
-                    <form className="noteForm">
-                        <div className="noteArea">
-                            <textarea
-                                type="text"
-                                className="notes"
-                                onChange={handleContentChange}
-                                value={notes}
-                            />
-                        </div>
-                        <div>
-                            <button
-                                type="button"
-                                className="saveButton"
-                                onClick={reject}
-                                disabled={!notes}
-                            >
-                                save
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                </form>
             </div>
-        );
-    } else {
-        return <div></div>;
-    }
+        </div>
+    );
 };
 
 export default RejectNote;

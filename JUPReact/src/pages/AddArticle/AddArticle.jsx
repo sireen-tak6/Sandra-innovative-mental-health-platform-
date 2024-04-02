@@ -25,6 +25,22 @@ const AddArticle = () => {
         if (userType !== "doctor") {
             navigate("/articles");
         }
+        if (!localStorage.getItem("doctor-verify")) {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: "btn btn-success",
+                    cancelButton: "btn btn-danger",
+                },
+                buttonsStyling: false,
+            });
+            swalWithBootstrapButtons.fire(
+                "please verify your account by certificate first.",
+                "just verified accounts can publish articles",
+                "warning"
+            );
+            navigate("/articles");
+
+        }
     }, [userType]);
 
     const removeImg = (e) => {
@@ -142,7 +158,7 @@ const AddArticle = () => {
                     } catch (error) {
                         setIsLoading(false); // Show loading indicator
 
-                        console.log(error)
+                        console.log(error);
                         swalWithBootstrapButtons.fire(
                             error.response.data.message,
                             "error"

@@ -25,7 +25,7 @@ class SignupRequestDoctor extends FormRequest
     {
         return [
             'user_name' => 'required|string',
-            'email' => 'required|email|string|unique:doctors,email',
+            'email' => 'required|email|string|unique:doctors,email|unique:patients,email',
             'password' => [
                 'required',
                 'confirmed',

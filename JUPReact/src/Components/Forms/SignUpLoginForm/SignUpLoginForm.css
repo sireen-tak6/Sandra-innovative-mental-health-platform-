@@ -8,7 +8,7 @@
 
 .Login input,
 .SignUp input {
-    background-color: rgba(0, 0, 0, 0.036);
+    background-color: #00000009;
     margin-bottom: 2vh;
     box-shadow: 0 4px 5px 0 #4e798877;
     height: 3vh;
