@@ -16,14 +16,15 @@ class Patient extends Model implements Authenticatable
         'user_name',
         'email',
         'password',
-        'available'
+        'available',       
+        'email_verified_at',
+        'verification_token',
+        'new_email',
+        'new_verification_token'
     ];
 
  
-    public function DoctorPatien(): BelongsTo
-    {
-        return $this->belongsTo(Doctor::class, 'doctor_id');
-    }
+
 
     //this the relationship between the patients table and the chats table 
     public function chats ():HasMany
@@ -70,5 +71,25 @@ class Patient extends Model implements Authenticatable
         return $this->belongsToMany(Article::class, 'ArticlesReports','patientID','articleID');
     }
     
+    // this section for verfiy by email 
+    public function hasVerifiedEmail()
+    {
+        return $this->email_verified_at !== null;
+    }
 
+    public function markEmailAsVerified()
+    {
+        $this->email_verified_at = now();
+        $this->save();
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmail);
+    }
+    
+    public function getEmailForVerification()
+    {
+        return $this->email;
+    }
 }

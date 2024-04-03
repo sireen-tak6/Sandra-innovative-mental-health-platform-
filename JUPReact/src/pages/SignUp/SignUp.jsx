@@ -23,10 +23,12 @@ const SignUp = () => {
     const [confirmpassword, setConfirmPassword] = useState("");
     const [error, setError] = useState({ __html: "" });
     const [moveright, setMoveRight] = useState(null);
+    const [isloading, setloading] = useState(false);
 
     const navigate = useNavigate();
 
     const onsubmit = async (ev) => {
+        setloading(true);
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: "btn btn-success",
@@ -94,7 +96,12 @@ const SignUp = () => {
                     localStorage.setItem("token", response.data.token);
                     localStorage.setItem("user-type", response.data.user_type);
                     console.log("data added successfully");
-                    navigate("/login"); // Navigate to the login page
+                    navigate("/login");
+                    swalWithBootstrapButtons.fire(
+                        "Your email added successfully",
+                        response.data.message,
+                        "success"
+                    );
                 })
                 .catch((error) => {
                     if (error.response) {
@@ -111,6 +118,7 @@ const SignUp = () => {
                     console.error(error);
                 });
         }
+        setloading(false);
     };
 
     const swap = () => {
@@ -155,6 +163,8 @@ const SignUp = () => {
                         password={password}
                         confirmpassword={confirmpassword}
                         Type="SignUp"
+                        setloading={setloading}
+                        isloading={isloading}
                     />
                 </div>
 
@@ -178,6 +188,8 @@ const SignUp = () => {
                         password={password}
                         confirmpassword={confirmpassword}
                         Type="SignUp"
+                        setloading={setloading}
+                        isloading={isloading}
                     />
                 </div>
             </div>

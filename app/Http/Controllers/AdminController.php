@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\DoctorVerfiy;
+use App\Models\Doctor;
+use App\Models\Article;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -24,7 +27,7 @@ class AdminController extends Controller
         $Admin = new Admin();
         $Admin->id = 2 ;
         $Admin->user_name = 'Sireen' ;
-        $Admin->email = 'sireen.takriti@gmail.com' ;
+        $Admin->email = 'sireentak@gmail.com' ;
         $Admin->password = Hash::make('123456789');
         $Admin->save(); 
        return $Admin;
@@ -45,6 +48,7 @@ class AdminController extends Controller
                 return response()->json([
                     'message' => 'Doctor verification complete successfully , status updated successfully'
                     , 'DocumentInfo' => $fileModel
+                    
                 ]);
             } else {
                 $fileModel->delete();
@@ -84,6 +88,13 @@ class AdminController extends Controller
     public function getAllDoctors()
     {
         $doctors = Doctor::all();
+        foreach ($doctors as $doctor) {
+            $doctor->likesCount = $doctor->DoctorLikes->count();
+            $reportCount = Article::where('doctorID', $doctor->id)->sum('reports');
+            $doctor->reportsCount=$reportCount;
+        } 
+        
+
         return response()->json(['doctors' => $doctors]);
     }
 
@@ -113,7 +124,7 @@ class AdminController extends Controller
         }
 
         // Delete associated likes
-        $doctor->likes()->delete();
+        $doctor->DoctorLikes()->delete();
 
         // Delete associated chats
         $doctor->chats()->delete();

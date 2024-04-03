@@ -1,0 +1,41 @@
+.AboutSection {
+    height: 80vh;
+    position: relative;
+    margin-bottom: 8vh;
+}
+.AboutSection2 {
+    padding: 10vh 2vw;
+    display: grid;
+    justify-items: center;
+    background-color: rgba(159, 159, 159, 0.368);
+    height: 55vh;
+}
+.AboutSection2 .Title {
+    font-family: TubularHollow;
+    font-size: max(5vmin, 18px);
+}
+.AboutSection .image {
+    position: absolute;
+    bottom: -5%;
+    left: 32%;
+    margin: 3%;
+    width: 30vw;
+    box-shadow: 0px 0px 8px 2px #6f6f6f82;
+    border-radius: 30px;
+}
+.AboutSection .image img {
+    border-radius: 30px;
+}
+
+.AboutSection .aboutText {
+    color: #1c627e;
+    font-size: max(3.5vmin, 15px);
+    text-align: center;
+}
+.AboutSection .aboutText2 {
+    width: 50vw;
+    color: black;
+    font-size: max(2.6vmin, 15px);
+    font-weight: 400;
+    margin-top: 2vh;
+}

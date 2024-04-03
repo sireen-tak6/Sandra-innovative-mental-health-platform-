@@ -61,61 +61,6 @@ const PArticleContent = () => {
         console.log("Article:", Article);
     }, [Article]);
 
-    const reject = async () => {
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: "btn btn-success",
-                cancelButton: "btn btn-danger",
-            },
-            buttonsStyling: false,
-        });
-
-        swalWithBootstrapButtons
-            .fire({
-                title: "Are you sure?",
-                text: "Do you want to reject this article!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Yes, reject!",
-                cancelButtonText: "No, cancel!",
-                reverseButtons: true,
-            })
-            .then(async (result) => {
-                if (result.isConfirmed) {
-                    const userID = localStorage.getItem("user-id");
-                    const formData = new FormData();
-                    formData.append("doctorID", parseInt(userID));
-                    formData.append("userType", userType);
-                    try {
-                        const response = await axiosClient.post(
-                            `Articles/pending/${id}/reject`,
-                            formData
-                        );
-                        console.log(response.data);
-                        if (response.data.status === 200) {
-                            swalWithBootstrapButtons.fire(
-                                "",
-                                response.data.message,
-                                "success"
-                            );
-                            navigate(`/articles/pending`);
-                        } else {
-                            swalWithBootstrapButtons.fire(
-                                response.data.message,
-                                "Your changes has not been saved",
-                                "error"
-                            );
-                        }
-                    } catch (error) {
-                        console.log(error);
-                        swalWithBootstrapButtons.fire(
-                            error.response.data,
-                            "error"
-                        );
-                    }
-                }
-            });
-    };
     const accept = async () => {
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
@@ -224,9 +169,7 @@ const PArticleContent = () => {
                         <Button
                             className="button"
                             onClick={
-                                userType === "admin"
-                                    ? reject
-                                    : handleRejectClick
+                                handleRejectClick
                             }
                         >
                             reject

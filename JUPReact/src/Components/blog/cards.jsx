@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import axiosClient from "../../axios";
 
-
 //css
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
@@ -29,8 +28,7 @@ const Cards = () => {
                 const userType = localStorage.getItem("user-type");
                 console.log(`userID:${userID}`);
                 console.log(`userType:${userType}`);
-                try{
-
+                try {
                     const response = await axiosClient.post(`Articles`, {
                         userID,
                         userType,
@@ -41,13 +39,39 @@ const Cards = () => {
                     } else {
                         setArticles(response.data["Articles"]);
                     }
-                }
-                catch(error){
-                    console.log(error)
+                } catch (error) {
+                    console.log(error);
                     swalWithBootstrapButtons.fire(
                         error.response.statusText,
                         "error"
-                    );   
+                    );
+                }
+            };
+            fetchData();
+        } else if (Category == 11) {
+            console.log(`category:${Category}`);
+            const fetchData = async () => {
+                const userID = localStorage.getItem("user-id");
+                const userType = localStorage.getItem("user-type");
+                console.log(`userID:${userID}`);
+                console.log(`userType:${userType}`);
+                try {
+                    const response = await axiosClient.post(`Articles/Liked`, {
+                        userID,
+                        userType,
+                    });
+                    console.log(response);
+                    if (response.data["status"] !== 200) {
+                        Swal.fire(response.data.message);
+                    } else {
+                        setArticles(response.data["Articles"]);
+                    }
+                } catch (error) {
+                    console.log(error);
+                    swalWithBootstrapButtons.fire(
+                        error.response.statusText,
+                        "error"
+                    );
                 }
             };
             fetchData();
@@ -70,7 +94,8 @@ const Cards = () => {
                     swalWithBootstrapButtons.fire(
                         error.response.statusText,
                         "error"
-                    );                   }
+                    );
+                }
             };
             fetchData();
         }

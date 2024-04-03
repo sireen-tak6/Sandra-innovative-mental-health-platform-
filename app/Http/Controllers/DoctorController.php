@@ -16,7 +16,8 @@ class DoctorController extends Controller
     //this fucntion for get all doctors 
     public function getAllDoctor()
     {
-       $doctor = Doctor::orderBy('created_at', 'desc')->get();
+       $doctor = Doctor::with("Category")->orderBy('created_at', 'desc')->get();
+
        return response([
            'doctors' => $doctor
            ,
@@ -62,9 +63,9 @@ class DoctorController extends Controller
         $userType=$request->userType;
         if($userType==='patient'){
             $patient=Patient::find($userID);
-            $articles=Article::where('status', 'published')->whereDoesntHave('reports', function ($query) use ($patient) {
+            $articles=Article::whereDoesntHave('reports', function ($query) use ($patient) {
                 $query->where('patientID', $patient->id);
-            })->where("doctorID",$doctorId)->with('Category')->get();
+            })->where("doctorID",$doctorId)->where('status', 'published')->with('Category')->get();
             foreach ($articles as $article) {
                 $isLiked = $patient->likedArticles->contains($article->id);
                 $article->isLiked = $isLiked;

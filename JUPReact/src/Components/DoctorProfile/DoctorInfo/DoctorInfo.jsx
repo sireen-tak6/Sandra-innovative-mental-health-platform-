@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AiFillHeart, AiFillStar } from "react-icons/ai";
 import axiosClient from "../../../axios";
+import { useNavigate } from "react-router-dom";
 
 //css
 import "./DoctorInfo.css";
@@ -11,10 +12,12 @@ import "sweetalert2/src/sweetalert2.scss";
 import CircularLoading from "../../loadingprogress/loadingProgress";
 import LikeButton from "../../likeButton/likeButton";
 
-function DoctorInfo({ id }) {
+const DoctorInfo = ({ id }) => {
     const [doctorInfo, setdoctorInfo] = useState(null);
     const [isLiked, setIsLiked] = useState(false);
     const [likes, setLikes] = useState(0);
+    const navigate = useNavigate();
+    const medalia = "../assetss/medaliaicon.png";
 
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -23,7 +26,7 @@ function DoctorInfo({ id }) {
         },
         buttonsStyling: false,
     });
-    const userType = localStorage.getItem("user-type")??"none";
+    const userType = localStorage.getItem("user-type") ?? "none";
 
     useEffect(() => {
         const fetchData = async () => {
@@ -53,7 +56,6 @@ function DoctorInfo({ id }) {
         };
         fetchData();
     }, [id]);
-
     const handleLike = async () => {
         const userID = localStorage.getItem("user-id");
         const userType = localStorage.getItem("user-type");
@@ -70,6 +72,12 @@ function DoctorInfo({ id }) {
             console.log(error);
             swalWithBootstrapButtons.fire(error.response.statusText, "error");
         }
+    };
+    const AddArticle = () => {
+        navigate("/articles/AddArticle");
+    };
+    const verify = () => {
+        navigate("/verfiy");
     };
     if (doctorInfo === null) {
         return (
@@ -118,17 +126,26 @@ function DoctorInfo({ id }) {
                                     isLiked={isLiked}
                                     button="no"
                                     size={30}
-
                                 />
                             </div>
                         )}
                     </div>
 
                     <div className="info">
-                        <div className="name">{doctorInfo.user_name}</div>
+                        <div className="name flex">
+                            {doctorInfo.user_name}{" "}
+                            {doctorInfo.isVerfiy == 1 ? (
+                                <img className="medalia" src={medalia} />
+                            ) : (
+                                ""
+                            )}
+                        </div>
                         <div className="speciality">
                             {" "}
-                            {doctorInfo.category.name} (points:
+                            {doctorInfo.category
+                                ? doctorInfo.category.name
+                                : ""}{" "}
+                            (points:
                             {doctorInfo.points})
                         </div>
                         <div className="about">{doctorInfo.about}</div>
@@ -158,13 +175,31 @@ function DoctorInfo({ id }) {
                     </div>
                     {localStorage.getItem("user-id") === id &&
                     localStorage.getItem("user-type") === "doctor" ? (
-                        <div className="addCertificate part">
-                            <button type="button">add certificate</button>
+                        <div className="addButtons">
+                            <div className="addCertificate part">
+                                {" "}
+                                <button
+                                    type="button"
+                                    onClick={() => AddArticle()}
+                                >
+                                    Add Article
+                                </button>
+                            </div>
+                            {doctorInfo.isVerfiy == 0 ? (
+                                <div className="addCertificate part">
+                                    <button
+                                        type="button"
+                                        onClick={() => verify()}
+                                    >
+                                        Add Certificate
+                                    </button>
+                                </div>
+                            ) : null}
                         </div>
                     ) : null}
                 </div>
             </div>
         );
     }
-}
+};
 export default DoctorInfo;

@@ -21,7 +21,8 @@ class Article extends Model
         'likes',
         'reports',
         'status',
-        'reviews_count'
+        'reviews_count',
+        'adminReview'
     ];
     public function Category():BelongsTo
     {
@@ -48,7 +49,7 @@ class Article extends Model
     //change article status automatically depends on reviews status,count and difference in points of reviewers
     public function checkAndUpdateStatus()
     {
-        $doctorCount=Doctor::count();
+        $doctorCount=Doctor::where('email_verified_at' ,'!=', null)->count();
         $minreviews= min(3,$doctorCount-1);
         if ($this->reviews_count >= $minreviews && $this->status=='pending' ) {
             $reviews = $this->reviews;

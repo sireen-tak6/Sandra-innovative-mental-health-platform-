@@ -211,8 +211,46 @@ class ArticlesController extends Controller
         }
     }
 
+    public function Liked(Request $request)
+    {
+        $userID=$request->userID;
+        $userType=$request->userType;
+        if($userType==='patient')
+        {
+            $patient=Patient::find($userID);
+            if(!$patient)
+            {
+                return response()->json(['status'=>404,'message'=> 'user not found']);
+            }
+            try{
+                $articles = Article::where('status', 'published')->whereDoesntHave('reports', function ($query) use ($patient) {
+                    $query->where('patientID', $patient->id);
+                })->WhereHas('likes',function ($query) use ($patient) {
+                    $query->where('patientID', $patient->id);
+                })->with('Category','Doctor')->get();
+               
+            }catch (\Exception $e) {
+                return response()->json(['status'=>500,'message'=> $e]);
+            }
+            $articles->each(function ($article) use ($patient) { 
+                $isLiked = $patient->likedArticles->contains($article->id);
+                $article->isLiked = $isLiked;
+                $textPath = $article->content;
+                try {
+                    $textContent = Storage::get($textPath);   
+                } catch (\Exception $e) {
+                    return response()->json(['status'=>500,'message'=> 'Error retrieving text content']);
+                }
+                $article->content=$textContent;
+            });  
+            return response()->json(['status'=>200,'Articles'=>$articles]);
+        }
+        else{
+            return response()->json(['status'=>404,'message'=> "you don't have any liked articles"]);
 
-
+        }
+        
+    }
     //show articles with specific category
     public function showCategory($catID,Request $request)
     {
@@ -443,6 +481,12 @@ class ArticlesController extends Controller
                 return response()->json(['status'=>404,'massage'=>"the article does not exist."]);
             }
             if (!$patient->reportedArticles->contains($article->id)) {
+                if ($patient->likedArticles->contains($article->id)) {
+                    $like = ArticleLike::where('patientID', $userID)->where('articleID', $articleID)->first();
+                    if ($like) {
+                        $like->delete();
+                    }
+                }
                 $report=new ArticleReport();
                 $report->patientID=$patient->id;
                 $report->articleID=$article->id;

@@ -34,6 +34,7 @@
 }
 .notes .note .reject {
     color: #971b1b;
+    border: none;
 }
 .notes .note .title {
     font-size: max(2.3vmin, 11px);

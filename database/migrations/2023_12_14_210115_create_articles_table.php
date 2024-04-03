@@ -22,6 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('doctorID');
             $table->string('status');
             $table->integer('reviews_count')->default(0);
+            $table->string('adminReview',500)->nullable();
             $table->integer('likes');
             $table->integer('reports');
             $table->datetime('date');

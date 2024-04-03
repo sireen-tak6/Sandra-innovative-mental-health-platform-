@@ -34,8 +34,12 @@ class Doctor extends Model implements Authenticatable, MustVerifyEmailContract
         'gender',
         'speciality',
         'email_verified_at',
-        'verification_token'
+        'verification_token',
+        'new_email',
+        'new_verification_token'
     ];
+    
+    protected $appends = ['Document', 'isVerfiy'];
 
     protected $guard = "doctors" ; 
 
@@ -146,7 +150,7 @@ class Doctor extends Model implements Authenticatable, MustVerifyEmailContract
             ->first();
 
         if ($document) {
-            $url = stripslashes(asset('storage/app/uploads/' . $document->filename));
+            $url = $document->filename;
             return $url;
         }
 

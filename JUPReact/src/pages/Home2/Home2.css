@@ -1,0 +1,5 @@
+.HomePage .section {
+    min-height: 50vh;
+    font-size: max(3vmin, 14px);
+    font-weight: 700;
+}

@@ -11,7 +11,7 @@ use App\Models\Doctor;
 use App\Models\Admin;
 use App\Models\Patient;
 use App\Models\Secertarie;
-
+use App\Mail\SignupVerificationEmail; 
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -40,19 +40,24 @@ class AuthController extends Controller
             // Check if the generated ID exists in the Doctor model
             $idExists = Doctor::where('id', $uniqueId)->exists();
         }
+        $verificationToken = Str::random(32);
 
         $user->id = $uniqueId;
         $user->user_name = $data['user_name'];
         $user->email = $data['email'];
         $user->password = bcrypt($data['password']);
+        $user->verification_token = $verificationToken;
         $user->save();
-
+        
+        Mail::to($user->email)->send(new SignupVerificationEmail($user));
         $token = $user->createToken('token')->plainTextToken;
 
 
         return response([
             'user' => $user,
             'token' => $token,
+            'message' => "Now dear you have to verify your email to complete signup , and can login to our website"
+
         ]);
     }
  //this function for doctor signup 
@@ -62,10 +67,20 @@ class AuthController extends Controller
          $data = $request->validated();
          // Generate a verification token
          $verificationToken = Str::random(32);
+         if (isset($data['id'])) {
+            $existingPatient = Patient::where('id', $data['id'])->first();
+            if ($existingPatient) {
+                // Generate a new unique ID for the doctor
+                $newId = $this->generateUniqueDoctorId();
+                $data['id'] = $newId;
+            }
+        }
          $user = Doctor::create([
              'user_name' => $data['user_name'],
              'email' => $data['email'],
              'password' => bcrypt($data['password']),
+             'id' => $data['id'] ?? null,
+
          ]);
          // Assign the verification token to the doctor's record
          $user->verification_token = $verificationToken;
@@ -83,7 +98,46 @@ class AuthController extends Controller
          return response(['error' => ['error' => 'someting went wrong']], 0);
      }
  }
+ //this function just for generate unique id for the doctor after check if the id exist in the patient model 
+ private function generateUniqueDoctorId()
+ {
+     $newId = mt_rand(1000000, 9999999); // Generate a random ID
+     $existingPatient = Patient::where('id', $newId)->first();
+     if ($existingPatient) {
+         // If the generated ID already exists in the Patient model, generate a new one recursively
+         return $this->generateUniqueDoctorId();
+     }
+     return $newId;
+ }
+ //this function to verify the patient email before create the record of the doctor 
+ public function verifyEmailUser($token)
+ {
+     // Find the patient with the given verification token
+     $patient = Patient::where('verification_token', $token)->first();
 
+     // If the patient is not found, return an error response
+     if (!$patient) {
+         return response()->json(['error' => 'Invalid verification token.'], 400);
+     }
+
+     $patient->email_verified_at = Carbon::parse($patient->email_verified_at);
+     $email_verified_at = $patient->email_verified_at->toDateTimeString();
+     $patient->save();
+
+     // Update the patient's status as verified and clear the verification token
+     $patient->update([
+         'email_verified_at' => $email_verified_at,
+     ]);
+
+     // Pass data to the view
+     $data = [
+         'message' => 'Email verification successful. You can now log in.',
+         'email_verified_at' => $email_verified_at,
+     ];
+
+     // just to show the view 
+     return view('verification-success', $data);
+ }
  //this function to verify the doctor email before create the record of the doctor 
  public function verifyEmail($token)
  {
@@ -101,10 +155,12 @@ class AuthController extends Controller
          'email_verified_at' => $email_verified_at,
      ]);
      // Return a success response
-     return response()->json([
+     $data=[
          'message' => 'Email verification successful , You can now log in.',
          'email_verified_at' => $email_verified_at
-     ], 200);
+     ];
+     return view('verification-success', $data);
+
  }
      // login function
 
@@ -117,22 +173,31 @@ class AuthController extends Controller
          if (Patient::where('email', $request->email)->first()) {
              $user = Patient::where('email', $request->email)->first();
              $passwordHash = $user->password;
-             if (Hash::check($request->password, $passwordHash)) {
-                $user_id = $user->id;
-                $user->available = 1; // Update the available attribute to 1
-                $user->save();
-                $token = $user->createToken('token')->plainTextToken;
-                 return response()->json([
-                     'user' => $user,
-                     'user_id' => $user_id,
-                     "token" => $token,
-                     'user_type' => 'patient',
-                     'user_name'=>$user->user_name
+             if($user->email_verified_at != null)
+             { 
+               if (Hash::check($request->password, $passwordHash)) {
+                   $user_id = $user->id;
+                   $user->available = 1; // Update the available attribute to 1
+                   $user->save();
+                   $token = $user->createToken('token')->plainTextToken;
+                   return response()->json([
+                    'user' => $user,
+                    'user_id' => $user_id,
+                    "token" => $token,
+                    'user_type' => 'patient',
+
+                ]);
+            } else {
+                return response()->json([
+                    'error' => 'The Email or Password Not Correct',
+                ]);
+            }
+  
+            
  
-                 ]);
              } else {
                  return response()->json([
-                     'error' => 'The Email or password Not Correct',
+                    "message" => "you have to verify your email before login"
                  ]);
              }
  
@@ -152,6 +217,7 @@ class AuthController extends Controller
                         'token' => $token,
                         'user_type' => 'doctor',
                         'message' => 'Email verify successfully',
+                        
 
                     ]);
                 } else {

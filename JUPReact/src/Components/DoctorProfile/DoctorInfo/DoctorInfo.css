@@ -38,20 +38,17 @@
     position: absolute;
     right: 15%;
     display: flex;
-    
 }
 .DoctorProfile .infoPart .mainInfo .likes .likeicon {
     background: none;
     color: rgb(176, 30, 30);
     border: none;
     margin-right: 0.5vmin;
-    
 }
 .DoctorProfile .infoPart .mainInfo .points {
     position: absolute;
     right: 35%;
     display: flex;
-
 }
 .DoctorProfile .infoPart .mainInfo .points .pointsicon {
     background-color: rgba(240, 248, 255, 0);
@@ -67,6 +64,7 @@
     font-size: max(3vmin, 14px);
     font-weight: 600;
     margin-bottom: 3px;
+    align-items: center;
 }
 
 .DoctorProfile .infoPart .mainInfo .info .speciality {
@@ -121,14 +119,24 @@
     font-size: max(2.2vmin, 12px);
     margin-bottom: 13px;
 }
+.DoctorProfile .infoPart .secondaryInfo .addButtons {
+    display: flex;
+    justify-content: space-evenly;
+}
 .DoctorProfile .infoPart .secondaryInfo .addCertificate button {
     border: 1px solid #1c627e;
     border-radius: 6px;
     padding: 1% 1.5%;
     text-decoration: none;
     color: #1c627e;
-    font-weight: 500;
+    font-size: max(1.8vmin, 11px);
     margin-top: 2vh;
-    margin-left: auto;
-    margin-right: auto;
+    width: 15vmin;
+    min-width: 80px;
+}
+.DoctorProfile .medalia {
+    height: 1.2em;
+    width: 1.2em;
+    content: "";
+    margin-left: 1vw;
 }

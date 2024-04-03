@@ -1,154 +1,137 @@
-
-
 .posforChat {
-  position: relative;
-  top: 40px;
-} 
+    position: relative;
+    top: 40px;
+    margin-top: 8vh;
+    margin-bottom: 10vh;
+}
 .posforChat li {
-  background-color: white;
-  width: 95%;
-  cursor: pointer;
-}  
-  
+    background-color: white;
+    width: 95%;
+    cursor: pointer;
+}
 
-.posforChat .paragraph
-{
-  color:#1c627e;
+.posforChat .paragraph {
+    color: #1c627e;
 }
 
 .posforChat .chat-section {
-  box-shadow: -5px 0px 10px -2px #01010149;
-  border-radius: 30px;
-  background-color: #558da39e;
+    box-shadow: -5px 0px 10px -2px #01010149;
+    border-radius: 30px;
+    background-color: #558da39e;
 }
 
 .posforChat .chatList {
-  height: 370px;
-  /* Set the desired height for the chat section */
-  overflow-y: auto;
-  /* Add vertical scrollbar when content overflows */
-  /* Customize the scrollbar */
-  scrollbar-width: 5px;
-  scrollbar-color: #888888 #f4f4f4;
+    height: 370px;
+    /* Set the desired height for the chat section */
+    overflow-y: auto;
+    /* Add vertical scrollbar when content overflows */
+    /* Customize the scrollbar */
+    scrollbar-width: 5px;
+    scrollbar-color: #888888 #f4f4f4;
 }
-
 
 /* Track */
 .posforChat .chatList::-webkit-scrollbar-track {
-  background-color: #f4f4f4;
+    background-color: #f4f4f4;
 }
 
 /* Handle */
 .postforchat .chatList::-webkit-scrollbar-thumb {
-  background-color: #888888;
-  border-radius: 5px;
-  width: 5px;
+    background-color: #888888;
+    border-radius: 5px;
+    width: 5px;
 }
 
 /* Handle on hover */
 .posforChat .chatList::-webkit-scrollbar-thumb:hover {
-  background-color: #555555;
-
+    background-color: #555555;
 }
 
 .posforChat img {
-  border-radius: 50%;
+    border-radius: 50%;
 }
 
-
 .posforChat .trash {
-  cursor: pointer;
-  color: #fff;
-  cursor: pointer;
-  margin-right: auto;
+    cursor: pointer;
+    color: #fff;
+    cursor: pointer;
+    margin-right: auto;
 }
 
 .posforChat .trash:hover {
-  color: darkslateblue;
+    color: darkslateblue;
 }
 
-
-
 @keyframes mover {
+    0% {
+        transform: translateY(-90px);
+    }
 
-  0% {
-    transform: translateY(-90px);
-  }
-
-  100% {
-    transform: translateY(0px);
-  }
-
+    100% {
+        transform: translateY(0px);
+    }
 }
 
 @-webkit-keyframes mover {
+    0% {
+        transform: translateY(-50px);
+    }
 
-  0% {
-    transform: translateY(-50px);
-  }
-
-  100% {
-    transform: translateY(0px);
-  }
-
+    100% {
+        transform: translateY(0px);
+    }
 }
 
 @-moz-keyframes mover {
+    0% {
+        transform: translateY(-40px);
+    }
 
-  0% {
-    transform: translateY(-40px);
-  }
-
-  100% {
-    transform: translateY(0px);
-  }
-
+    100% {
+        transform: translateY(0px);
+    }
 }
 
 @-o-keyframes mover {
+    0% {
+        transform: translateY(-40px);
+    }
 
-  0% {
-    transform: translateY(-40px);
-  }
-
-  100% {
-    transform: translateY(0px);
-  }
-
+    100% {
+        transform: translateY(0px);
+    }
 }
 
 .posforChat .cube {
-  height: 50px;
-  animation: mover 1s infinite alternate !important;
+    height: 50px;
+    animation: mover 1s infinite alternate !important;
 }
 
 .posforChat .star {
-  height: 50px;
-  opacity: 0.3;
-  animation: mover 2s infinite alternate !important;
+    height: 50px;
+    opacity: 0.3;
+    animation: mover 2s infinite alternate !important;
 }
 
-
 .posforChat::-webkit-scrollbar {
-  width: 8px;
-
+    width: 8px;
 }
 
 .posforChat::-webkit-scrollbar-track {
-  background: white;
-  border-radius: 15px;
+    background: white;
+    border-radius: 15px;
 }
 
 .posforChat::-webkit-scrollbar-thumb {
-  background: gray;
-  border-radius: 15px;
+    background: gray;
+    border-radius: 15px;
 }
 
 .posforChat::-webkit-scrollbar-thumb:focus {
-  width: 23px;
-  background: #fff7da;
+    width: 23px;
+    background: #fff7da;
 }
 
 .posforChat::-webkit-scrollbar-thumb:hover {
-  background: #fff7da;
+    background: #fff7da;
 }

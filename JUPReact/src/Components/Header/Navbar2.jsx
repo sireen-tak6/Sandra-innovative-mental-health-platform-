@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NutFill, Search } from "react-bootstrap-icons";
-import axiosClient from '../../axios';
+import axiosClient from "../../axios";
 
 //css
 import "./Navbar2.css";
@@ -27,12 +27,12 @@ function Navbarr() {
     const [showModal, setShowModal] = useState(false);
 
     function Logout() {
-        const userType = localStorage.getItem("user-type");
+        const Type = localStorage.getItem("user-type");
         const userId = localStorage.getItem("user-id");
 
         // Make a POST request to the logout API
         axiosClient
-            .post(`/logout/${userType}/${userId}`)
+            .post(`/logout/${Type}/${userId}`)
             .then((response) => {
                 console.log(response.data.message); // Success message from the backend
                 localStorage.clear();
@@ -75,29 +75,45 @@ function Navbarr() {
                     <Navbar.Toggle aria-controls="navbarNav" />
                     <Navbar.Collapse id="navbarNav">
                         <Nav className="me-auto">
-                            <Nav.Link href="/user" className="l">
+                            <Nav.Link href="/home" className="l">
                                 Home
                             </Nav.Link>
-
-                            <Nav.Link href="/doctor" className="l">
-                                Doctors
-                            </Nav.Link>
+                            {Type != "admin" ? (
+                                <Nav.Link href="/doctor" className="l">
+                                    Doctors
+                                </Nav.Link>
+                            ) : null}
                             <Nav.Link href="/articles" className="l">
                                 Articles
                             </Nav.Link>
 
                             {localStorage.getItem("user-info") ? (
                                 <>
-                                    <Nav.Link href="#chatbot" className="l">
-                                        Talk to Sandra
-                                    </Nav.Link>
-                                    <Nav.Link href="/chats" className="l">
-                                        Chats
-                                    </Nav.Link>
-                                    {localStorage.getItem("user-type") !="patient"&&localStorage.getItem("user-type")!="admin"? (
-                                        <Nav.Link href="/verfiy" className="l">
-                                            verfiy
+                                    {Type == "patient" ? (
+                                        <Nav.Link href="/Chatbot" className="l">
+                                            Talk-to-Sandra
                                         </Nav.Link>
+                                    ) : null}
+                                    {Type !== "admin" ? (
+                                        <Nav.Link href="/chats" className="l">
+                                            Chats
+                                        </Nav.Link>
+                                    ) : null}
+                                    {Type == "admin" ? (
+                                        <>
+                                            <Nav.Link
+                                                href="/request/verfiy"
+                                                className="l"
+                                            >
+                                                Verification-Requests
+                                            </Nav.Link>
+                                            <Nav.Link
+                                                href="/control/doctors"
+                                                className="l"
+                                            >
+                                                Doctors
+                                            </Nav.Link>
+                                        </>
                                     ) : null}
                                     <Nav.Link className="l">
                                         <div className="s">
@@ -112,7 +128,6 @@ function Navbarr() {
                                             </button>
                                         </div>
                                     </Nav.Link>
-                                    
                                 </>
                             ) : (
                                 <>
@@ -152,7 +167,12 @@ function Navbarr() {
                                                 />
                                             </div>
                                         </Nav.Link>
-                                        <NavDropdown title={user} className="o">
+                                        <NavDropdown
+                                            title={localStorage.getItem(
+                                                "user-name"
+                                            )}
+                                            className="o"
+                                        >
                                             {Type === "doctor" ? (
                                                 <NavDropdown.Item
                                                     href={`/doctorProile/${id}`}

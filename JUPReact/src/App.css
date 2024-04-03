@@ -76,9 +76,21 @@ div.swal2-icon.swal2-success.swal2-icon-show {
 span.swal2-x-mark {
     font-size: max(2.2vmin, 9px);
 }
-div.swal2-popup.swal2-modal.swal2-show{
+div.swal2-popup.swal2-modal.swal2-show {
     border-radius: 20px;
 }
 ::-webkit-scrollbar {
     display: none;
+}
+@font-face {
+    font-family: "carnival";
+    src: url(../Carnival.ttf);
+    /* other formats include: 'woff2', 'truetype, 'opentype',
+                              'embedded-opentype', and 'svg' */
+}
+@font-face {
+    font-family: "TubularHollow";
+    src: url("../KGRedHandsOutline.ttf");
+    /* other formats include: 'woff2', 'truetype, 'opentype',
+                              'embedded-opentype', and 'svg' */
 }

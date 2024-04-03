@@ -25,9 +25,7 @@ class SearchController extends Controller
         if($request->input('article')==='true'){
             if($userType==='patient'){
                 $patient=Patient::find($userID);
-                $articles=Article::search($query)->where('status', 'published')->whereDoesntHave('reports', function ($query) use ($patient) {
-                    $query->where('patientID', $patient->id);
-                })->get();
+                $articles=Article::search($query)->where('status', 'published')->get();
                 foreach ($articles as $article) {
                     $isLiked = $patient->likedArticles->contains($article->id);
                     $article->isLiked = $isLiked;

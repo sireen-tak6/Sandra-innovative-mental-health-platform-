@@ -56,20 +56,30 @@ function Footer2() {
                                     Quick Links
                                 </h6>
                                 <p>
-                                    <a href="#!" className="text-reset">
+                                    <a href="/home" className="text-reset">
                                         Home
                                     </a>
                                 </p>
-                                <p>
-                                    <a href="#!" className="text-reset">
-                                        Login
-                                    </a>
-                                </p>
-                                <p>
-                                    <a href="#!" className="text-reset">
-                                        Sign Up
-                                    </a>
-                                </p>
+                                {localStorage.getItem("user-type") == null ? (
+                                    <>
+                                        <p>
+                                            <a
+                                                href="/login"
+                                                className="text-reset"
+                                            >
+                                                Login{" "}
+                                            </a>
+                                        </p>
+                                        <p>
+                                            <a
+                                                href="/signup"
+                                                className="text-reset"
+                                            >
+                                                Sign Up
+                                            </a>
+                                        </p>
+                                    </>
+                                ) : null}
                             </MDBCol>
 
                             <MDBCol
@@ -82,35 +92,52 @@ function Footer2() {
                                     Services
                                 </h6>
                                 <p>
-                                    <a href="#!" className="text-reset">
-                                        Make a resarvation
+                                    <a href="/articles" className="text-reset">
+                                        Articles
                                     </a>
                                 </p>
                                 <p>
-                                    <a href="#!" className="text-reset">
-                                        Give us rate
+                                    <a
+                                        href={
+                                            localStorage.getItem("user-type") &&
+                                            localStorage.getItem("user-type") ==
+                                                "admin"
+                                                ? "/control/doctors"
+                                                : "/doctor"
+                                        }
+                                        className="text-reset"
+                                    >
+                                        Doctors
                                     </a>
-                                </p>
+                                </p>{" "}
                                 <p>
                                     <a href="#!" className="text-reset">
                                         Talk to sandra
                                     </a>
                                 </p>
-                                <p>
-                                    <a href="#!" className="text-reset">
-                                        Read More About Us
-                                    </a>
-                                </p>
-                                <p>
-                                    <a href="#!" className="text-reset">
-                                        Feedback
-                                    </a>
-                                </p>
-                                <p>
-                                    <a href="#!" className="text-reset">
-                                        Contact Us
-                                    </a>
-                                </p>
+                                {localStorage.getItem("user-type") &&
+                                localStorage.getItem("user-type") == "admin" ? (
+                                    <>
+                                        <p>
+                                            <a
+                                                href="/verfiy"
+                                                className="text-reset"
+                                            >
+                                                verify your certificate
+                                            </a>
+                                        </p>
+                                    </>
+                                ) : null}
+                                {localStorage.getItem("user-type") ? (
+                                    <p>
+                                        <a
+                                            href="/Settings"
+                                            className="text-reset"
+                                        >
+                                            Settings
+                                        </a>
+                                    </p>
+                                ) : null}
                             </MDBCol>
 
                             <MDBCol
@@ -122,10 +149,6 @@ function Footer2() {
                                 <h6 className="text-uppercase fw-bold mb-4">
                                     Contact
                                 </h6>
-                                <p>
-                                    <MDBIcon icon="home" />
-                                    Syria , Damascus
-                                </p>
                                 <p>
                                     <MDBIcon icon="envelope" />
                                     Sandra@gmail.com
@@ -152,7 +175,7 @@ function Footer2() {
                         className="text-center p-4"
                         style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
                     >
-                        © 2021 Copyright:
+                        © 2024 Copyright:
                         <a
                             className="text-reset fw-bold"
                             href="https://mdbootstrap.com/"

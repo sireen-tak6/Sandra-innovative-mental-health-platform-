@@ -24,7 +24,9 @@ return new class extends Migration
             $table->boolean('gender')->nullable();
             $table->unsignedBigInteger('speciality')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('verification_token')->nullable();
+            $table->string('verification_token')->nullable();            
+            $table->string('new_verification_token')->nullable();
+            $table->string('new_email')->nullable(); 
             $table->foreign('speciality')->references('id')->on('speciality')->onDelete('cascade'); 
             $table->timestamps();
         });

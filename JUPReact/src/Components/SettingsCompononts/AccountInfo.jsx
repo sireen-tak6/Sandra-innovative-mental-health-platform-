@@ -7,12 +7,14 @@ import "sweetalert2/src/sweetalert2.scss";
 
 //components
 import CircularLoading from "../loadingprogress/loadingProgress";
+import PasswordCheck from "./PasswordCheck/PasswordCheck";
 const AccountInfo = () => {
     const [userName, setUsername] = useState(null);
     const [Email, setEmail] = useState(null);
-
+    const [OpenPassword, setOpenPassword] = useState(null);
     const [olduserName, setoldUsername] = useState(null);
     const [oldEmail, setoldEmail] = useState(null);
+    const [event, setEvent] = useState(null);
 
     const userID = localStorage.getItem("user-id");
     const userType = localStorage.getItem("user-type");
@@ -55,6 +57,9 @@ const AccountInfo = () => {
         fetchData();
     }, [userID]);
 
+    const handleCloseModal = () => {
+        setOpenPassword(false);
+    };
     const handleSubmit = async (event) => {
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
@@ -64,38 +69,52 @@ const AccountInfo = () => {
             buttonsStyling: false,
         });
         event.preventDefault();
+
         if (Email && userName) {
             const userID = localStorage.getItem("user-id");
             const userType = localStorage.getItem("user-type");
             const formData = new FormData();
-            formData.append("userName", userName);
-            formData.append("email", Email);
-            formData.append("userID", parseInt(userID));
-            formData.append("userType", userType);
-            try {
-                const response = await axiosClient.post(
-                    "Settings/AccountInfo",
-                    formData
-                );
-                console.log(response);
-                if (response.data.status === 200) {
-                    swalWithBootstrapButtons.fire(
-                        "your info have been updated.",
-                        "success"
-                    );
+            if (oldEmail !== Email) {
+                setEvent(event);
+                setOpenPassword(true);
+            } else {
+                formData.append("changeEmail", 0);
+                if (olduserName !== userName) {
+                    formData.append("changeUserName", 1);
                 } else {
+                    formData.append("changeUserName", 0);
+                }
+                formData.append("email", Email);
+                formData.append("userName", userName);
+                formData.append("userID", parseInt(userID));
+                formData.append("userType", userType);
+                try {
+                    const response = await axiosClient.post(
+                        "Settings/AccountInfo",
+                        formData
+                    );
+                    console.log(response);
+                    if (response.data.status === 200) {
+                        localStorage.setItem("user-name", userName);
+                        console.log(localStorage.getItem("user-name"))
+                        swalWithBootstrapButtons.fire(
+                            "your info have been updated.",
+                            "success"
+                        );
+                    } else {
+                        swalWithBootstrapButtons.fire(
+                            response.data.message,
+                            "Your info can not been updated",
+                            "error"
+                        );
+                    }
+                } catch (error) {
+                    console.log(error);
                     swalWithBootstrapButtons.fire(
-                        response.data.message,
-                        "Your info can not been updated",
+                        error.response.data.message,
                         "error"
                     );
                 }
-            } catch (error) {
-                console.log(error);
-                swalWithBootstrapButtons.fire(
-                    error.response.data.message,
-                    "error"
-                );
             }
         } else {
             console.log(Email);
@@ -116,7 +135,7 @@ const AccountInfo = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="j">
                         <div className="labelInput">
-                                <label>User-Name :</label>
+                            <label>User-Name :</label>
                             <input
                                 placeholder="User Name"
                                 type="text"
@@ -128,7 +147,7 @@ const AccountInfo = () => {
                             />
                         </div>
                         <div className="labelInput">
-                                <label>Email :</label>
+                            <label>Email :</label>
                             <input
                                 placeholder="Email@gmail.com"
                                 type="email"
@@ -150,6 +169,16 @@ const AccountInfo = () => {
                         {" "}
                         save
                     </button>
+                    {OpenPassword && (
+                        <PasswordCheck
+                            onClose={handleCloseModal}
+                            event={event}
+                            userName={userName}
+                            Email={Email}
+                            olduserName={oldEmail}
+                            oldEmail={oldEmail}
+                        />
+                    )}
                 </form>
             </div>
         );
