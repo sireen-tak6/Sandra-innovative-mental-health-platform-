@@ -16,7 +16,6 @@ from langchain_core.prompts import MessagesPlaceholder
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain.chains.history_aware_retriever import create_history_aware_retriever
 import time
-hi
 
 docs=[]
 chat_history = []
@@ -25,7 +24,7 @@ chat_history = []
 def get_docs():
     global docs
 
-    loader=DirectoryLoader('E:/sireen/study/JUP/Model/splittedper/',
+    loader=DirectoryLoader('E:/sireen/study/JUP/JUP/model/test1/splittedper/',
                        glob="*.pdf",
                        loader_cls=PyPDFLoader)
 
