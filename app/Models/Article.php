@@ -2,6 +2,8 @@
 
 namespace App\Models;
 use App\Models\Doctor;
+use App\Models\Notification;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -75,6 +77,14 @@ class Article extends Model
                 
             }
             $this->save();
+            if($this->status=='published'||$this->status=='rejected'){
+                $notification=new Notification();
+                $notification->Type="Article Review";
+                $notification->data=["status"=>$this->status,"articleID"=>$this->id,"articleTitle"=>$this->name];
+                $notification->userID=$this->Doctor->id;
+                $notification->userType="doctor";
+                $notification->save();
+            }
         }       
     }
     public function toSearchableArray()

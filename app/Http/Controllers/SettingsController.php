@@ -11,6 +11,7 @@ use League\CommonMark\Extension\SmartPunct\EllipsesParser;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
+use App\Models\Notification;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ChangeEmail;
@@ -127,11 +128,11 @@ class SettingsController extends Controller
             }
             $user=Doctor::find($userID);
         }
-        else if($request->input('userType')==="admin"){
+        else if($userType==="admin"){
             return response()->json(['status'=>400,'message'=> "you can't update your account information"]);
 
         }
-        else if($request->input('userType')==="patient"){
+        else if($userType==="patient"){
             $validator = $request->validate([
                 'userName' => 'required|string',
                 'email' => 'required|email|string',
@@ -165,6 +166,12 @@ class SettingsController extends Controller
                     $user->new_email=$request->input('email');
                     $user->save();
                     Mail::to($user->new_email)->send(new ChangeEmail($user));
+                    $notification=new Notification();
+                    $notification->Type="Email Change";
+                    $notification->data=["newEmail"=>$user->new_email];
+                    $notification->userID=$user->id;
+                    $notification->userType=$userType;
+                    $notification->save();
                     return response()->json(['status'=>200,'message'=> 'please verify your new email to complete the change']);
 
                    
@@ -214,6 +221,17 @@ class SettingsController extends Controller
             'message' => 'Email verification successful , You can now log in.',
             'email_verified_at' => $email_verified_at
         ];
+        $notification=new Notification();
+        $notification->Type="Email verified";
+        $notification->data=["email"=>$user->email];
+        $notification->userID=$user->id;
+        if($patient){
+            $notification->userType="patient";
+        }
+        else{
+            $notification->userType="doctor";
+        }
+        $notification->save();
         return view('change-success', $data);
    
     }

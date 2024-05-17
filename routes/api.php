@@ -16,6 +16,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\DoctorVerfiyController; 
+use App\Http\Controllers\NotificationController; 
 
 /*
 
@@ -72,9 +73,13 @@ Route::get('/admin/file-info', [AdminController::class, 'getFileAndDoctorInfo'])
 Route::get('/get/images' , [AdminController::class , 'getImages']); 
 
 
+//Notification api
+Route::post('/allNotifications',[NotificationController::class,'GetNotifications']);
+Route::post('/unreadNotificationCount',[NotificationController::class,'GetNotificationCount']);
+Route::post('/markAsRead/{notificationID}',[NotificationController::class,'markAsRead']);
 
 
-//this section for the ChatController 
+//Chat api 
 //first function openChat 
 //it's work
 Route::post('/open-chat/{user_type}/{user_id}/{other_user_id}' , [ChatController::class , 'openChat']);
@@ -95,7 +100,7 @@ Route::post('/get-chat/{id}' , [ChatController::class , 'GetChatByID']);
 //it's work 
 Route::post('/delete-chat/{id}/{user_id}' , [ChatController::class , 'deleteChat']); 
 
-//this section for doctor controller
+//doctor api
 // it's work 
 Route::get('/get/doctors' , [DoctorController::class ,'getAllDoctor']);
 Route::post('/doctorInfo/{doctorId}' , [DoctorController::class ,'DoctorInfo']);

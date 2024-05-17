@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Notification;
+use Carbon\Carbon;
 
 class ArticleReport extends Model
 {
@@ -42,6 +44,22 @@ class ArticleReport extends Model
 
                     }
                 });
+            }
+            $prenotification=Notification::where('type','Article Report')->where('data->articleID',$report->article->id)->whereNull("read_at")->limit(1)->first();
+            if($prenotification){
+                $count=intval($prenotification->data->count);
+                $count=$count+1;
+                $prenotification->data->count=$count;
+                $prenotification->created_at=Carbon::now();
+                $prenotification->save();
+            }
+            else{
+                $notification=new Notification();
+                $notification->Type="Article Report";
+                $notification->data=["count"=>1,"articleID"=>$report->article->id,"articleCat"=>$report->article->specialityID,"articleTitle"=>$report->article->name];
+                $notification->userID=$report->article->Doctor->id;
+                $notification->userType="doctor";
+                $notification->save();
             }
         });
     }

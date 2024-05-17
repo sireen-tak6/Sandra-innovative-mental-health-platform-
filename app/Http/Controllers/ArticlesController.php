@@ -10,6 +10,7 @@ use App\Models\ArticleLike;
 use App\Models\ArticleReport;
 use App\Models\Review;
 use App\Models\Doctor;
+use App\Models\Notification;
 
 use Carbon\Carbon;
 
@@ -57,6 +58,7 @@ class ArticlesController extends Controller
                 }
                 $article->content=$textContent;
             });  
+
             return response()->json(['status'=>200,'Articles'=>$articles]);
         }
         else
@@ -418,7 +420,7 @@ class ArticlesController extends Controller
 
                 }
             } catch (\Exception $e) {
-                return response()->json(['status'=>404,'message' => 'Something went wrong']);
+                return response()->json(['status'=>404,'message' => $e]);
             }
             return response()->json(['status'=>200,'message' => 'Article liked','likes'=>$Article->likes]);
         }
@@ -538,6 +540,12 @@ class ArticlesController extends Controller
                 return response()->json(['status'=>404,'massage'=>"the article does not exist."]);
             }
             try{
+                $notification=new Notification();
+                $notification->Type="Delete";
+                $notification->data=["articleID"=>$ArticleID,"articleCat"=>$Article->specialityID,"articleTitle"=>$Article->name];
+                $notification->userID=$Article->doctorID;
+                $notification->userType="doctor";
+                $notification->save();
                 $Article->delete();
                 return response()->json(['status'=>200,'massage'=>"Article deleted successfully."]);
             } catch (\Exception $e) {

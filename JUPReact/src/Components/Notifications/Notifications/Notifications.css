@@ -1,0 +1,87 @@
+.icon {
+    margin-left: 15px;
+    cursor: pointer;
+    position: relative;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.iconImg {
+    width: 3vmin;
+    height: 3vmin;
+}
+
+.counter {
+    width: 2vmin;
+    height: 2vmin;
+    background-color: #1c627e;
+    border-radius: 50%;
+    padding: 5px;
+    font-size: max(1.5vmin, 10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    color: white;
+}
+
+.notifications {
+    position: absolute;
+    top: 8vh;
+    color: black;
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    width: 25vw;
+    font-weight: 300;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.852),
+      rgba(255, 255, 255, 0.675)
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.notification {
+    padding: 2vmin;
+    font-size: max(2.3vmin, 15px);
+    color: rgb(122, 121, 121);
+    border-bottom: 1px rgb(119, 119, 119) solid;
+}
+.notification .Type {
+    font-size: max(2.3vmin, 18px);
+    color: rgb(70, 70, 70);
+    font-weight: 500;
+}
+
+.unread{
+  background-color: #c6e5f082;
+  
+}
+ .first{
+  border-radius: 20px 20px 0 0 ;
+
+}
+
+.last{
+  border-radius: 0px 0px 20px 20px ;
+  border-bottom:none;
+
+}
+.firstlast{
+  border-radius: 20px 20px 20px 20px ;
+  border-bottom: none;
+
+}
+.notificationDate{
+  margin-top: 1vh;
+  font-size: max(1.9vmin, 10px);
+  color: rgb(151, 151, 151);
+}
+.none{
+  text-align: center;
+  align-items: center;
+}

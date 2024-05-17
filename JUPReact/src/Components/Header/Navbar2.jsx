@@ -21,6 +21,7 @@ import SearchScreen from "../Search/Search";
 
 //providers
 import { SearchContext } from "../../Providers/SearchProvider";
+import Notifications from "../Notifications/Notifications/Notifications";
 function Navbarr() {
     const { query, setQuery, click, setClick } = useContext(SearchContext);
     const navigate = useNavigate();
@@ -157,6 +158,7 @@ function Navbarr() {
                             <div className="info">
                                 {localStorage.getItem("user-info") ? (
                                     <>
+                                        <Notifications />
                                         <Nav.Link>
                                             <div className="userInfo">
                                                 <img

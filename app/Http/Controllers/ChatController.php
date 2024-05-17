@@ -8,6 +8,8 @@ use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\Message;
 use Illuminate\Http\Request;
+use App\Models\Notification;
+use Carbon\Carbon;
 
 class ChatController extends Controller
 {
@@ -143,6 +145,21 @@ class ChatController extends Controller
                 'recever_id' => $recever->id,
                 'chat_id' => $chat->id,
             ]);
+            $notification=Notification::where('type','Message')->where('userID',$recever->id)->where('data->senderID',$sender->id)->where("data->chatID",$chat->id)->whereNull("read_at")->limit(1)->first();
+            
+            if($notification){
+                $notification->created_at=Carbon::now();
+                $notification->save();           
+            }
+            else{
+                
+                $notification=new Notification();
+                $notification->Type="Message";
+                $notification->data=["senderID"=>$sender->id,"senderName"=>$sender->user_name,"chatID"=>$chat->id];
+                $notification->userID=$recever->id;
+                $notification->userType="doctor";
+                $notification->save();
+            }
             return response()->json([
                 'message' => $Message,
                 'sender_id' => $sender->id,
@@ -159,6 +176,19 @@ class ChatController extends Controller
                 'recever_id' => $recever->id,
                 'chat_id' => $chat->id,
             ]);
+            $notification=Notification::where('type','Message')->where('userID',$recever->id)->where('data->senderID',$sender->id)->where("data->chatID",$chat->id)->whereNull("read_at")->limit(1)->first();
+            if($notification){
+             $notification->created_at=Carbon::now();
+             $notification->save();   
+            }
+            else{
+                $notification=new Notification();
+                $notification->Type="Message";
+                $notification->data=["senderID"=>$sender->id,"senderName"=>$sender->user_name,"chatID"=>$chat->id];
+                $notification->userID=$recever->id;
+                $notification->userType="patient";
+                $notification->save();
+            }
             return response()->json([
                 'message' => $Message,
                 'sender_id' => $sender->id,
@@ -229,10 +259,5 @@ class ChatController extends Controller
     }
 
 
-    //this funcion for detect if the user active or not 
-    public function isActive($id)
-    {
-        //i solve it in another way .. 
-    }
 
 }

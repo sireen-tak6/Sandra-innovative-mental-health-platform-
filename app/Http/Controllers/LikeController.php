@@ -6,6 +6,8 @@ use App\Models\Like;
 use App\Models\Doctor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use App\Models\Notification;
 
 class LikeController extends Controller
 {
@@ -38,6 +40,11 @@ class LikeController extends Controller
         if ($like) {
             // Delete the existing like record
             $like->delete();
+            $notification=Notification::where('type','Like')->where('userID',$doctor_id)->where('data->patientID',$patient_id)->get();
+            if($notification){
+                $notification->delete();
+            }
+
             $doctor=Doctor::find($doctor_id);
             $likes = $doctor->DoctorLikes->count();
             return response()->json(['message' => 'Like removed successfully','likes'=>$likes], 200);
@@ -48,6 +55,19 @@ class LikeController extends Controller
             $newLike->patient_id = $patient_id;
             $newLike->like = 1;
             $newLike->save();
+            $notification=Notification::where('type','Like')->where('userID',$doctor_id)->where('data->patientID',$patient_id)->whereNull("read_at")->limit(1)->first();
+            if($notification){
+                $notification->created_at=Carbon::now();
+                $notification->save();   
+            }
+            else{
+                $notification=new Notification();
+                $notification->Type="Like";
+                $notification->data=["patientID"=>$patient_id];
+                $notification->userID=$doctor_id;
+                $notification->userType="doctor";
+                $notification->save();
+            }
             $doctor=Doctor::find($doctor_id);
             $likes = $doctor->DoctorLikes->count();
             return response()->json(['message' => 'Like added successfully','likes'=>$likes], 200);

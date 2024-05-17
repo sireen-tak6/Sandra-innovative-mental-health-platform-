@@ -296,152 +296,164 @@ const ArticleContent = () => {
             Swal.fire("you don't have the Permissions to edit this article");
         }
     }
+        const [isOpen, setIsOpen] = useState(false);
+
+        const toggleDropdown = () => {
+            setIsOpen(!isOpen);
+        };
     return (
         <div className="ArticleContent">
-                <div className="ContentSide">
-                    {Article.length === 0 || date === null ? (
-                        <CircularLoading />
-                    ) : (
-                        <div className="contentContainer">
-                            <div className="image">
-                                <img
-                                    src={
-                                        "http://localhost:8000/" + Article.image
-                                    }
-                                    alt={Article.image}
-                                />
-                            </div>
-                            <div className="info">
-                                <div className="title">
-                                    <div className="Artname">
-                                        {Article.name}
-                                    </div>
-                                    <div class="dropdown">
-                                        <button
-                                            class="dropdown-toggle"
-                                            type="button"
-                                        ></button>
-                                        {userType === "doctor" &&
-                                        userID == Article.doctor.id ? (
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <Button
-                                                        className="listChoice"
-                                                        onClick={deleteHandle}
-                                                    >
-                                                        Delete
-                                                    </Button>
-                                                </li>
-                                            </ul>
-                                        ) : userType === "patient" ? (
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <Button
-                                                        className="listChoice"
-                                                        onClick={ReportHandle}
-                                                    >
-                                                        Report
-                                                    </Button>
-                                                </li>
-                                            </ul>
-                                        ) : userType === "doctor" &&
-                                          userID != Article.doctor.id ? null : (
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <Button
-                                                        className="listChoice"
-                                                        onClick={deleteHandle}
-                                                    >
-                                                        Delete
-                                                    </Button>
-                                                </li>
-                                            </ul>
-                                        )}
-                                    </div>
-                                </div>
-                                <div className="catLikes">
-                                    <div className="cat">
-                                        <BsBookmark
-                                            className="icon"
-                                            size="2.5vmin"
-                                        />
-
-                                        {Article.category.name}
-                                    </div>
-                                    {userType === "admin" ||
-                                    userType === "doctor" ? (
-                                        <div className="reports">
-                                            <AiOutlineWarning
-                                                className="icon"
-                                                size="3vmin"
-                                            />
-                                            {Article.reports}
-                                        </div>
-                                    ) : null}
-                                    {userType === "patient" ? (
-                                        <div className="likes">
-                                            <LikeButton
-                                                handleDislike={handleDislike}
-                                                handleLike={handleLike}
-                                                likes={likes}
-                                                isLiked={isLiked}
-                                                button="yes"
-                                            />
-                                        </div>
-                                    ) : (
-                                        <div className="likes">
-                                            <LikeButton
-                                                handleDislike={handleDislike}
-                                                handleLike={handleLike}
-                                                likes={likes}
-                                                isLiked={isLiked}
-                                                button="no"
-                                            />
-                                        </div>
+            <div className="ContentSide">
+                {Article.length === 0 || date === null ? (
+                    <CircularLoading />
+                ) : (
+                    <div className="contentContainer">
+                        <div className="image">
+                            <img
+                                src={"http://localhost:8000/" + Article.image}
+                                alt={Article.image}
+                            />
+                        </div>
+                        <div className="info">
+                            <div className="title">
+                                <div className="Artname">{Article.name}</div>
+                                <div class="dropdown">
+                                    <button
+                                        class="dropdown-toggle"
+                                        type="button"
+                                        onClick={toggleDropdown}
+                                    ></button>
+                                    {userType === "doctor" &&
+                                    userID == Article.doctor.id ? (
+                                        <ul
+                                            class={`dropdown-menu ${
+                                                isOpen ? "show" : ""
+                                            }`}
+                                        >
+                                            <li>
+                                                <Button
+                                                    className="listChoice"
+                                                    onClick={deleteHandle}
+                                                >
+                                                    Delete
+                                                </Button>
+                                            </li>
+                                        </ul>
+                                    ) : userType === "patient" ? (
+                                        <ul
+                                            class={`dropdown-menu ${
+                                                isOpen ? "show" : ""
+                                            }`}
+                                        >
+                                            <li>
+                                                <Button
+                                                    className="listChoice"
+                                                    onClick={ReportHandle}
+                                                >
+                                                    Report
+                                                </Button>
+                                            </li>
+                                        </ul>
+                                    ) : userType === "doctor" &&
+                                      userID != Article.doctor.id ? null : (
+                                        <ul
+                                            class={`dropdown-menu ${
+                                                isOpen ? "show" : ""
+                                            }`}
+                                        >
+                                            <li>
+                                                <Button
+                                                    className="listChoice"
+                                                    onClick={deleteHandle}
+                                                >
+                                                    Delete
+                                                </Button>
+                                            </li>
+                                        </ul>
                                     )}
                                 </div>
-                                <div className="content">{Article.content}</div>
-                                <div className="publisher">
-                                    Published by : {Article.doctor.user_name}
-                                </div>
-                                <div className="date">
-                                    Date : {date.getDate()} /{" "}
-                                    {date.getMonth() + 1} / {date.getFullYear()}
-                                </div>
                             </div>
-                        </div>
-                    )}
-                    <div></div>
-                </div>
-                <div className="ArticlesSide">
-                    {Articles.length === 0 ? (
-                        <CircularLoading />
-                    ) : (
-                        <div className="related">
-                            <div className="relatedTitle">
-                                Related Articles :
-                            </div>
-                            {Articles.slice(0, 3).map((item) =>
-                                item.id != id ? (
-                                    <div className="cards">
-                                        <Card
-                                            id={item.id}
-                                            title={item.name}
-                                            catid={category}
-                                            type="content"
-                                            name={item.category.name}
-                                            image={item.image}
-                                            doctorID={item.doctor}
-                                            content={item.content}
-                                            date={item.date}
-                                            likes={item.likes}
+                            <div className="catLikes">
+                                <div className="cat">
+                                    <BsBookmark
+                                        className="icon"
+                                        size="2.5vmin"
+                                    />
+
+                                    {Article.category.name}
+                                </div>
+                                {userType === "admin" ||
+                                userType === "doctor" ? (
+                                    <div className="reports">
+                                        <AiOutlineWarning
+                                            className="icon"
+                                            size="3vmin"
+                                        />
+                                        {Article.reports}
+                                    </div>
+                                ) : null}
+                                {userType === "patient" ? (
+                                    <div className="likes">
+                                        <LikeButton
+                                            handleDislike={handleDislike}
+                                            handleLike={handleLike}
+                                            likes={likes}
+                                            isLiked={isLiked}
+                                            button="yes"
                                         />
                                     </div>
-                                ) : null
-                            )}
+                                ) : (
+                                    <div className="likes">
+                                        <LikeButton
+                                            handleDislike={handleDislike}
+                                            handleLike={handleLike}
+                                            likes={likes}
+                                            isLiked={isLiked}
+                                            button="no"
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                            <div className="content">{Article.content}</div>
+                            <div className="publisher">
+                                Published by : {Article.doctor.user_name}
+                            </div>
+                            <div className="date">
+                                Date : {date.getDate()} / {date.getMonth() + 1}{" "}
+                                / {date.getFullYear()}
+                            </div>
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
+                <div></div>
+            </div>
+            <div className="ArticlesSide">
+                {Articles.length === 0 ? (
+                    <CircularLoading />
+                ) : (
+                    <div className="related">
+                        <div className="relatedTitle">Related Articles :</div>
+                        {Articles.slice(0, 3).map((item) =>
+                            item.id != id ? (
+                                <div className="cards">
+                                    <Card
+                                        id={item.id}
+                                        title={item.name}
+                                        catid={category}
+                                        type="content"
+                                        name={item.category.name}
+                                        image={item.image}
+                                        doctorID={item.doctor}
+                                        content={item.content}
+                                        date={item.date}
+                                        likes={item.likes}
+                                    />
+                                </div>
+                            ) : null
+                        )}
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

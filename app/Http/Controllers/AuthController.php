@@ -180,6 +180,8 @@ class AuthController extends Controller
                    $user->available = 1; // Update the available attribute to 1
                    $user->save();
                    $token = $user->createToken('token')->plainTextToken;
+                   $macAddr = exec('getmac');
+
                    return response()->json([
                     'user' => $user,
                     'user_id' => $user_id,

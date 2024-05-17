@@ -55,12 +55,13 @@ export default function ChatMessages() {
     const sendMessage = async () => {
         try {
             if (localStorage.getItem("user-type") === "patient") {
-                await axiosClient.post(
+                const respon = await axiosClient.post(
                     `/send-message/${localStorage.getItem(
                         "user-id"
                     )}/${localStorage.getItem("receverDoctor")}`,
                     { message: newMessage }
                 );
+                console.log(respon)
                 setNewMessage("");
 
                 // Add the new message to the existing messages state

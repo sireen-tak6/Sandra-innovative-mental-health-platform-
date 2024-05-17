@@ -8,6 +8,7 @@ use App\Models\DoctorVerfiy;
 use App\Models\Doctor;
 use App\Models\Article;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Notification;
 
 
 class AdminController extends Controller
@@ -45,6 +46,12 @@ class AdminController extends Controller
             if ($action === 'accept') {
                 $fileModel->isVerfiy = 1;
                 $fileModel->save();
+                $notification=new Notification();
+                $notification->Type="Certificate Review";
+                $notification->data=["status"=>"accepted"];
+                $notification->userID=$doctorId;
+                $notification->userType="doctor";
+                $notification->save();
                 return response()->json([
                     'message' => 'Doctor verification complete successfully , status updated successfully'
                     , 'DocumentInfo' => $fileModel
@@ -52,6 +59,12 @@ class AdminController extends Controller
                 ]);
             } else {
                 $fileModel->delete();
+                $notification=new Notification();
+                $notification->Type="Certificate Review";
+                $notification->data=["status"=>"rejected"];
+                $notification->userID=$doctorId;
+                $notification->userType="doctor";
+                $notification->save();
                 return response()->json([
                     'message' => 'The request for verfiy rejected',
                 ]);

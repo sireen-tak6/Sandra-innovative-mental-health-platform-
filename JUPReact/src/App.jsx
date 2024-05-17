@@ -46,6 +46,7 @@ import UploadDocument from "./pages/UploadDocument/UploadDocument";
 import AdminDoctors from "./pages/AdminDoctors/AdminDoctors";
 import RequestVerfiy from "./pages/RequestVerfiy/RequestVerfiy";
 import Chatbot from "./pages/Chatbot/Chatbot";
+import Notifications from "./Components/Notifications/Notifications/Notifications";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -87,6 +88,9 @@ const router = createBrowserRouter(
             <Route path="control/doctors" element={<AdminDoctors />} />
             <Route path="request/verfiy" element={<RequestVerfiy />} />
             <Route path="Chatbot" element={<Chatbot/>}/>
+
+            <Route path="Notifications" element={<Notifications/>} />
+
         </Route>
     )
 );

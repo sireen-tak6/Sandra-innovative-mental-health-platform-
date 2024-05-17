@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use App\Models\Notification;
 
 class ArticleLike extends Model
 {
@@ -26,7 +27,7 @@ class ArticleLike extends Model
     protected static function boot()
     {
         parent::boot();
-
+        
         static::created(function ($like) {
             // Increment the likes_count for the associated article
             $like->article->increment('likes');
@@ -43,10 +44,17 @@ class ArticleLike extends Model
                     $review->doctor->increment('points');
                 });
             }
+            $notification=new Notification();
+            $notification->Type="Article Like";
+            $notification->data=["likesCount"=>$like->article->likes,"articleID"=>$like->article->id,"patientID"=>$like->patientID,"articleCat"=>$like->article->specialityID,"articleTitle"=>$like->article->name];
+            $notification->userID=$like->article->Doctor->id;
+            $notification->userType="doctor";
+            $notification->save();
 
         });
         static::deleted(function ($like) {
             // Decrement the likes_count for the associated article
+            $prenotification=Notification::where('type',"Article Like")->where('data->articleID',$like->article->id)->where('data->patientID',$like->patientID)->latest()->get()->first();
             $like->article->decrement('likes');
 
             // Check if the likes_count is no longer a multiple of 5
@@ -62,6 +70,7 @@ class ArticleLike extends Model
                     $review->doctor->decrement('points');
                 });
             }
+            $prenotification->delete();
         });
     }
 }
