@@ -58,7 +58,7 @@ const Settings = () => {
                                 Personal Information
                             </button>
                         ) : null}
-                        {userType !== "admin" ? (
+                        {userType !== "admin" && userType!=="secretary"? (
                             <button
                                 className={`part ${
                                     part === "Account" ? "chossen" : ""
@@ -77,7 +77,7 @@ const Settings = () => {
                         >
                             Change Password
                         </button>
-                        {localStorage.getItem("user-Secretary") ? (
+                        {localStorage.getItem("user-Secretary") && userType=="doctor"? (
                             <button
                                 className={`part ${
                                     part === "Secretary" ? "chossen" : ""
@@ -87,7 +87,7 @@ const Settings = () => {
                                 Secretary Information
                             </button>
                         ) : null}
-                        {userType !== "admin" ? (
+                        {userType !== "admin" && userType!=="secretary" ? (
                             <button
                                 className={`part ${
                                     part === "Delete" ? "chossen" : ""

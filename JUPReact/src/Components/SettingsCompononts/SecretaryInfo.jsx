@@ -167,7 +167,7 @@ const SecretaryInfo = () => {
                             <label> Confirm Password :</label>
                             <input
                                 placeholder="*******"
-                                type="ConfirmPassword"
+                                type="Password"
                                 value={ConfirmPassword ?? ""}
                                 name="ConfirmPassword"
                                 onChange={(e) => setConfirmPassword(e.target.value)}
