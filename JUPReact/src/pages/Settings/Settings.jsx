@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 //css
 import "sweetalert2/src/sweetalert2.scss";
-import "./profileInfo.css";
+import "./Settings.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 
@@ -13,6 +13,7 @@ import DeleteAcount from "../../Components/SettingsCompononts/DeleteAccount";
 import AccountInfo from "../../Components/SettingsCompononts/AccountInfo";
 import PersonalInfo from "../../Components/SettingsCompononts/PersonalInfo";
 import ChangePassword from "../../Components/SettingsCompononts/ChangePassowrd";
+import SecretaryInfo from "../../Components/SettingsCompononts/SecretaryInfo";
 
 const Settings = () => {
     const userID = localStorage.getItem("user-id");
@@ -21,6 +22,8 @@ const Settings = () => {
         userType === "doctor"
             ? "Personal"
             : userType === "admin"
+            ? "Password"
+            : userType === "secretary"
             ? "Password"
             : "Account"
     );
@@ -38,7 +41,10 @@ const Settings = () => {
                 <div className="partsPart">
                     <div className="partTitle">
                         {" "}
-                        <FontAwesomeIcon icon={faCog} className="settingsicon"/>
+                        <FontAwesomeIcon
+                            icon={faCog}
+                            className="settingsicon"
+                        />
                         Settings{" "}
                     </div>
                     <div className="Titles">
@@ -71,6 +77,16 @@ const Settings = () => {
                         >
                             Change Password
                         </button>
+                        {localStorage.getItem("user-Secretary") ? (
+                            <button
+                                className={`part ${
+                                    part === "Secretary" ? "chossen" : ""
+                                }`}
+                                onClick={() => onUpdate("Secretary")}
+                            >
+                                Secretary Information
+                            </button>
+                        ) : null}
                         {userType !== "admin" ? (
                             <button
                                 className={`part ${
@@ -103,6 +119,8 @@ const Settings = () => {
                         <ChangePassword />
                     ) : part === "Delete" ? (
                         <DeleteAcount />
+                    ) : part == "Secretary" ? (
+                        <SecretaryInfo />
                     ) : (
                         <ContactUs />
                     )}

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Doctor;
 use App\Models\Admin;
 use App\Models\Patient;
+use App\Models\Secretary;
 use Illuminate\Support\Facades\Hash;
 use League\CommonMark\Extension\SmartPunct\EllipsesParser;
 use Illuminate\Support\Facades\Log;
@@ -78,6 +79,9 @@ class SettingsController extends Controller
         else if($request->input('userType')==="patient"){
             $user=Patient::find($userID);
         }
+        else if ($request->input('userType')==="secretary"){
+            $user=Secretary::find($userID);
+        } 
         else{
             return response()->json(['status'=>400,'message'=> 'You must login first']);
         }

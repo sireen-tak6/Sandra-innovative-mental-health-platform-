@@ -14,8 +14,11 @@ const PasswordCheck = ({
     Email,
     olduserName,
     oldEmail,
+    ConfirmPassword,
+    Password,
+    type,
 }) => {
-    const [password, setPassword] = useState(null);
+    const [userPassword, setUserPassword] = useState(null);
     const navigate = useNavigate();
     const userType = localStorage.getItem("user-type");
 
@@ -29,13 +32,13 @@ const PasswordCheck = ({
         });
         event.preventDefault();
 
-        if (Email && userName && password) {
+        if (Email && userName && userPassword) {
             const userID = localStorage.getItem("user-id");
             const userType = localStorage.getItem("user-type");
             const formData = new FormData();
             if (oldEmail !== Email) {
                 formData.append("changeEmail", 1);
-                formData.append("password", password);
+                formData.append("password", userPassword);
             } else {
                 formData.append("changeEmail", 0);
             }
@@ -74,6 +77,51 @@ const PasswordCheck = ({
                     "error"
                 );
             }
+        } else if (type == "Secretary" && userName && userPassword) {
+            if (Password && ConfirmPassword && userName && userPassword) {
+                const userID = localStorage.getItem("user-id");
+                const userType = localStorage.getItem("user-type");
+                const formData = new FormData();
+                formData.append("changePassword", 1);
+                formData.append("password", userPassword);
+
+                if (olduserName !== userName) {
+                    formData.append("changeUserName", 1);
+                } else {
+                    formData.append("changeUserName", 0);
+                }
+                formData.append("SecretaryPassword", Password);
+                formData.append("ConfirmPassword", ConfirmPassword);
+                formData.append("userName", userName);
+                formData.append("userID", parseInt(userID));
+                formData.append("userType", userType);
+                try {
+                    const response = await axiosClient.post(
+                        "Settings/SecretaryInfo",
+                        formData
+                    );
+                    console.log(response);
+                    if (response.data.status === 200) {
+                        swalWithBootstrapButtons.fire({
+                            title: "Secretary information have been changed successfully",
+                            icon: "success",
+                        });
+                        window.location.reload();
+                    } else {
+                        swalWithBootstrapButtons.fire(
+                            response.data.message,
+                            "Your info can not been updated",
+                            "error"
+                        );
+                    }
+                } catch (error) {
+                    console.log(error);
+                    swalWithBootstrapButtons.fire(
+                        error.response.data.message,
+                        "error"
+                    );
+                }
+            }
         } else {
             console.log(Email);
             console.log(userName);
@@ -87,7 +135,7 @@ const PasswordCheck = ({
         }
     };
     const handleContentChange = (e) => {
-        setPassword(e.target.value);
+        setUserPassword(e.target.value);
     };
     return (
         <div className="passwordOverlay">
@@ -108,7 +156,7 @@ const PasswordCheck = ({
                         <input
                             placeholder="Password"
                             type="password"
-                            value={password}
+                            value={userPassword}
                             name="password"
                             required
                             onChange={handleContentChange}
@@ -120,7 +168,7 @@ const PasswordCheck = ({
                             type="button"
                             className="saveButton"
                             onClick={handleSubmit}
-                            disabled={!password}
+                            disabled={!userPassword}
                         >
                             save
                         </button>

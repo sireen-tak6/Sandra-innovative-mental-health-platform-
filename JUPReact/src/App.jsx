@@ -36,7 +36,7 @@ import MyArticleContent from "./pages/pendingArticless/myArticleContent/myArticl
 
 import DoctorProfile from "./pages/DoctorProfile/DoctorProfile";
 
-import Settings from "./pages/profileInfo/profileInfo";
+import Settings from "./pages/Settings/Settings";
 import SearchProv from "./Providers/SearchProvider";
 import SearchResult from "./pages/SearchResult/SearchResult";
 
@@ -51,8 +51,8 @@ import Secretary from "./pages/AddSecretary/AddSecretary";
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<RootLayout />}>
-           { //<Route index element={<Home2 />} />
-           }
+           <Route index element={<Home2 />} />
+           
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<SignUp />} />
             <Route path="home" element={<Home2 />} />
@@ -75,7 +75,7 @@ const router = createBrowserRouter(
             <Route path="chats" element={<Chats />} />
             <Route path="chat/messages" element={<ChatMessages />} />
             <Route path="doctorProile/:id" element={<DoctorProfile />} />
-            <Route path="Settings" element={<Settings />} />
+            <Route path="Settings" element={<Settings/>} />
 
             <Route path="verfiy" element={<UploadDocument />} />
             <Route path="control/doctors" element={<AdminDoctors />} />

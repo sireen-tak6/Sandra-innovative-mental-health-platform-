@@ -55,9 +55,9 @@ class Doctor extends Model implements Authenticatable, MustVerifyEmailContract
     {
         return $this->belongsTo(Category::class, 'speciality');
     }
-    public function Secertary():HasOne
+    public function Secretary():HasOne
     {
-        return $this->hasOne(Secertarie::class , 'doctor_id'); 
+        return $this->hasOne(Secretary::class , 'doctorID'); 
     }
     
     //this is the relationship between the doctors and the chats tables 
