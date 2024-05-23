@@ -7,22 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Laravel\Sanctum\HasApiTokens;
 
-class Secertarie extends Model
+class Secretary extends Model
 {
     use HasFactory ,HasApiTokens;
 
     protected $fillable = [
         'user_name',
-        'email',
         'password',
-        'doctor_id',
+        'doctorID',
     ];
 
     
-    protected $guard = "secertaries"; 
-    public function doctorSecertarie(): BelongsTo
+    protected $table='secretaries';
+    public function doctor(): BelongsTo
     {
-    return $this->belongsTo(Doctor::class, 'doctor_id');
+    return $this->belongsTo(Doctor::class, 'doctorID');
     }
 
 }

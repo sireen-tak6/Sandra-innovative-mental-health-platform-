@@ -17,6 +17,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\DoctorVerfiyController; 
 use App\Http\Controllers\NotificationController; 
+use App\Http\Controllers\SecertaryController; 
 
 /*
 
@@ -184,3 +185,5 @@ Route::post('Settings/info',[SettingsController::class,'show']);
 Route::post('Settings/AccountInfo',[SettingsController::class,'updateAccount']);
 Route::post('Settings/getPersonalInfo',[SettingsController::class,'getPersonalInfo']);
 Route::post('Settings/PersonalInfo',[SettingsController::class,'PersonalInfo']);
+
+Route::post('AddSecretary',[SecertaryController::class,'AddSecretary']);

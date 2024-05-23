@@ -38,7 +38,9 @@ class AuthController extends Controller
             $uniqueId = mt_rand(100000, 999999); // Generate a random ID
 
             // Check if the generated ID exists in the Doctor model
-            $idExists = Doctor::where('id', $uniqueId)->exists();
+            $idExists1 = Doctor::where('id', $uniqueId)->exists();
+            $idExists3=Patient::where('id', $uniqueId)->exists();
+            $idExists=$idExists1||$idExists3;
         }
         $verificationToken = Str::random(32);
 
@@ -69,7 +71,8 @@ class AuthController extends Controller
          $verificationToken = Str::random(32);
          if (isset($data['id'])) {
             $existingPatient = Patient::where('id', $data['id'])->first();
-            if ($existingPatient) {
+            $existingDoctor = Doctor::where('id', $data['id'])->first();
+            if ($existingPatient||$existingDoctor) {
                 // Generate a new unique ID for the doctor
                 $newId = $this->generateUniqueDoctorId();
                 $data['id'] = $newId;
@@ -103,7 +106,9 @@ class AuthController extends Controller
  {
      $newId = mt_rand(1000000, 9999999); // Generate a random ID
      $existingPatient = Patient::where('id', $newId)->first();
-     if ($existingPatient) {
+     $existingDoctor = Doctor::where('id', $newId)->first();
+
+     if ($existingPatient||$existingDoctor) {
          // If the generated ID already exists in the Patient model, generate a new one recursively
          return $this->generateUniqueDoctorId();
      }

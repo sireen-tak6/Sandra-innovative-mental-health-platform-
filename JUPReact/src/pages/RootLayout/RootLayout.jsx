@@ -9,7 +9,7 @@ import { SearchContext } from "../../Providers/SearchProvider";
 import SearchScreen from "../../Components/Search/Search";
 
 const RootLayout = () => {
-    const notfooterexclude = ["/login", "/signup", "/AddArticle"];
+    const notfooterexclude = ["/login", "/signup", "/AddArticle","/AddSecretary"];
     const notUserexclude = [
         "/pending",
         "/update",

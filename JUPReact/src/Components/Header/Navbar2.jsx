@@ -48,6 +48,8 @@ function Navbarr() {
     let Type = localStorage.getItem("user-type");
 
     let user = localStorage.getItem("user-name");
+    let Secretary = localStorage.getItem("user-Secretary");
+
     console.log(user);
 
     const handleClickSearch = () => {
@@ -176,12 +178,21 @@ function Navbarr() {
                                             className="o"
                                         >
                                             {Type === "doctor" ? (
-                                                <NavDropdown.Item
-                                                    href={`/doctorProile/${id}`}
-                                                    className="o"
-                                                >
-                                                    My Profile
-                                                </NavDropdown.Item>
+                                                <>
+                                                    <NavDropdown.Item
+                                                        href={`/doctorProile/${id}`}
+                                                        className="o"
+                                                    >
+                                                        My Profile
+                                                    </NavDropdown.Item>
+                                                    {!Secretary &&
+                                                    <NavDropdown.Item
+                                                        href={`/AddSecretary`}
+                                                        className="o"
+                                                    >
+                                                        Add Secretary
+                                                    </NavDropdown.Item>}
+                                                </>
                                             ) : null}
                                             <NavDropdown.Item
                                                 href="/Settings"

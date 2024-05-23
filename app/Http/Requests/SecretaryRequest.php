@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SignupRequestDoctor extends FormRequest
+class SecretaryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +24,16 @@ class SignupRequestDoctor extends FormRequest
     public function rules(): array
     {
         return [
-            'user_name' => 'required|string',
-            'email' => 'required|email|string|unique:doctors,email|unique:patients,email|unique:secretaries,email',
+            'userID'=>'required|integer|exists:doctors,id',
+            'userType'=>'required|String',
+            'user_name' => 'required|string|unique:secretaries,user_name',
             'password' => [
                 'required',
                 'confirmed',
                 \Illuminate\Validation\Rules\Password::min(8),
-            ]
+            ],
+
+            
         ];
     }
 

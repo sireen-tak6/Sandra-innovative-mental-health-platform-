@@ -29,8 +29,6 @@ import ChatMessages from "./pages/ChatMessages/ChatMessages";
 import ShowArticles from "./pages/ShowArticles/ShowArticles";
 import ArticleContent from "./pages/ArticleContent/ArticleContent";
 import AddArticle from "./pages/AddArticle/AddArticle";
-import EditArticle from "./pages/editArticle/editArticle";
-import EditArticleContent from "./pages/editArticle/editArticleContent";
 import PendingArticles from "./pages/pendingArticless/PendingArticles/pendingArticles";
 import PArticleContent from "./pages/pendingArticless/ArticleContent/ArticleContent";
 import MyArticles from "./pages/pendingArticless/myArticles/myArticles";
@@ -47,11 +45,14 @@ import AdminDoctors from "./pages/AdminDoctors/AdminDoctors";
 import RequestVerfiy from "./pages/RequestVerfiy/RequestVerfiy";
 import Chatbot from "./pages/Chatbot/Chatbot";
 import Notifications from "./Components/Notifications/Notifications/Notifications";
+import PatientBooking from "./pages/BookAppointment/BookAppointment";
+import Secretary from "./pages/AddSecretary/AddSecretary";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<RootLayout />}>
-            <Route index element={<Home2 />} />
+           { //<Route index element={<Home2 />} />
+           }
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<SignUp />} />
             <Route path="home" element={<Home2 />} />
@@ -70,14 +71,6 @@ const router = createBrowserRouter(
                 element={<MyArticleContent />}
             />
             <Route path="articles/:category/:id" element={<ArticleContent />} />
-            <Route
-                path="articles/:category/:id/update"
-                element={<EditArticle />}
-            />
-            <Route
-                path="articles/:category/:id/update/content"
-                element={<EditArticleContent />}
-            />
             <Route path="articles/AddArticle" element={<AddArticle />} />
             <Route path="chats" element={<Chats />} />
             <Route path="chat/messages" element={<ChatMessages />} />
@@ -90,6 +83,9 @@ const router = createBrowserRouter(
             <Route path="Chatbot" element={<Chatbot/>}/>
 
             <Route path="Notifications" element={<Notifications/>} />
+            <Route path="Appointment" element={<PatientBooking />} />
+            <Route path="AddSecretary" element={<Secretary />} />
+
 
         </Route>
     )
