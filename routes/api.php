@@ -53,6 +53,7 @@ Route::get('/verify-new-email/{token}',
 [SettingsController::class, 'verifyEmail'])
 ->name('verify.new.email');
 Route::post('/login',[AuthController::class,'login']);
+Route::post('/login/Secretary',[AuthController::class,'SecretaryLogin']);
 Route::post('/logout/{type}/{id}', [AuthController::class , 'logout']); 
 
 //Admin api 

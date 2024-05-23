@@ -28,7 +28,7 @@
     display: grid;
     place-items: center;
 }
-.Login button,
+.Login .button,
 .SignUp .button {
     font-weight: 500;
     padding: 0.5vh 1vw;
@@ -61,11 +61,11 @@
     color: #0d4155;
     text-decoration: none;
 }
-.SignUp .swapPart {
+.SignUp .swapPart , .Login .swapPart{
     display: grid;
     place-items: center;
 }
-.SignUp .swap {
+.SignUp .swap ,.Login .swap{
     background-color: #fff7da00;
     border: none;
     font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
@@ -75,6 +75,7 @@
     margin-top: 8vh;
     color: rgb(143, 143, 143);
     font-style: italic;
+
 }
 .Login a {
     font-weight: 400;

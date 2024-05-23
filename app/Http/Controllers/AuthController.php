@@ -10,7 +10,7 @@ use App\Http\Requests\SignupRequestDoctor;
 use App\Models\Doctor;
 use App\Models\Admin;
 use App\Models\Patient;
-use App\Models\Secertarie;
+use App\Models\Secretary;
 use App\Mail\SignupVerificationEmail; 
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -199,9 +199,6 @@ class AuthController extends Controller
                     'error' => 'The Email or Password Not Correct',
                 ]);
             }
-  
-            
- 
              } else {
                  return response()->json([
                     "message" => "you have to verify your email before login"
@@ -217,11 +214,12 @@ class AuthController extends Controller
                     $user->available = 1; // Update the available attribute to 1
                     $user->save();
                     $token = $user->createToken('token')->plainTextToken;
-
+                    
                     return response()->json([
                         'user' => $user,
                         'user_id' => $user_id,
                         'token' => $token,
+                        'Secretary'=>$user->Secretary()!==null,
                         'user_type' => 'doctor',
                         'message' => 'Email verify successfully',
                         
@@ -283,6 +281,35 @@ class AuthController extends Controller
             ]);
         }
     }
+    
+    public function SecretaryLogin(Request $request)
+    {
+        $user = null;
+        if ($user=Secretary::where('user_name', $request->UserName)->first()) {
+           $passwordHash = $user->password;
+           if (Hash::check($request->password, $passwordHash)) {
+               $user_id = $user->id;
+               $token = $user->createToken('token')->plainTextToken;
+               return response()->json([
+                   'user' => $user,
+                   'user_id' => $user_id,
+                   'token' => $token,
+                   'user_type' => 'secretary',
+                   'user_name'=>$user->user_name
+
+               ]);
+           } else {
+               return response()->json([
+                   'error' => 'The User Name or Password Not Correct',
+               ]);
+           }
+
+       } else {
+           return response()->json([
+               'error' => 'Invalid User',
+           ]);
+       }
+   }
     public function logout($type, $id)
     {
         if ($type == "patient") {

@@ -19,10 +19,11 @@ const SignUpLoginForm = ({
     confirmpassword,
     setloading,
     isloading,
+
 }) => {
     return (
         <form onSubmit={onsubmit}>
-            {Type === "SignUp" ? (
+            {Type === "SignUp" || Type == "SecretaryLogin" ? (
                 <div className="div">
                     <div className="label">user name :</div>
                     <input
@@ -37,18 +38,20 @@ const SignUpLoginForm = ({
                     <label htmlFor="email"></label>
                 </div>
             ) : null}
-            <div className="div">
-                <div className="label">email :</div>
-                <input
-                    type="email"
-                    id="email"
-                    className="form-control form-control-lg"
-                    placeholder="Your Email"
-                    value={email}
-                    onChange={(ev) => setEmail(ev.target.value)}
-                />
-                <label htmlFor="password"></label>
-            </div>
+            {Type !== "SecretaryLogin" ? (
+                <div className="div">
+                    <div className="label">email :</div>
+                    <input
+                        type="email"
+                        id="email"
+                        className="form-control form-control-lg"
+                        placeholder="Your Email"
+                        value={email}
+                        onChange={(ev) => setEmail(ev.target.value)}
+                    />
+                    <label htmlFor="password"></label>
+                </div>
+            ) : null}
             <div className="div">
                 <div className="label">Password :</div>
                 <input
@@ -61,7 +64,7 @@ const SignUpLoginForm = ({
                     onChange={(ev) => setPassword(ev.target.value)}
                 />
                 <label htmlFor="password"></label>
-                {Type === "Login" ? <a>forgot password?</a> : null}
+                {Type !== "SignUp" ? <a>forgot password?</a> : null}
             </div>{" "}
             {Type === "SignUp" ? (
                 <>
@@ -104,7 +107,7 @@ const SignUpLoginForm = ({
                     ) : (
                         <>
                             <div className="submitPart">
-                                <button type="submit">Login</button>
+                                <button type="submit" className="button">Login</button>
                             </div>
                             <div className="signupButton">
                                 you don't have an account :{" "}
