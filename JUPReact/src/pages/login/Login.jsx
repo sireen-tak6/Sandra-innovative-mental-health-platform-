@@ -48,9 +48,9 @@ const Login = () => {
                 })
                 .then((response) => {
                     if (response.data.token) {
-                        localStorage.setItem("user-info", response.data.user);
+                        localStorage.setItem("user-info", JSON.stringify(response.data.user));
                         localStorage.setItem("token", response.data.token);
-                        localStorage.setItem("user-Secretary", response.data.Secretary??null);
+                        localStorage.setItem("user-Secretary", JSON.stringify(response.data.user)??null);
                         localStorage.setItem("user-id", response.data.user_id);
                         localStorage.setItem(
                             "user-type",
@@ -76,6 +76,7 @@ const Login = () => {
                     }
                 })
                 .catch((error) => {
+                    console.log(error)
                     if (error.response) {
                         const finalErrors =
                             error.response.data.errors &&
@@ -101,9 +102,9 @@ const Login = () => {
                     //this values comes from the AuthController
 
                     if (response.data.token) {
-                        localStorage.setItem("user-info", response.data.user);
+                        localStorage.setItem("user-info", JSON.stringify(response.data.user));
                         localStorage.setItem("token", response.data.token);
-                        localStorage.setItem("user-Secretary", response.data.Secretary??null);
+                        localStorage.setItem("user-Secretary", JSON.stringify(response.data.Secretary??null));
                         localStorage.setItem("user-id", response.data.user_id);
                         localStorage.setItem(
                             "user-type",
@@ -122,7 +123,7 @@ const Login = () => {
                             }
                         }
                         console.log(response.data.user);
-                        console.log(response.data.token);
+                        console.log(response.data.Secretary);
                         console.log(response.data.user_id);
                         console.log(response.data.user_type);
                         console.log("Login successfully");
@@ -137,6 +138,7 @@ const Login = () => {
                     }
                 })
                 .catch((error) => {
+                    console.log(error)
                     if (error.response) {
                         const finalErrors =
                             error.response.data.errors &&

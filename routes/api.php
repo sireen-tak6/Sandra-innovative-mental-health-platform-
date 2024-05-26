@@ -18,6 +18,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\DoctorVerfiyController; 
 use App\Http\Controllers\NotificationController; 
 use App\Http\Controllers\SecretaryController; 
+use App\Http\Controllers\AppointmentController; 
 
 /*
 
@@ -190,3 +191,10 @@ Route::post('Settings/PersonalInfo',[SettingsController::class,'PersonalInfo']);
 Route::post('AddSecretary',[SecretaryController::class,'AddSecretary']);
 Route::post('Settings/SecretaryInfo',[SecretaryController::class,'UpdateSecretary']);
 Route::post('Settings/getSecretaryInfo',[SecretaryController::class,'getSecretaryUserName']);
+
+Route::post('recurringSchedules',[AppointmentController::class,'addSchedule']);
+Route::post('getSchedules',[AppointmentController::class,'getSchedule']);
+Route::post('AddAppointment',[AppointmentController::class,'AddAppointment']);
+Route::post('getReservedAppointments',[AppointmentController::class,'getReservedAppointments']);
+Route::post('DeleteAppointment',[AppointmentController::class,'DeleteAppointment']);
+Route::post('ApproveAppointment',[AppointmentController::class,'approveAppointment']);

@@ -16,7 +16,7 @@ class DoctorController extends Controller
     //this fucntion for get all doctors 
     public function getAllDoctor()
     {
-       $doctor = Doctor::with("Category")->orderBy('created_at', 'desc')->get();
+       $doctor = Doctor::with("Category","Schedules")->orderBy('created_at', 'desc')->get();
 
        return response([
            'doctors' => $doctor

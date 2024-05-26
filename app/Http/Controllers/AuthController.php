@@ -219,7 +219,7 @@ class AuthController extends Controller
                         'user' => $user,
                         'user_id' => $user_id,
                         'token' => $token,
-                        'Secretary'=>$user->Secretary()!==null,
+                        'Secretary'=>$user->Secretary!==null,
                         'user_type' => 'doctor',
                         'message' => 'Email verify successfully',
                         

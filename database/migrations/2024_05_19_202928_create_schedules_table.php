@@ -16,8 +16,7 @@ return new class extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
             $table->integer('day');
-            $table->time('start_time');
-            $table->time('end_time');
+            $table->string('start_time');
             $table->string('status')->default('available');
             $table->String('type')->default('onsite');
             $table->unsignedBigInteger('doctorID');

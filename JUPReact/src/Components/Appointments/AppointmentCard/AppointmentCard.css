@@ -1,0 +1,107 @@
+.AppointmentCard {
+    display: flex;
+    padding: 4vh 2vw;
+    height: 10vh;
+    text-align: center;
+}
+
+.AppointmentCard .CardInfo {
+    display: flex;
+    justify-content: space-evenly;
+    width: 50vw;
+    height: 8vh;
+}
+.AppointmentCard .info {
+    width: 4vw;
+    align-content: center;
+}
+.AppointmentCard .name {
+    width: 5vw;
+    align-content: center;
+}
+.AppointmentCard .time {
+    width: 4vw;
+    align-content: center;
+}
+.AppointmentCard .day {
+    width: 8vw;
+    align-content: center;
+}
+
+.AppointmentCard .date {
+    width: 10vw;
+    align-content: center;
+}
+.AppointmentCard .state {
+    width: 6vw;
+
+    align-content: center;
+}
+.AppointmentCard .type {
+    width: 10vw;
+    align-content: center;
+}
+
+.none {
+    border-bottom: 1px black solid;
+}
+.AppointmentCard .buttons {
+    width: 17vw;
+    display: flex;
+}
+.AppointmentCard .approveButton {
+    width: 8vw;
+    margin-right: 1vw;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
+    color: white;
+    height: 5vh;
+    border-radius: 10px;
+    align-content: center;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+
+}
+.AppointmentCard .deleteButton {
+    width: 8vw;
+    margin-left: 1vw;
+    background: linear-gradient(135deg, #af4b4b, #742222);
+    color: white;
+    height: 5vh;
+    align-content: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+
+}
+.AppointmentCard .none2 {
+    width: 8vw;
+    margin-left: 1vw;
+    background-color: rgba(255, 255, 255, 0);
+    color: white;
+    height: 5vh;
+    background: none;
+    box-shadow: none;
+
+    
+}
+.AppointmentCard .first {
+    color: #0d4155;
+    background-color: #ffffff00;
+    background: none;
+    box-shadow: none;
+    font-weight: 600;
+    font-size: max(2.5vmin,14px);
+}
+@media screen and (max-width: 750px) {
+    .AppointmentCard {
+        display: block;
+        padding: 3vh 5vw;
+    }
+    .AppointmentCard .image,
+    .AppointmentCard img {
+        width: 80vw;
+        border-radius: 15px;
+        height: 24vh;
+        margin-right: auto;
+        margin-left: auto;
+        margin-bottom: 2vh;
+    }
+}

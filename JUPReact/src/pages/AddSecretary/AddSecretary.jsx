@@ -9,7 +9,7 @@ import Swal from "sweetalert2/dist/sweetalert2.js";
 
 const Secretary = () => {
     useEffect(() => {
-        if (localStorage.getItem('user-Secretary')) {
+        if (JSON.parse(localStorage.getItem("user-Secretary"))) {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: "btn btn-success",
@@ -25,8 +25,7 @@ const Secretary = () => {
 
             navigate("/home");
         }
-
-    }, [localStorage.getItem('user-Secretary')]);
+    }, [localStorage.getItem("user-Secretary")]);
     const [user_name, setUser_name] = useState("");
     const [password, setPassword] = useState("");
     const [confirmpassword, setConfirmPassword] = useState("");
@@ -43,7 +42,7 @@ const Secretary = () => {
             },
             buttonsStyling: false,
         });
-        
+
         ev.preventDefault();
         setError({ __html: "" });
         const userType = localStorage.getItem("user-type");
@@ -55,13 +54,12 @@ const Secretary = () => {
                 user_name,
                 password,
                 password_confirmation: confirmpassword,
-
             })
             .then((response) => {
                 console.log(response);
                 if (response.data.status === 200) {
                     JSON.stringify(response);
-                    localStorage.setItem("user-Secretary", response.data.user);
+                    localStorage.setItem("user-Secretary", JSON.stringify(response.data.user));
                     console.log("data added successfully");
                     swalWithBootstrapButtons.fire(
                         "New Secretary account added successfully",
@@ -69,8 +67,7 @@ const Secretary = () => {
                         "success"
                     );
                     navigate("/home");
-                }
-                else{
+                } else {
                     swalWithBootstrapButtons.fire(
                         response.data.message,
                         "Your changes has not been saved",
@@ -79,7 +76,7 @@ const Secretary = () => {
                 }
             })
             .catch((error) => {
-                console.log(error)
+                console.log(error);
                 if (error.response) {
                     const finalErrors =
                         error.response.data.errors &&
@@ -93,8 +90,7 @@ const Secretary = () => {
                 }
                 console.error(error);
             });
-            setloading(false);
-
+        setloading(false);
     };
 
     return (

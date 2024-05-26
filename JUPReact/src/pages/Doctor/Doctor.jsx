@@ -122,6 +122,9 @@ export default function Doctor() {
     const showProfile = (id) => {
         navigate(`/doctorProile/${id}`);
     };
+    const addAppointment = (id) => {
+        navigate(`/newAppointment/${id}`);
+    };
 
     // here section for load more doctor
     const loadMoreDoctors = () => {
@@ -197,24 +200,38 @@ export default function Doctor() {
                                             </button>
                                         </div>
                                         {userType !== "patient" ? null : (
-                                            /* for open chat */
-                                            <div className="m-2">
-                                                <a
-                                                    className="text-sm text-white botton px-2 py-1 rounded-md cursor-pointer"
-                                                    onClick={() =>
-                                                        openChatWithDoctor(
-                                                            doctor.id
-                                                        )
-                                                    }
-                                                >
-                                                    Chatting With{" "}
-                                                    <FontAwesomeIcon
-                                                        icon={faMessage}
-                                                        className="pl-2 text-white"
-                                                    />
-                                                </a>
+                                            <div className="chatBookButton">
+                                                <div className="m-2">
+                                                    <a
+                                                        className="text-sm text-white botton px-2 py-1 rounded-md cursor-pointer"
+                                                        onClick={() =>
+                                                            openChatWithDoctor(
+                                                                doctor.id
+                                                            )
+                                                        }
+                                                    >
+                                                        Message{" "}
+                                                        <FontAwesomeIcon
+                                                            icon={faMessage}
+                                                            className="pl-2 text-white"
+                                                        />
+                                                    </a>
+                                                </div>
+                                                <div className="m-2">
+                                                    <a
+                                                        className="text-sm text-white botton px-2 py-1 rounded-md cursor-pointer"
+                                                        onClick={() =>
+                                                            addAppointment(
+                                                                doctor.id
+                                                            )
+                                                        }
+                                                    >
+                                                        Book Appointment{" "}
+                                                    </a>
+                                                </div>
                                             </div>
                                         )}
+
                                         {/* display it here  */}
                                         <div className="mt-1 pl-[45%]">
                                             <div

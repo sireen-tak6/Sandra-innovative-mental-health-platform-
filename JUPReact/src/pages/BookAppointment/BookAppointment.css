@@ -1,0 +1,218 @@
+.AppointmentPage {
+    height: max-content;
+    width: 92vw;
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    margin-top: 15vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+.AppointmentPage .AppointmentTitle {
+    font-size: max(4.5vmin, 17px);
+    font-weight: 700;
+    margin-bottom: 3vh;
+    color: #0d4155c6;
+    display: flex;
+    position: relative;
+}
+
+.AppointmentPage .Title {
+    font-size: max(4.5vmin, 17px);
+    font-weight: 700;
+    margin-bottom: 3vh;
+    color: #0d4155c6;
+    display: flex;
+    position: relative;
+}
+.AppointmentPage .Titletext {
+    margin-left: auto;
+    margin-right: auto;
+}
+.AppointmentPage .button-box {
+    width: 12vw;
+    position: absolute;
+    display: flex;
+    border-radius: 30px;
+    background: #fff;
+    right: 0;
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+.AppointmentPage .toggle-btn {
+    font-size: max(2.5vmin, 12px);
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    outline: none;
+    position: relative;
+    text-align: center;
+    width: 6vw;
+    padding: 1vh 1vw;
+    transition: 0.5s;
+}
+
+.AppointmentPage .selected {
+    color: white;
+}
+
+.AppointmentPage .btn {
+    left: 0;
+    top: 0;
+    position: absolute;
+    width: 6vw;
+    height: 100%;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
+    border-radius: 30px;
+    box-shadow: 3px 0px 8px 2px #6f6f6f82;
+
+    transition: 0.5s;
+}
+.AppointmentPage .left {
+    left: 6vw;
+    box-shadow: -3px 0px 8px 2px #6f6f6f82;
+}
+
+.AppointmentPage .calendar {
+    width: 92vw;
+    min-height: 20vh;
+    margin-top: 5vh;
+    color: #226e8c;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.364),
+        rgba(255, 255, 255, 0.127)
+    );
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 4px 4px 8px 2px #6f6f6f82;
+    border-radius: 20px;
+    padding: 2%;
+    font-size: max(2.5vmin, 13px);
+}
+.AppointmentPage .checkbox {
+    display: flex;
+    border-radius: 8vmin;
+    justify-content: space-evenly;
+    width: 6vw;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    color: white;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 2px 2px 4px 1px #6f6f6f82;
+    align-items: center;
+    padding: 2%;
+}
+.AppointmentPage .checkbox .selected {
+    color: #0d4155c6;
+    font-size: max(2.9vmin, 12px);
+    margin-bottom: 2vh;
+    margin-top: 5vh;
+    font-weight: 600;
+}
+
+.AppointmentPage .fc .fc-daygrid-event-harness {
+    border-bottom: 1px solid #226e8c;
+}
+
+.AppointmentPage .fc .fc-daygrid-day.fc-day-sat {
+    border-right: none; /* Remove right border from the last day to avoid double border */
+}
+
+/* Add bottom border to each day cell for clearer separation */
+.AppointmentPage .fc .fc-daygrid-day-frame {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 0%;
+    border-right: 1px solid #0d4155;
+}
+.AppointmentPage .fc .fc-button-primary {
+    background: linear-gradient(135deg, #226e8c, #0d4155);
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.2);
+}
+.AppointmentPage .checkbox.selected {
+    background-color: #efeadb;
+    color: white;
+    font-weight: 700;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
+}
+
+.AppointmentPage .available {
+    background: linear-gradient(135deg, #226e8c, #0d4155);
+}
+.AppointmentPage .check{
+    appearance: none;
+    background-color: #a5a5a5;
+    border: 2px solid #a5a5a5;
+    width: 1.8vmin;
+    height: 1.8vmin;
+    border-radius: 2px;
+    cursor: pointer;
+}
+ .check:checked {
+   background-color: #c5b587;
+   border: none;
+   /* Change this to your desired color */
+}
+.AppointmentPage .checkboxContainter {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    font-size: max(1.8vmin, 12px);
+}
+
+.AppointmentPage .reserved {
+    background: linear-gradient(135deg, #efeadb, #ddd5be);
+    color: black;
+}
+
+.AppointmentPage .reservedContainer {
+    color: white;
+    background-color: #991313;
+}
+.AppointmentPage .selectedContainer {
+    background-color: #d8ceb2;
+}
+.AppointmentPage .waitingContainer {
+    background: linear-gradient(135deg, #b0b0b0, #737373);
+    color: white;
+}
+.AppointmentPage .waiting {
+    background: linear-gradient(135deg, #ffffff, #bfbfbf);
+    color: black;
+}
+.AppointmentPage .approvedContainer {
+    background-color: #0d4155;
+    color: white;
+}
+.AppointmentPage .approved {
+    background: linear-gradient(135deg, #efeadb, #ddd5be);
+    color: black;
+}
+.AppointmentPage .SaveButton {
+    font-weight: 500;
+    padding: 1vh 1vw;
+    border-radius: 6px;
+    min-height: 25px;
+    font-size: max(2.4vmin, 13px);
+    font-weight: 600;
+    background: linear-gradient(135deg, #226e8c 20%, #1a5066 60%);
+    color: white;
+    border: none;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+    min-width: 70px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5vh;
+}
+
+.AppointmentPage .doctorName {
+    font-size: max(3vmin, 15px);
+    font-weight: 700;
+    color: #0d4155;
+}

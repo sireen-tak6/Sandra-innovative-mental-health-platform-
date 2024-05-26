@@ -103,8 +103,7 @@ const SecretaryInfo = () => {
                     );
                     console.log(response);
                     if (response.data.status === 200) {
-                        localStorage.setItem("user-Secretary", response.data.user);
-                        console.log(localStorage.getItem("user-name"))
+                        setoldUsername(userName)
                         swalWithBootstrapButtons.fire(
                             "your info have been updated.",
                             "success"
@@ -138,7 +137,7 @@ const SecretaryInfo = () => {
     if (userName !== null) {
         return (
             <div>
-                <div className="title">Account Information</div>
+                <div className="title">Secretary Information</div>
                 <form onSubmit={handleSubmit}>
                     <div className="j">
                         <div className="labelInput">

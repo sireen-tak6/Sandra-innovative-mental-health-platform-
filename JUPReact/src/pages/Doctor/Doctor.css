@@ -52,3 +52,6 @@
      background: gray;
      border-radius: 15px;
 }
+.Doctor .chatBookButton{
+     display: flex;
+}

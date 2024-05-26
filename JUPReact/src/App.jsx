@@ -5,6 +5,8 @@ import {
     createBrowserRouter,
     createRoutesFromElements,
 } from "react-router-dom";
+import 'react-time-picker/dist/TimePicker.css';
+import 'react-clock/dist/Clock.css';
 
 //css
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -47,6 +49,8 @@ import Chatbot from "./pages/Chatbot/Chatbot";
 import Notifications from "./Components/Notifications/Notifications/Notifications";
 import PatientBooking from "./pages/BookAppointment/BookAppointment";
 import Secretary from "./pages/AddSecretary/AddSecretary";
+import SecretarySchedule from "./pages/SecretarySchedule/Schedule";
+import Appointments from "./pages/Appoinments/Appointments";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -83,8 +87,10 @@ const router = createBrowserRouter(
             <Route path="Chatbot" element={<Chatbot/>}/>
 
             <Route path="Notifications" element={<Notifications/>} />
-            <Route path="Appointment" element={<PatientBooking />} />
+            <Route path="newAppointment/:id" element={<PatientBooking />} />
+            <Route path="Appointments" element={<Appointments />} />
             <Route path="AddSecretary" element={<Secretary />} />
+            <Route path="Schedule" element={<SecretarySchedule />} />
 
 
         </Route>

@@ -47,10 +47,14 @@ class Doctor extends Model implements Authenticatable, MustVerifyEmailContract
     {
         return $this->hasMany(Patient::class, 'doctor_id');
     }
-    /*public function Schedules(): HasMany
+    public function Schedules(): HasMany
     {
         return $this->hasMany(Schedule::class, 'doctorID');
-    }*/
+    }
+    public function Appointments(): HasMany
+    {
+        return $this->hasMany(Appointment::class, 'doctorID');
+    }
     public function Category():BelongsTo
     {
         return $this->belongsTo(Category::class, 'speciality');

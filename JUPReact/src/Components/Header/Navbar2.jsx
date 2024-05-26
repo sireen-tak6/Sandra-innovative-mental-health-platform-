@@ -46,11 +46,10 @@ function Navbarr() {
     }
     let id = localStorage.getItem("user-id");
     let Type = localStorage.getItem("user-type");
+    let user = JSON.parse(localStorage.getItem("user-info"));
 
-    let user = localStorage.getItem("user-name");
-    let Secretary = localStorage.getItem("user-Secretary");
-
-    console.log(user);
+    let Secretary = JSON.parse(localStorage.getItem("user-Secretary"));
+    console.log(Secretary);
 
     const handleClickSearch = () => {
         setClick(true);
@@ -97,7 +96,8 @@ function Navbarr() {
                                             Talk-to-Sandra
                                         </Nav.Link>
                                     ) : null}
-                                    {Type !== "admin" ? (
+                                    {Type !== "admin" &&
+                                    Type !== "secretary" ? (
                                         <Nav.Link href="/chats" className="l">
                                             Chats
                                         </Nav.Link>
@@ -115,6 +115,25 @@ function Navbarr() {
                                                 className="l"
                                             >
                                                 Doctors
+                                            </Nav.Link>
+                                        </>
+                                    ) : null}
+                                    {Type != "admin" ? (
+                                        <Nav.Link
+                                            href={`/appointments`}
+                                            // href={`/newAppointment/${Type=="secretary"?user.doctorID:id}`}
+                                            className="l"
+                                        >
+                                            Appointements
+                                        </Nav.Link>
+                                    ) : null}
+                                    {Type != "admin" && Type != "patient" ? (
+                                        <>
+                                            <Nav.Link
+                                                href="/Schedule"
+                                                className="l"
+                                            >
+                                                Schedule
                                             </Nav.Link>
                                         </>
                                     ) : null}
@@ -185,13 +204,14 @@ function Navbarr() {
                                                     >
                                                         My Profile
                                                     </NavDropdown.Item>
-                                                    {!Secretary &&
-                                                    <NavDropdown.Item
-                                                        href={`/AddSecretary`}
-                                                        className="o"
-                                                    >
-                                                        Add Secretary
-                                                    </NavDropdown.Item>}
+                                                    {!Secretary && (
+                                                        <NavDropdown.Item
+                                                            href={`/AddSecretary`}
+                                                            className="o"
+                                                        >
+                                                            Add Secretary
+                                                        </NavDropdown.Item>
+                                                    )}
                                                 </>
                                             ) : null}
                                             <NavDropdown.Item

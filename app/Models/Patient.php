@@ -31,6 +31,11 @@ class Patient extends Model implements Authenticatable
     {
         return $this->hasMany(Chat::class , 'patiet_id'); 
     }
+
+    public function Appointments ():HasMany
+    {
+        return $this->hasMany(Appointment::class , 'patientID'); 
+    }
     
     public function getAuthIdentifierName()
     {
