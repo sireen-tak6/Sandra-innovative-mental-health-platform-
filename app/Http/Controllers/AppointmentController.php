@@ -196,6 +196,18 @@ class AppointmentController extends Controller
         $userID=$request->userID;
         $userType=$request->userType;
         $doctorID=$request->doctorID;
+        $type=intval($request->type);
+
+        $pastAppointments = Appointment::where(function ($query) {
+            $query->whereDate('date', '<', now()->format('Y-m-d')) // Before today's date
+                  ->where('type', '!=', 'done'); // Exclude "done" appointments
+        })
+        ->get();
+        foreach($pastAppointments as $past)
+        {
+            $past->type="past";
+            $past->save();
+        }        
         if($doctorID){
             $doctor=Doctor::find($doctorID);
             if(!$doctor){            
@@ -204,33 +216,172 @@ class AppointmentController extends Controller
         }
         if($userType=="patient"){
             if($doctorID){
-                $existingAppointments = Appointment::where('doctorID',$doctorID)->whereIn('type', ['approved', 'waiting'])->get();
+                if(!$type||$type==0){
+                    $existingAppointments = Appointment::where('doctorID',$doctorID)->whereIn('type', ['approved', 'waiting'])->get();
+                }
+                else if($type==1){
+                    $existingAppointments = Appointment::where('doctorID',$doctorID)->whereIn('type', ['waiting'])->get();
+                }
+                else if($type==2){
+                    $existingAppointments = Appointment::where('doctorID',$doctorID)->whereIn('type', ['approved'])->get();
+                }
+                else if($type==3){
+                    $existingAppointments = Appointment::where('doctorID',$doctorID)->whereIn('type', ['past'])->get();
+                }
+                else if($type==4){
+                    $existingAppointments = Appointment::where('doctorID',$doctorID)->where('state','online')->whereIn('type', ['approved','waiting'])->get();
+
+                }else if($type==5){
+                    $existingAppointments = Appointment::where('doctorID',$doctorID)->where('state','onsite')->whereIn('type', ['approved','waiting'])->get();
+                }
+                else if($type==6){
+                    $existingAppointments = Appointment::where('doctorID',$doctorID)->whereIn('type', ['done'])->get();
+                }
                 return response()->json(['status'=>200,'onsiteappointments' =>$existingAppointments,'doctor'=>$doctor]);
             }
             else{
-                $existingAppointments = Appointment::where('patientID',$userID)->whereIn('type', ['approved', 'waiting'])->with('doctor','patient')->orderBy('date', 'desc')
+                if(!$type||$type==0){
+                    $existingAppointments = Appointment::where('patientID',$userID)->whereIn('type', ['approved', 'waiting'])->with('doctor','patient')->orderBy('date', 'desc')
                 ->orderBy('time', 'desc')
                 ->get();
+                }
+                else if($type==1){
+                    $existingAppointments = Appointment::where('patientID',$userID)->whereIn('type', [ 'waiting'])->with('doctor','patient')->orderBy('date', 'desc')
+                    ->orderBy('time', 'desc')
+                    ->get();                    
+                }
+                else if($type==2){
+                    $existingAppointments = Appointment::where('patientID',$userID)->whereIn('type', ['approved'])->with('doctor','patient')->orderBy('date', 'desc')
+                    ->orderBy('time', 'desc')
+                    ->get();
+                }
+                else if($type==3){
+                    $existingAppointments = Appointment::where('patientID',$userID)->whereIn('type', ['past'])->with('doctor','patient')->orderBy('date', 'desc')
+                    ->orderBy('time', 'desc')
+                    ->get();
+                }
+                else if($type==4){
+                    $existingAppointments = Appointment::where('patientID',$userID)->where('state','online')->whereIn('type', ['approved', 'waiting'])->with('doctor','patient')->orderBy('date', 'desc')
+                    ->orderBy('time', 'desc')
+                    ->get();
+                }else if($type==5){
+                    $existingAppointments = Appointment::where('patientID',$userID)->where('state','onsite')->whereIn('type', ['approved', 'waiting'])->with('doctor','patient')->orderBy('date', 'desc')
+                    ->orderBy('time', 'desc')
+                    ->get();
+                }
+                else if($type==6){
+                    $existingAppointments = Appointment::where('patientID',$userID)->whereIn('type', ['done'])->with('doctor','patient')->orderBy('date', 'desc')
+                    ->orderBy('time', 'desc')
+                    ->get();
+                }
+                
                 return response()->json(['status'=>200,'onsiteappointments' =>$existingAppointments]);
 
             }
         }
         else if($userType!="admin"){
             if($doctorID){
-                $existingAppointments = Appointment::where('doctorID',$doctorID)->get();
+                if(!$type||$type==0){
+                    $existingAppointments = Appointment::where('doctorID',$doctorID)->get();
+                }
+                else if($type==1){
+                    $existingAppointments = Appointment::where('doctorID',$doctorID)->whereIn('type', ['waiting'])->get();   
+                }
+                else if($type==2){
+                    $existingAppointments = Appointment::where('doctorID',$doctorID)->whereIn('type', ['approved'])->get();
+                }
+                else if($type==3){
+                    $existingAppointments = Appointment::where('doctorID',$doctorID)->whereIn('type', ['past'])->get();
+                }
+                else if($type==4){
+                    $existingAppointments = Appointment::where('doctorID',$doctorID)->where('state','online')->get();
+
+                }
+                else if($type==5){
+                    $existingAppointments = Appointment::where('doctorID',$doctorID)->where('state','onsite')->get();
+                }
+                else if($type==6){
+                    $existingAppointments = Appointment::where('doctorID',$doctorID)->whereIn('type', ['done'])->get();
+                }
                 return response()->json(['status'=>200,'onsiteappointments' =>$existingAppointments,'doctor'=>$doctor]);
             }
             else if($userType=="secretary"){
                 $secretary=Secretary::find($userID);
-                $existingAppointments = Appointment::where('doctorID',$secretary->doctorID)->with('patient')->orderBy('date', 'desc')
-                ->orderBy('time', 'desc')
-                ->get();
+                
+                if(!$type||$type==0){
+                    $existingAppointments = Appointment::where('doctorID',$secretary->doctorID)->with('patient')->orderBy('date', 'desc')
+                    ->orderBy('time', 'desc')
+                    ->get();
+                }
+                else if($type==1){
+                    $existingAppointments = Appointment::where('doctorID',$secretary->doctorID)->with('patient')->whereIn('type', ['waiting'])->orderBy('date', 'desc')
+                    ->orderBy('time', 'desc')
+                    ->get();
+                }
+                else if($type==2){
+                    $existingAppointments = Appointment::where('doctorID',$secretary->doctorID)->with('patient')->whereIn('type', ['approved'])->orderBy('date', 'desc')
+                    ->orderBy('time', 'desc')
+                    ->get();
+                }
+                else if($type==3){
+                    $existingAppointments = Appointment::where('doctorID',$secretary->doctorID)->with('patient')->whereIn('type', ['past'])->orderBy('date', 'desc')
+                    ->orderBy('time', 'desc')
+                    ->get();
+                }
+                else if($type==4){
+                    $existingAppointments = Appointment::where('doctorID',$secretary->doctorID)->with('patient')->where('state','online')->orderBy('date', 'desc')
+                    ->orderBy('time', 'desc')
+                    ->get();
+                }
+                else if($type==5){
+                    $existingAppointments = Appointment::where('doctorID',$secretary->doctorID)->with('patient')->where('state','onsite')->orderBy('date', 'desc')
+                    ->orderBy('time', 'desc')
+                    ->get();
+                }
+                else if($type==6){
+                    $existingAppointments = Appointment::where('doctorID',$secretary->doctorID)->with('patient')->whereIn('type', ['done'])->orderBy('date', 'desc')
+                    ->orderBy('time', 'desc')
+                    ->get();   
+                }
                 return response()->json(['status'=>200,'onsiteappointments' =>$existingAppointments]);
             }
             else{
-                $existingAppointments = Appointment::where('doctorID',$userID)->with('patient')->orderBy('date', 'desc')
-                ->orderBy('time', 'desc')
-                ->get();
+                if(!$type||$type==0){
+                    $existingAppointments = Appointment::where('doctorID',$userID)->with('patient')->orderBy('date', 'desc')
+                    ->orderBy('time', 'desc')
+                    ->get();
+                }
+                else if($type==1){
+                    $existingAppointments = Appointment::where('doctorID',$userID)->with('patient')->whereIn('type', ['waiting'])->orderBy('date', 'desc')
+                    ->orderBy('time', 'desc')
+                    ->get();
+                }
+                else if($type==2){
+                    $existingAppointments = Appointment::where('doctorID',$userID)->with('patient')->whereIn('type', ['approved'])->orderBy('date', 'desc')
+                    ->orderBy('time', 'desc')
+                    ->get();
+                }
+                else if($type==3){
+                    $existingAppointments = Appointment::where('doctorID',$userID)->with('patient')->whereIn('type', ['past'])->orderBy('date', 'desc')
+                    ->orderBy('time', 'desc')
+                    ->get();
+                }
+                else if($type==4){
+                    $existingAppointments = Appointment::where('doctorID',$userID)->with('patient')->where('state','online')->orderBy('date', 'desc')
+                    ->orderBy('time', 'desc')
+                    ->get();
+                }
+                else if($type==5){
+                    $existingAppointments = Appointment::where('doctorID',$userID)->with('patient')->where('state','onsite')->orderBy('date', 'desc')
+                    ->orderBy('time', 'desc')
+                    ->get();
+                }
+                else if($type==6){
+                    $existingAppointments = Appointment::where('doctorID',$userID)->with('patient')->whereIn('type', ['done'])->orderBy('date', 'desc')
+                    ->orderBy('time', 'desc')
+                    ->get();
+                }
+               
                 return response()->json(['status'=>200,'onsiteappointments' =>$existingAppointments]);
             }
         }
@@ -263,6 +414,15 @@ class AppointmentController extends Controller
             if($appointmentID){    
                 $appo=Appointment::find($appointmentID);
                 if($appo){
+                    if($appo->patientID!==null){
+                        
+                        $notification=new Notification();
+                        $notification->Type="Appointment Cancel";
+                        $notification->data=["appointmentID"=>$appointmentID,"date"=>$appo->date,"time"=>$appo->time,"doctorName"=>$appo->doctor->user_name];
+                        $notification->userID=$appo->patientID;
+                        $notification->userType="patient";
+                        $notification->save();
+                    }
                     $appo->delete();    
                     return response()->json(['status'=>200,'message' =>"the appointment deleted succseefully"]);
 
@@ -287,6 +447,14 @@ class AppointmentController extends Controller
             if($appointmentID){    
                 $appo=Appointment::find($appointmentID);
                 if($appo){
+                    if($appo->patientID!==null){
+                        $notification=new Notification();
+                        $notification->Type="Appointment approve";
+                        $notification->data=["appointmentID"=>$appointmentID,"date"=>$appo->date,"time"=>$appo->time,"doctorName"=>$appo->doctor->user_name];
+                        $notification->userID=$appo->patientID;
+                        $notification->userType="patient";
+                        $notification->save();
+                    }
                     $appo->type="approved";    
                     $appo->save();
                     $appos=Appointment::where('id','!=',$appo['id'])->where('date',$appo['date'])->where('time',$appo['time'])->where('state',$appo['state'])->where('doctorID',$appo['doctorID'])->get();
@@ -350,6 +518,16 @@ class AppointmentController extends Controller
                                     ]);
                                     $appos=Appointment::where('id','!=',$newAppointment['id'])->where('date',$newAppointment['date'])->where('time',$newAppointment['time'])->where('state',$newAppointment['state'])->where('doctorID',$newAppointment['doctorID'])->get();
                                     foreach($appos as $ap){
+                                        if($ap->patientID!==null)
+                                        {
+                                            
+                                            $notification=new Notification();
+                                            $notification->Type="Appointment Cancel";
+                                            $notification->data=["appointmentID"=>$newAppointment->id,"date"=>$ap->date,"time"=>$ap->time,"doctorName"=>$ap->doctor->user_name];
+                                            $notification->userID=$ap->patientID;
+                                            $notification->userType="patient";
+                                            $notification->save();
+                                        }
                                         $ap->delete();
                                     }
                                 }
@@ -364,8 +542,15 @@ class AppointmentController extends Controller
                                         'patientID'=>$userID
                                     ]);
                                 }
+                               
                                 $newAppointment->save();
-                                
+                                $notification=new Notification();
+                                $notification->Type="Appointment";
+                                $notification->data=["appointmentID"=>$newAppointment->id,"date"=>$newAppointment->date,"time"=>$newAppointment->time,"doctorName"=>$newAppointment->doctor->user_name];
+                                $notification->userID=$newAppointment->doctor->Secretary->id;
+                                $notification->userType="secretary";
+                                $notification->save();
+                            
                             }
                         }
                        
@@ -397,6 +582,16 @@ class AppointmentController extends Controller
                                     ]);
                                     $appos=Appointment::where('id','!=',$newAppointment['id'])->where('date',$newAppointment['date'])->where('time',$newAppointment['time'])->where('state',$newAppointment['state'])->where('doctorID',$newAppointment['doctorID'])->get();
                                     foreach($appos as $ap){
+                                        if($ap->patientID!==null)
+                                        {
+                                            
+                                            $notification=new Notification();
+                                            $notification->Type="Appointment Cancel";
+                                            $notification->data=["appointmentID"=>$newAppointment->id,"date"=>$ap->date,"time"=>$ap->time,"doctorName"=>$ap->doctor->user_name];
+                                            $notification->userID=$ap->patientID;
+                                            $notification->userType="patient";
+                                            $notification->save();
+                                        }
                                         $ap->delete();
                                     }
                                 }
@@ -412,7 +607,12 @@ class AppointmentController extends Controller
                                     ]);
                                 }
                                 $newAppointment->save();
-                                
+                                $notification=new Notification();
+                                $notification->Type="Appointment";
+                                $notification->data=["appointmentID"=>$newAppointment->id,"date"=>$newAppointment->date,"time"=>$newAppointment->time,"doctorName"=>$newAppointment->doctor->user_name];
+                                $notification->userID=$newAppointment->doctor->Secretary->id;
+                                $notification->userType="secretary";
+                                $notification->save();
                             }
                         }
                        

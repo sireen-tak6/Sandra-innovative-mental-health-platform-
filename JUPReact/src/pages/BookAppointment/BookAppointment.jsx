@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 import CircularLoading from "../../Components/loadingprogress/loadingProgress";
+import PatientInfo from "../../Components/PatientInfo/PatientInfo";
 /* 
  waiting{'patientID'=>'waiting','doctor'=>'waiting','secretary'=>'waiting','patient'=>'available'}
 reserved{'patientID'=>'approved','patient'=>reserved,'doctor'=>'reserved','secretary'=>'reserved'}
@@ -103,16 +104,44 @@ const PatientBooking = () => {
     const userID = localStorage.getItem("user-id");
     const userType = localStorage.getItem("user-type");
     const [onSiteSchedule, setOnSiteSchedule] = useState([]);
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger",
+        },
+        buttonsStyling: false,
+    });
     const [onLineSchedule, setOnLineSchedule] = useState([]);
+    useEffect(() => {
+        console.log(localStorage.getItem("Schedule"));
+        if (localStorage.getItem("Schedule") == "false") {
+            swalWithBootstrapButtons
+                .fire({
+                    title: "you first need to add your Schedule",
+                    icon: "warning",
+                    showCancelButton: false,
+                    confirmButtonText: "Add Schedule!",
+                    reverseButtons: false,
+                })
+                .then(navigate("/Schedule"));
+        }
+    }, []);
 
     useEffect(() => {
+        console.log(localStorage.getItem("hasInfo"))
         if (!localStorage.getItem("user-info")) {
             navigate("/login");
+        } else if (
+            localStorage.getItem("user-type") == "patient" &&
+            localStorage.getItem("hasInfo")=="false"
+        ) {
+            setModalOpen(true);
         } else {
             fetchSchedule();
             fetchAppointments();
         }
-    }, [navigate]);
+    }, [localStorage]);
+    const [modalOpen, setModalOpen] = useState(false);
     const fetchAppointments = async () => {
         const formData = new FormData();
         formData.append("userID", parseInt(userID));
@@ -300,7 +329,7 @@ const PatientBooking = () => {
             }
         }
         console.log(onlineselectedSlots);
-        console.log(onsiteselectedSlots)
+        console.log(onsiteselectedSlots);
     };
     const swap = () => {
         setLeft(!left);
@@ -362,10 +391,18 @@ const PatientBooking = () => {
         }
         setIsSaving(false);
     };
-
+    const editopen = async () => {
+        setModalOpen(true);
+    }
     return (
         <div className="AppointmentPage">
             <div className="Title">
+                <div className="EditInfoButton">
+                    <button type="button" onClick={editopen}>
+
+                    Edit Info
+                    </button>
+                </div>
                 <h1 className="Titletext">Set Schedule</h1>
                 <div className="form-box">
                     <div className="button-box">
@@ -451,7 +488,8 @@ const PatientBooking = () => {
                                             <div
                                                 onClick={
                                                     type == "waiting" ||
-                                                    patientID == userID||State=="available"
+                                                    patientID == userID ||
+                                                    State == "available"
                                                         ? () =>
                                                               handleEventClick(
                                                                   info
@@ -466,7 +504,11 @@ const PatientBooking = () => {
                                                     ? "available"
                                                     : "waiting"
                                                 : type == "approved"
-                                                ? patientID == userID||(patientID==null&&(userType=="doctor"||userType=="secretary"))
+                                                ? patientID == userID ||
+                                                  (patientID == null &&
+                                                      (userType == "doctor" ||
+                                                          userType ==
+                                                              "secretary"))
                                                     ? "approved"
                                                     : "reserved"
                                                 : isSelected
@@ -504,7 +546,11 @@ const PatientBooking = () => {
                                                     ? ""
                                                     : "pending"
                                                 : type == "approved"
-                                                ? patientID == userID||(patientID==null&&(userType=="doctor"||userType=="secretary"))
+                                                ? patientID == userID ||
+                                                  (patientID == null &&
+                                                      (userType == "doctor" ||
+                                                          userType ==
+                                                              "secretary"))
                                                     ? "approved"
                                                     : "reserved"
                                                 : ""}
@@ -574,7 +620,8 @@ const PatientBooking = () => {
                                             <div
                                                 onClick={
                                                     type == "waiting" ||
-                                                    patientID == userID||State=="available"
+                                                    patientID == userID ||
+                                                    State == "available"
                                                         ? () =>
                                                               handleEventClick(
                                                                   info
@@ -589,7 +636,11 @@ const PatientBooking = () => {
                                                     ? "available"
                                                     : "waiting"
                                                 : type == "approved"
-                                                ? patientID == userID||(patientID==null&&(userType=="doctor"||userType=="secretary"))
+                                                ? patientID == userID ||
+                                                  (patientID == null &&
+                                                      (userType == "doctor" ||
+                                                          userType ==
+                                                              "secretary"))
                                                     ? "approved"
                                                     : "reserved"
                                                 : isSelected
@@ -627,7 +678,11 @@ const PatientBooking = () => {
                                                     ? ""
                                                     : "pending"
                                                 : type == "approved"
-                                                ? patientID == userID||(patientID==null&&(userType=="doctor"||userType=="secretary"))
+                                                ? patientID == userID ||
+                                                  (patientID == null &&
+                                                      (userType == "doctor" ||
+                                                          userType ==
+                                                              "secretary"))
                                                     ? "approved"
                                                     : "reserved"
                                                 : ""}
@@ -649,6 +704,7 @@ const PatientBooking = () => {
             ) : (
                 <></>
             )}
+            {modalOpen && <PatientInfo setModalOpen={setModalOpen}  />}
         </div>
     );
 };

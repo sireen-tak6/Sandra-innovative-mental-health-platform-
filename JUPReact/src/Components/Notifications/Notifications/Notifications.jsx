@@ -52,8 +52,16 @@ function Notifications() {
     }, []);
     const getDate = (n) => {
         const date2 = new Date(n.created_at);
-        console.log(date2)
+        console.log(date2);
         const date = `${date2.getHours()}:${date2.getMinutes()} ${date2.getDate()} / ${
+            date2.getMonth() + 1
+        } / ${date2.getFullYear()}`;
+        return date;
+    };
+    const getDate2 = (n) => {
+        const date2 = new Date(n);
+        console.log(date2);
+        const date = ` ${date2.getDate()} / ${
             date2.getMonth() + 1
         } / ${date2.getFullYear()}`;
         return date;
@@ -107,6 +115,8 @@ function Notifications() {
                                         ? `/articles/${n.data.articleCat}/${n.data.articleID}`
                                         : n.type == "Message"
                                         ? "/chats"
+                                        : n.type == "Appointment"
+                                        ? "/Appointments"
                                         : ""
                                 }
                                 className={`notification ${
@@ -164,7 +174,8 @@ function Notifications() {
                                         </span>{" "}
                                         <span>
                                             {" "}
-                                            Your new email address has been verified.
+                                            Your new email address has been
+                                            verified.
                                         </span>
                                         <div className="notificationDate">
                                             {getDate(n)}
@@ -177,8 +188,8 @@ function Notifications() {
                                         </span>{" "}
                                         <span>
                                             {" "}
-                                            You have new ( {n.data.count} ) reports
-                                            on{" "}
+                                            You have new ( {n.data.count} )
+                                            reports on{" "}
                                             <span className="articleTitle">
                                                 {n.data.articleTitle.slice(
                                                     0,
@@ -239,7 +250,54 @@ function Notifications() {
                                         <span>
                                             {" "}
                                             {n.data.articleTitle} has been
-                                            Deleted{" "}.
+                                            Deleted .
+                                        </span>
+                                        <div className="notificationDate">
+                                            {getDate(n)}
+                                        </div>
+                                    </>
+                                ) : n.type == "Appointment Cancel" ? (
+                                    <>
+                                        <span className="Type">
+                                            New {n.type}..!
+                                        </span>{" "}
+                                        <span>
+                                            Your appointment with Dr.
+                                            {n.data.doctorName} has been
+                                            cancelled. <br /> Date:
+                                            {getDate2(n.data.date)}.
+                                            <br />
+                                            Time: {n.data.time}.
+                                        </span>
+                                        <div className="notificationDate">
+                                            {getDate(n)}
+                                        </div>
+                                    </>
+                                ) : n.type == "Appointment approve" ? (
+                                    <>
+                                        <span className="Type">
+                                            New {n.type}..!
+                                        </span>{" "}
+                                        <span>
+                                            Your appointment with Dr.
+                                            {n.data.doctorName} has been
+                                            approved. <br /> Date: {getDate2(n.data.date)}
+                                            .
+                                            <br />
+                                            Time: {n.data.time}.
+                                        </span>
+                                        <div className="notificationDate">
+                                            {getDate(n)}
+                                        </div>
+                                    </>
+                                ) : n.type == "Appointment" ? (
+                                    <>
+                                        <span className="Type">
+                                            New {n.type}..!
+                                        </span>{" "}
+                                        <span>
+                                            A new appointment needs your
+                                            approval.
                                         </span>
                                         <div className="notificationDate">
                                             {getDate(n)}
@@ -266,10 +324,7 @@ function Notifications() {
                         ))
                     ) : Notifications2 ? (
                         <div className="notification firstlast none ">
-                            <span className="Type">
-                            No notifications found
-
-                            </span>
+                            <span className="Type">No notifications found</span>
                         </div>
                     ) : (
                         <div className="notification firstlast">

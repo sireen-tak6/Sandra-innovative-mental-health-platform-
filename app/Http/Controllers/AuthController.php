@@ -10,7 +10,9 @@ use App\Http\Requests\SignupRequestDoctor;
 use App\Models\Doctor;
 use App\Models\Admin;
 use App\Models\Patient;
+use App\Models\Schedule;
 use App\Models\Secretary;
+use App\Models\PatientInfo;
 use App\Mail\SignupVerificationEmail; 
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -181,6 +183,8 @@ class AuthController extends Controller
              if($user->email_verified_at != null)
              { 
                if (Hash::check($request->password, $passwordHash)) {
+                $info=PatientInfo::where("patientID",$user->id)->count();
+                
                    $user_id = $user->id;
                    $user->available = 1; // Update the available attribute to 1
                    $user->save();
@@ -192,6 +196,7 @@ class AuthController extends Controller
                     'user_id' => $user_id,
                     "token" => $token,
                     'user_type' => 'patient',
+                    "hasInfo"=>$info>0?true:false
 
                 ]);
             } else {
@@ -207,6 +212,7 @@ class AuthController extends Controller
  
          } else if (Doctor::where('email', $request->email)->first()) {
             $user = Doctor::where('email', $request->email)->first();
+            $Schedule=Schedule::where('doctorID',$user->id)->count();
             $passwordHash = $user->password;
             if ($user->email_verified_at != null) {
                 if (Hash::check($request->password, $passwordHash)) {
@@ -222,7 +228,7 @@ class AuthController extends Controller
                         'Secretary'=>$user->Secretary!==null,
                         'user_type' => 'doctor',
                         'message' => 'Email verify successfully',
-                        
+                        'Schedule'=>$Schedule==0?false:true,
 
                     ]);
                 } else {
@@ -286,6 +292,8 @@ class AuthController extends Controller
     {
         $user = null;
         if ($user=Secretary::where('user_name', $request->UserName)->first()) {
+            $Schedule=Schedule::where('doctorID',$user->doctorID)->count();
+
            $passwordHash = $user->password;
            if (Hash::check($request->password, $passwordHash)) {
                $user_id = $user->id;
@@ -295,7 +303,8 @@ class AuthController extends Controller
                    'user_id' => $user_id,
                    'token' => $token,
                    'user_type' => 'secretary',
-                   'user_name'=>$user->user_name
+                   'user_name'=>$user->user_name,
+                   'Schedule'=>$Schedule==0?false:true
 
                ]);
            } else {

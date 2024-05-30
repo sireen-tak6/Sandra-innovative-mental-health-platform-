@@ -78,7 +78,7 @@ const Chats = () => {
         localStorage.setItem("delete-chat", chatId);
         await axiosClient.post(`/delete-chat/${chatId}/${id}`);
         // Refresh the chat list after deletion
-        fetchData();
+        window.location.reload(); // Refresh the page after success
     };
 
     const handleTrashClick = (event, chatId) => {

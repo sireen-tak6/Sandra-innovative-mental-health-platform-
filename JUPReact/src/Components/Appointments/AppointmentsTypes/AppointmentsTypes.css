@@ -15,7 +15,7 @@
     color: #115069;
     height: min-content;
 }
- .Type {
+.Types .Type {
     margin-top: 2vh;
 }
  .Types .partTitle {
@@ -26,7 +26,25 @@
     color: #0d4155;
 
 }
- .Type button {
+.Types .NewButton{
+    font-weight: 500;
+    padding: 1vh 1vw;
+    border-radius: 6px;
+    min-height: 25px;
+    font-size: max(2.4vmin, 13px);
+    font-weight: 600;
+    background: linear-gradient(135deg, #226e8c 20%, #1a5066 60%);
+    color: white;
+    border: none;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    margin-top: 5vh;
+}
+ .Types button {
     height: 8vh;
     align-items: center;
     border: none;
@@ -40,7 +58,7 @@
     background-color: #5d8da000;
     color: #1c627e;
 }
- .Type .selected {
+ .Types .selected {
     color: rgba(255, 255, 255, 0.722);
     font-weight: 600;
     font-size: max(2.25vmin, 14px);

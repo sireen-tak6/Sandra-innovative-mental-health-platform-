@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Doctor;
 use App\Models\Patient;
+use App\Models\Schedule;
 use App\Models\Article;
 use App\Models\Like;
 
@@ -16,8 +17,13 @@ class DoctorController extends Controller
     //this fucntion for get all doctors 
     public function getAllDoctor()
     {
+        
        $doctor = Doctor::with("Category","Schedules")->orderBy('created_at', 'desc')->get();
-
+       foreach($doctor as $d){
+           $Schedule=Schedule::where('doctorID',$d->id)->count();
+           $d->ifSchedule=$Schedule==0?false:true;
+        
+       }
        return response([
            'doctors' => $doctor
            ,

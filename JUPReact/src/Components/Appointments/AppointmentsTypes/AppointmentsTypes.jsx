@@ -16,6 +16,7 @@ const AppointmentsTypes = () => {
         { name: "Past", id: 3 },
         { name: "OnLine", id: 4 },
         { name: "OnSite", id: 5 },
+        { name: "done", id: 6 },
     ]);
 
     function onUpdate(value) {
@@ -30,19 +31,7 @@ const AppointmentsTypes = () => {
         <div className="Types">
             <div className="partTitle">
                 Types :
-                <div>
-                    <a
-                        href={`${
-                            userType == "patient"
-                                ? "/doctor"
-                                : userType == "doctor"
-                                ? `/newAppointment/${userID}`
-                                : `/newAppointment/${user.doctorID}`
-                        }`}
-                    >
-                        New appointment
-                    </a>
-                </div>
+               
             </div>
             {Types.map((item) => (
                 <div>
@@ -55,6 +44,19 @@ const AppointmentsTypes = () => {
                     </button>
                 </div>
             ))}
+             <div className="NewButton">
+                    <a
+                        href={`${
+                            userType == "patient"
+                                ? "/doctor"
+                                : userType == "doctor"
+                                ? `/newAppointment/${userID}`
+                                : `/newAppointment/${user.doctorID}`
+                        }`}
+                    >
+                        New appointment
+                    </a>
+                </div>
         </div>
     );
 };

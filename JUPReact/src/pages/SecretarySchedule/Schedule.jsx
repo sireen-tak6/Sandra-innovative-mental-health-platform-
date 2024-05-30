@@ -134,6 +134,17 @@ const SecretarySchedule = () => {
                     "Your schedule has been updated.",
                     "success"
                 );
+                if(onsiteScheduleData.length==0&&onlineScheduleData.length==0){
+                    localStorage.setItem(
+                        "Schedule","false"
+                    );
+                }
+                else{
+                    localStorage.setItem(
+                        "Schedule",
+                        "true" 
+                    );
+                }
             }
             else{
                 swalWithBootstrapButtons.fire(

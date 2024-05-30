@@ -3,6 +3,7 @@
     padding: 4vh 2vw;
     height: 10vh;
     text-align: center;
+    padding-left: 1vw;
 }
 
 .AppointmentCard .CardInfo {
@@ -12,8 +13,23 @@
     height: 8vh;
 }
 .AppointmentCard .info {
-    width: 4vw;
+    width: 5vw;
     align-content: center;
+}
+.AppointmentCard .infoButton{
+    width: 3.5vw;
+    height: 3.5vw;
+    color: white;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
+    border-radius: 100px;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+
+}
+.AppointmentCard img{
+    width: 5vw;
+    height: 4vh;
+    
+
 }
 .AppointmentCard .name {
     width: 5vw;
@@ -70,6 +86,9 @@
     border-radius: 10px;
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
 
+}
+.AppointmentCard .notFirst {
+    margin-left: 8vw;
 }
 .AppointmentCard .none2 {
     width: 8vw;

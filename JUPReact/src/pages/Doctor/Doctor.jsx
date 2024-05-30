@@ -40,12 +40,14 @@ export default function Doctor() {
     const fetchDoctors = async () => {
         try {
             const response = await axiosClient.get("/get/doctors");
+            console.log(response)
             const data = response.data;
             setDoctors(data.doctors);
             console.log(data);
             const doctorIds = data.doctors.map((doctor) => doctor.id);
             DoctorLikes(doctorIds);
         } catch (error) {
+            console.log(error)
             console.error("Error fetching doctors:", error);
             handleError();
         }
@@ -217,6 +219,7 @@ export default function Doctor() {
                                                         />
                                                     </a>
                                                 </div>
+                                                {doctor.ifSchedule?
                                                 <div className="m-2">
                                                     <a
                                                         className="text-sm text-white botton px-2 py-1 rounded-md cursor-pointer"
@@ -228,7 +231,7 @@ export default function Doctor() {
                                                     >
                                                         Book Appointment{" "}
                                                     </a>
-                                                </div>
+                                                </div>:null}
                                             </div>
                                         )}
 

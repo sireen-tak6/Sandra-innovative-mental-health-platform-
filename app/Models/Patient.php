@@ -36,6 +36,10 @@ class Patient extends Model implements Authenticatable
     {
         return $this->hasMany(Appointment::class , 'patientID'); 
     }
+    public function information ():HasOne
+    {
+        return $this->hasOne(PatientInfo::class , 'patientID'); 
+    }
     
     public function getAuthIdentifierName()
     {

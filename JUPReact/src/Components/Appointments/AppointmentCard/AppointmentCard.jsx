@@ -11,9 +11,9 @@ import "sweetalert2/src/sweetalert2.scss";
 import "./AppointmentCard.css";
 import CircularLoading from "../../loadingprogress/loadingProgress";
 
-const AppointmentCard = ({ item, last, first }) => {
-    console.log(last);
-    console.log(item);
+const AppointmentCard = ({ item, last, first, setPatientId, setModalOpen }) => {
+    const infoPic = "../images/info.svg";
+
     const [date, setdate] = useState(null);
     const [isSaving, setIsSaving] = useState(false);
     const daysOfWeek = [
@@ -47,7 +47,7 @@ const AppointmentCard = ({ item, last, first }) => {
             const userID = localStorage.getItem("user-id");
             const userType = localStorage.getItem("user-type");
             const formData = new FormData();
- // Convert to string before appending
+            // Convert to string before appending
             formData.append("userID", parseInt(userID));
             formData.append("userType", userType);
             formData.append("appointmentId", parseInt(id));
@@ -73,13 +73,12 @@ const AppointmentCard = ({ item, last, first }) => {
                     "error"
                 );
             }
-            console.log(response);
         } catch (error) {
-            console.log(error)
+            console.log(error);
             console.error("Error saving schedule:", error);
         }
         setIsSaving(false);
-    }
+    };
     const remove = async (id) => {
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
@@ -93,7 +92,7 @@ const AppointmentCard = ({ item, last, first }) => {
             const userID = localStorage.getItem("user-id");
             const userType = localStorage.getItem("user-type");
             const formData = new FormData();
- // Convert to string before appending
+            // Convert to string before appending
             formData.append("userID", parseInt(userID));
             formData.append("userType", userType);
             formData.append("appointmentId", parseInt(id));
@@ -121,13 +120,19 @@ const AppointmentCard = ({ item, last, first }) => {
             }
             console.log(response);
         } catch (error) {
-            console.log(error)
+            console.log(error);
             console.error("Error saving schedule:", error);
         }
         setIsSaving(false);
     };
+    const openInfo = (id) => {
+        setPatientId(id);
+        setModalOpen(true);
+        console.log(id);
+    };
+
     return (
-        <Link to={`${item.id}`} key={item.id}>
+        <Link key={item.id}>
             {date === null ? (
                 <div>
                     <CircularLoading />
@@ -136,7 +141,15 @@ const AppointmentCard = ({ item, last, first }) => {
                 <div className={`AppointmentCard ${last ? "none" : "none"} `}>
                     <div className="CardInfo">
                         <div className={`info ${first ? "first" : ""}`}>
-                            info
+                            {item.patientID !== null ? (
+                                <button
+                                    type="button"
+                                    onClick={() => openInfo(item.patientID)}
+                                    className={`${first ? "" : "infoButton"}`}
+                                >
+                                    {first ? "info" : <img src={infoPic} />}
+                                </button>
+                            ) : null}
                         </div>
                         <div className={`name ${first ? "first" : ""}`}>
                             {item.patient ? item.patient.user_name : "unknown"}
@@ -162,26 +175,82 @@ const AppointmentCard = ({ item, last, first }) => {
                     </div>
                     {first ? (
                         <div className="buttons">
-                            <div onClick={()=>{}} className={`approveButton ${first ? "first" : ""}`}>Approve</div>
-                            <div onClick={()=>{}} className={`deleteButton ${first ? "first" : ""}`}>Delete</div>
+                            <div
+                                onClick={() => {}}
+                                className={`approveButton ${
+                                    first ? "first" : ""
+                                }`}
+                            >
+                                Approve
+                            </div>
+                            <div
+                                onClick={() => {}}
+                                className={`deleteButton ${
+                                    first ? "first" : ""
+                                }`}
+                            >
+                                Cancel
+                            </div>
                         </div>
                     ) : null}
                     {item.type == "waiting" ? (
                         <>
-                            <div className={`approveButton ${first ? "first" : ""}`}>
-                                <button  onClick={(e) => {e.preventDefault(); approve(item.id)}} type="button" className={`approveButton ${first ? "first" : ""}`}>Approve</button>{" "}
+                            <div
+                                className={`approveButton ${
+                                    first ? "first" : ""
+                                }`}
+                            >
+                                <button
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        approve(item.id);
+                                    }}
+                                    type="button"
+                                    className={`approveButton ${
+                                        first ? "first" : ""
+                                    }`}
+                                >
+                                    Approve
+                                </button>{" "}
                             </div>
                             <div className="">
-                                <button onClick={(e) => {e.preventDefault(); remove(item.id)}}
-                                 type="button" className={`deleteButton ${first ? "first" : ""}`}>Delete</button>{" "}
+                                <button
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        remove(item.id);
+                                    }}
+                                    type="button"
+                                    className={`deleteButton ${
+                                        first ? "first" : ""
+                                    }`}
+                                >
+                                    Cancel
+                                </button>{" "}
                             </div>
                         </>
-                    ) : (
+                    ) : !first ? (
                         <>
-                            <div className={`approveButton none2 ${first ? "first" : ""}`}></div>
-                            <div className={`deleteButton none2 ${first ? "first" : ""}`}></div>
+                            <div
+                                className={`approveButton none2 ${
+                                    first ? "first" : ""
+                                }`}
+                            ></div>
+                            <div className="">
+                                <button
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        remove(item.id);
+                                    }}
+                                    type="button"
+                                    className={`deleteButton ${
+                                        first ? "" : "notFirst"
+                                    }`}
+                                >
+                                    Cancel
+                                </button>{" "}
+                            </div>{" "}
                         </>
-                    )}
+                    ) : null}
                 </div>
             )}
         </Link>

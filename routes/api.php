@@ -19,6 +19,7 @@ use App\Http\Controllers\DoctorVerfiyController;
 use App\Http\Controllers\NotificationController; 
 use App\Http\Controllers\SecretaryController; 
 use App\Http\Controllers\AppointmentController; 
+use App\Http\Controllers\PatientInformationController;
 
 /*
 
@@ -198,3 +199,5 @@ Route::post('AddAppointment',[AppointmentController::class,'AddAppointment']);
 Route::post('getReservedAppointments',[AppointmentController::class,'getReservedAppointments']);
 Route::post('DeleteAppointment',[AppointmentController::class,'DeleteAppointment']);
 Route::post('ApproveAppointment',[AppointmentController::class,'approveAppointment']);
+Route::post('AddInfo',[PatientInformationController::class,'AddInfo']);
+Route::post('getInfo',[PatientInformationController::class,'getInfo']);

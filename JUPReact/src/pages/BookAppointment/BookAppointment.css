@@ -25,9 +25,26 @@
     display: flex;
     position: relative;
 }
+.AppointmentPage .EditInfoButton{
+    padding: 1vh 1vw;
+    border-radius: 6px;
+    min-height: 25px;
+    font-size: max(2.4vmin, 13px);
+    font-weight: 500;
+    background:linear-gradient(135deg, #5d8fa3 20%, #507b8d 60%); 
+    color: white;
+    border: none;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+    min-width: 70px;
+  
+
+}
 .AppointmentPage .Titletext {
     margin-left: auto;
-    margin-right: auto;
+    margin-right: 40vw;
+    width: 14vw;
 }
 .AppointmentPage .button-box {
     width: 12vw;
