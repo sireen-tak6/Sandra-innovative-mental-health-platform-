@@ -20,6 +20,10 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SecretaryController; 
 use App\Http\Controllers\AppointmentController; 
 use App\Http\Controllers\PatientInformationController;
+use App\Http\Controllers\ComplaintController; 
+use App\Http\Controllers\PatientController; 
+
+
 
 /*
 
@@ -201,3 +205,16 @@ Route::post('DeleteAppointment',[AppointmentController::class,'DeleteAppointment
 Route::post('ApproveAppointment',[AppointmentController::class,'approveAppointment']);
 Route::post('AddInfo',[PatientInformationController::class,'AddInfo']);
 Route::post('getInfo',[PatientInformationController::class,'getInfo']);
+Route::post('setBanks',[AppointmentController::class,'setBanks']);
+Route::post('PaidAppointment',[AppointmentController::class,'PaidAppointment']);
+Route::post('DoneAppointment',[AppointmentController::class,'DoneAppointment']);
+Route::post('haveAppointment',[AppointmentController::class,'haveAppointment']);
+Route::post('AddComplaint',[ComplaintController::class,'AddComplaint']);
+Route::post('getComplaints',[ComplaintController::class,'getComplaints']);
+Route::post('markComplaintAsDone',[ComplaintController::class,'markComplaintAsDone']);
+Route::post('deleteComplaint',[ComplaintController::class,'deleteComplaint']);
+Route::get('/get/patients' , [PatientController::class ,'getAllPatientInfo']);
+Route::post('getPatientNotes' , [PatientController::class ,'getPatientNotes']);
+Route::post('addSessionNote' , [AppointmentController::class ,'addSessionNote']);
+Route::post('endSession' , [AppointmentController::class ,'endSession']);
+Route::post('breakSession' , [AppointmentController::class ,'breakSession']);

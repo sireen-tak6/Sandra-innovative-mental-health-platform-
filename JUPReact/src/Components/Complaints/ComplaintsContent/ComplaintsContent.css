@@ -1,0 +1,136 @@
+.ComplaintsContent {
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #0d4155;
+    height: 140vh;
+
+}
+
+.ComplaintsContent .ComplaintContentBody{
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: center;
+        border-radius: 20px;
+        width: 46vw;
+
+}
+.ComplaintsContent .Title {
+    color: #226e8c;
+    font-size: max(3vmin, 15px);
+    font-weight: 500;
+    margin-bottom: 5vh;
+    display: flex;
+}
+.ComplaintsContent .exitButton {
+margin-left: auto;
+}
+.ComplaintsContent h2 {
+    margin-left: auto;
+    }
+.ComplaintsContent .form-group {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    width: 43vw;
+}
+.ComplaintsContent .inputLabel {
+    text-align: left;
+}
+.ComplaintsContent .form-group label {
+    display: block;
+    font-size: max(2vmin, 12px);
+    margin-bottom: 2vh;
+}
+
+.ComplaintsContent .form-group input,
+.ComplaintsContent .form-group textarea {
+    height: 6vh;
+    width: 20vw;
+    margin-bottom: 2vh;
+    padding-left: 1vw;
+    background-color: rgba(255, 255, 255, 0.573);
+    color: #0d4155;
+    border-radius: 10px;
+    font-size: max(2vmin, 12px);
+    box-shadow: 2px 2px 5px 0 #4e798877 inset;
+}
+
+.ComplaintsContent .form-group input[type="file"] {
+    width: 43vw;
+}
+
+.ComplaintsContent .form-group textarea {
+    height: 20vh; /* Adjust textarea height */
+    width: 43vw;
+    padding: 2%;
+}
+
+.ComplaintsContent .photo-preview {
+    margin-bottom: 8vh;
+}
+.ComplaintsContent .photoContent {
+    display: flex;
+    justify-content: space-evenly;
+}
+.ComplaintsContent .photo-preview h4 {
+    margin-bottom: 2vh;
+}
+
+.ComplaintsContent .photo-preview img {
+    width: 12vw;
+    height: 12vw;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+
+}
+
+.ComplaintsContent .error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 5px;
+}
+.ComplaintsContent input::file-selector-button {
+  font-weight: 500;
+  padding: 1vh 1vw;
+  border-radius: 6px;
+  height: 5vh;
+  margin-top: 0.5vh;
+  margin-bottom: 0.5vh;
+  font-size: max(2.1vmin, 13px);
+  font-weight: 600;
+  border: none;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, #226e8c9d, #0d41557e);
+  color: white;
+}
+
+.ComplaintsContent .done{
+    font-weight: 500;
+    padding: 1vh 1vw;
+    border-radius: 6px;
+    min-height: 25px;
+    font-size: max(2.4vmin, 13px);
+    font-weight: 600;
+    border: none;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+    min-width: 70px;
+    margin-top: 2vh;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
+    color: white;
+}
+
+.ComplaintsContent button[type="submit"]:disabled {
+    opacity: 0.5;
+    cursor: default;
+}

@@ -1,0 +1,138 @@
+.ComplaintCard {
+    display: flex;
+    width: 90vw;
+    height: 10vh;
+    padding: 1vh 1vw;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    align-items: center;
+
+}
+.workingOn {
+    background-color: rgb(188, 188, 188);
+}
+.ComplaintCard .imageContainer {
+    height: 8vh;
+    width: 16.6vw;
+    margin-right: 1vw;
+    display: flex;
+    font-size: max(2.3vmin, 13px);
+}
+.ComplaintCard img {
+    margin: 0.3vh 0.2vw;
+    width: 5vw;
+    height: 7.4vh;
+}
+.ComplaintCard .name {
+    margin-right: 1vw;
+    font-size: max(2.3vmin, 13px);
+    font-weight: 600;
+    width: 10vw;
+   height: fit-content;
+    
+}
+.ComplaintCard .userType {
+    margin-right: 1vw;
+    font-size: max(2.3vmin, 13px);
+    width: 6vw;
+    height: fit-content;
+
+}
+.ComplaintCard .description {
+    margin-right: 1vw;
+    font-size: max(2.3vmin, 13px);
+    width: 25.8vw;
+    height: fit-content;
+
+}
+.ComplaintCard .date {
+    margin-right: 1vw;
+    font-size: max(2.3vmin, 13px);
+    width: 12vw;
+    height: fit-content;
+
+}
+.ComplaintCard .ContentButton {
+    padding: 1vh 1vw;
+    border-radius: 6px;
+    min-height: 25px;
+    height: fit-content;
+    font-size: max(2.1vmin, 13px);
+    font-weight: 500;
+    background: linear-gradient(135deg, #226e8c9d, #0d41557e);
+
+    color: white;
+    border: none;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+    margin-right: 1vw;
+    width: 6vw;
+}
+.ComplaintCard .ContentText {
+    border-radius: 6px;
+    min-height: 25px;
+    height: fit-content;
+    border: none;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    margin-right: 1vw;
+    width: 6vw;
+    
+}
+.ComplaintCard .DeleteText {
+    border-radius: 6px;
+    min-height: 25px;
+    height: fit-content;
+    border: none;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    width: 6vw;
+    }
+.ComplaintCard .DeleteButton {
+    padding: 1vh 1vw;
+    border-radius: 6px;
+    min-height: 25px;
+    height: fit-content;
+    font-size: max(2.1vmin, 13px);
+    font-weight: 500;
+    color: white;
+    border: none;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    width: 6vw;
+}
+.ComplaintCard .DeleteButton button{
+    padding: 1vh 1vw;
+    border-radius: 6px;
+    min-height: 25px;
+    height: fit-content;
+    font-size: max(2.1vmin, 13px);
+    font-weight: 500;
+    background: linear-gradient(135deg, #af4b4b, #742222);
+    color: white;
+    border: none;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+}
+.image {
+    width: 16.2vw;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+.first {
+    font-weight: 600;
+    font-size: max(2.3vmin,15px);
+    height: 6vh;
+    border-radius: 0;
+}
+.notFirst {
+    background: linear-gradient(135deg, #226e8c9d, #0d41557e);
+}
+.notback{
+    background-color: none;
+    background: none;
+
+}
