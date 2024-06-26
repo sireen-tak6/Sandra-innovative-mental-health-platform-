@@ -104,9 +104,10 @@ const RootLayout = () => {
 
     return (
         <div className="bd">
+            {location.pathname.includes("/testt")?null: 
             <header>
                 <Navbarr />
-            </header>
+            </header>}
             <main>
                 <Outlet />
                 {click && <SearchScreen></SearchScreen>}

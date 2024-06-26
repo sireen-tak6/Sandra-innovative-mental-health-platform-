@@ -77,51 +77,70 @@ class PatientInformationController extends Controller
         $userID=$request->userID;
         $userType=$request->userType;
         $patientID=$request->patientID;
-        if($userType=="patient"){
-            $Info=PatientInfo::where("patientID",$userID)->with('Patient')->get();
-            if(count($Info)>0){
-                return response()->json([
-                    'status' => 200,
-                    'Info' =>$Info,
-                ]);
-            }
-            else{
-                return response()->json([
-                    'status' => 404,
-                    'message' =>"you don't have any information yet" ,
-                ]);
-            }
-        }  
-        else if($userType=="admin"){
-            return response()->json([
-                'status' => 500,
-                'message' =>"you don't have any information yet" ,
-            ]);
-        }      
-        else{
-            if($patientID){
-                $Info=PatientInfo::where("patientID",$patientID)->with('Patient')->get();
-                if(count($Info)>0){
+        try{            
+            if($userType=="patient"){
+                $Info=PatientInfo::where("patientID",$userID)->with('Patient')->limit(1)->first();
+                if($Info){
+                    if($Info->Banks==null){
+                        return response()->json([
+                            'status' => 200,
+                            'Info' =>$Info,
+                            'hasBank'=>false,
+                        ]);
+                    }
                     return response()->json([
                         'status' => 200,
                         'Info' =>$Info,
+                        'hasBank'=>true,
                     ]);
                 }
                 else{
                     return response()->json([
                         'status' => 404,
-                        'message' =>"this patient doesn't have any information yet" ,
+                        'message' =>"you don't have any information yet" ,
                     ]);
                 }
-
-            }else{
+            }  
+            else if($userType=="admin"){
                 return response()->json([
                     'status' => 500,
-                    'message' =>"you didn't choose a patient" ,
-                ]); 
+                    'message' =>"you don't have any information yet" ,
+                ]);
+            }      
+            else{
+                if($patientID){
+                    $Info=PatientInfo::where("patientID",$patientID)->with('Patient')->limit(1)->first();
+                    if($Info){
+                        if($Info->Banks==null){
+                            return response()->json([
+                                'status' => 200,
+                                'Info' =>$Info,
+                                'hasBank'=>false,
+                            ]);
+                        }
+                        return response()->json([
+                            'status' => 200,
+                            'Info' =>$Info,
+                            'hasBank'=>true,
+                        ]);
+                    }
+                    else{
+                        return response()->json([
+                        'status' => 404,
+                        'message' =>"this patient doesn't have any information yet" ,
+                        ]);
+                    }
+                }else{
+                    return response()->json([
+                        'status' => 500,
+                        'message' =>"you didn't choose a patient" ,
+                    ]); 
+                }
             }
+                
         }
-        
+        catch (\Exception $e) {
+            return response()->json(['status'=>404,'message' =>$e->message]);
+        }
     }
-    
 }

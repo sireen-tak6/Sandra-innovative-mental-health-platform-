@@ -19,7 +19,8 @@ return new class extends Migration
             $table->text("data");
             $table->text("notes")->nullable();
             $table->integer("appointments")->nullable();
-            $table->integer("appointmentsDone")->nullable();           
+            $table->integer("appointmentsDone")->nullable();          
+            $table->text("Banks")->nullable(); 
             $table->foreign('patientID')->references('id')->on('patients')->onDelete('cascade');
             $table->timestamps();
         });

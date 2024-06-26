@@ -1,0 +1,136 @@
+.Paymodal .grid2 {
+    display: grid;
+    grid-template-columns: repeat(2, 5fr);
+}
+.Paymodal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.Paymodal .Paymodal-content {
+    background-color: rgba(255, 255, 255, 0.83);
+    padding: 20px;
+    border-radius: 5px;
+    border-radius: 20px;
+    width: fit-content;
+    max-width: 49vw;
+    margin-top: 8vh;
+}
+.Paymodal .PayTitle {
+    color: #226e8c;
+    font-size: max(3vmin, 15px);
+    font-weight: 500;
+    margin-bottom: 3vh;
+    display: flex;
+    justify-content: center;
+    justify-content: space-between;
+
+}
+.Paymodal .title{
+    margin-left: auto;
+    margin-right: auto;
+}
+.Paymodal .notesPart {
+    text-align: start;
+    margin-left: 2vw;
+    margin-bottom: 5vh;
+    color: #0d4155b2;
+}
+.Paymodal .danger{
+    margin-bottom: 1vh;
+    color: rgb(111, 24, 24);
+}
+.Paymodal .radioButtonDiv {
+    margin-bottom: 1vh;
+    margin-top: 1vh;
+    margin-left: 2vw;
+    text-align: left;
+}
+
+.Paymodal .radioButton {
+    margin-right: 1vw;
+    text-align: left;
+}
+
+
+.Paymodal .Bank {
+    margin: 0vw 2vh;
+}
+.Paymodal .BankInfo {
+    display: flex;
+}
+.Paymodal .BankName {
+    text-align: start;
+    margin-bottom: 1vh;
+    font-size: max(2.3vmin, 15px);
+}
+.Paymodal .BankLogo {
+    width: 5vh;
+    background-color: rgba(255, 255, 255, 0.573);
+    box-shadow: 2px 2px 5px 0 #4e798877 inset;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    height: 5vh;
+    margin-right: 0.2vw;
+    border-radius: 10px 0px 0px 10px;
+}
+.Paymodal .BankImage {
+    width: 3vh;
+    height: 3vh;
+    margin-left: 0.1vw;
+}
+.Paymodal .BankInput {
+    margin-bottom: 0.2vh;
+    height: 5vh;
+    width: 18vw;
+    margin-bottom: 3vh;
+    padding-left: 1vw;
+    background-color: rgba(255, 255, 255, 0.573);
+    color: #0d4155;
+    border-radius: 0px 10px 10px 0px;
+    font-size: max(2vmin, 12px);
+    box-shadow: 2px 2px 5px 0 #4e798877 inset;
+    display: flex;
+    align-items: center;
+}
+.Paymodal .BankButtons {
+    display: flex;
+    justify-content: center;
+}
+.Paymodal .BankButtons button {
+    font-weight: 500;
+    padding: 1vh 1vw;
+    border-radius: 6px;
+    min-height: 25px;
+    font-size: max(2.4vmin, 13px);
+    font-weight: 600;
+    border: none;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+    min-width: 90px;
+    margin-top: 2vh;
+    margin-left: 5vw;
+    margin-right: 5vw;
+}
+.Paymodal .SaveButton {
+    background: linear-gradient(135deg, #226e8c, #0d4155);
+    background-color: #b9f7eb;
+    color: white;
+    margin-top: 5vh;
+}
+.Paymodal .cancelButton {
+    background-image: linear-gradient(140deg, #5151518c 20%, #bababa8c 60%);
+    background-color: #535353;
+    color: white;
+}

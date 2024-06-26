@@ -11,12 +11,15 @@ const AppointmentsTypes = () => {
     const { Type, handleUpdate } = useContext(MyContext);
     const [Types, setTypes] = useState([
         { name: "All", id: 0 },
+        { name: "Paid", id: 7 },
         { name: "Pending", id: 1 },
         { name: "Future", id: 2 },
         { name: "Past", id: 3 },
+        { name: "Done", id: 6 },
         { name: "OnLine", id: 4 },
         { name: "OnSite", id: 5 },
-        { name: "done", id: 6 },
+        { name: "Canceled", id: 8 },
+
     ]);
 
     function onUpdate(value) {
@@ -29,22 +32,9 @@ const AppointmentsTypes = () => {
 
     return (
         <div className="Types">
-            <div className="partTitle">
-                Types :
-               
-            </div>
-            {Types.map((item) => (
-                <div>
-                    <button
-                        onClick={() => onUpdate(item.id)}
-                        id={item.id}
-                        className={Type === item.id ? "selected" : "none"}
-                    >
-                        {item.name}
-                    </button>
-                </div>
-            ))}
-             <div className="NewButton">
+            <div className="partHead">
+                <div className="partTitle">Types :</div>
+                <div className="NewButton">
                     <a
                         href={`${
                             userType == "patient"
@@ -57,6 +47,21 @@ const AppointmentsTypes = () => {
                         New appointment
                     </a>
                 </div>
+            </div>
+            <div className="TypesDiv">
+                {Types.map((item,index) => (
+                    ((index==8&&userType=="admin")|| index!==8)&&
+                    <div>
+                        <button
+                            onClick={() => onUpdate(item.id)}
+                            id={item.id}
+                            className={Type === item.id ? "selected" : "none"}
+                        >
+                            {item.name}
+                        </button>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };

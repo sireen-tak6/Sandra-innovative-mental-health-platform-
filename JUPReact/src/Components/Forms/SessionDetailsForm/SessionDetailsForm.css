@@ -1,0 +1,54 @@
+.Details {
+    
+}
+.detailTitle {
+    color: #226e8c;
+    font-size: max(3vmin, 15px);
+    font-weight: 500;
+    margin-bottom: 5vh;
+    display: flex;
+    justify-content: center;
+    justify-content: space-between;
+}
+.detailTitle .title{
+    margin-left: auto;
+    margin-right: auto;
+}
+.Details .SessionInput {
+    height: 5vh;
+    width: 10vw;
+    margin-bottom: 3vh;
+    padding-left: 1vw;
+    background-color: rgba(255, 255, 255, 0.573);
+    color: #0d4155;
+    font-size: max(2vmin, 12px);
+    box-shadow: 2px 2px 5px 0 #4e798877 inset;
+    border-radius: 10px;
+    margin-left: 1.5vw;
+    margin-right: 1vw;
+}
+.Details .radioButton {
+    margin-right: 0.5vw;
+}
+.Details .radioDiv {
+    margin-left: 0.5vw;
+    margin-right: 1vw;
+}
+.Details .syp {
+    margin-left: 0.5vw;
+}
+
+.Details .DetailName {
+    margin-left: 1vw;
+    text-align: start;
+    margin-bottom: 1vh;
+    font-size: max(2.3vmin, 15px);
+}
+
+.Details .detailsDiv {
+    display: flex;
+}
+.Details .required{
+    color: rgb(150, 29, 29);
+    font-size: max(2vmin, 15px);
+}

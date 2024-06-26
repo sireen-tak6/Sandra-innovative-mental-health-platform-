@@ -44,3 +44,24 @@
 .posforMessages::-webkit-scrollbar-thumb:hover {
     background: burlywood;
 }
+
+.posforMessages .rec {
+    background-color: #6aa3b99e;
+    color: rgb(0, 0, 0);
+    font-weight: 500;
+}
+.posforMessages .send {
+    background-color: rgba(91, 100, 101, 0.679);
+    color: rgb(255, 255, 255);
+    font-weight: 500;
+}
+.posforMessages .messagesSection {
+    border-radius: 0%;
+    background-image: url("../images/chatBG-03.png");
+    background-color: #558da39e;
+    background-size: cover; /* Make the background image cover the entire element */
+    background-position: center; /* Center the background image */
+    opacity: 0.8; /* Adjust the opacity of the background image */
+    -webkit-box-shadow: 0 0 10px 2px #3e3e3e;
+    box-shadow: 0 0 10px 2px #3e3e3e inset;
+}

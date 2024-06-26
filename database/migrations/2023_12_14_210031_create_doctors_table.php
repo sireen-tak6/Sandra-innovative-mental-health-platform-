@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('about')->nullable();
             $table->string('university')->nullable();
             $table->string('phone')->nullable();
+            $table->text("Banks")->nullable(); 
             $table->boolean('available')->default(false);
             $table->boolean('gender')->nullable();
             $table->unsignedBigInteger('speciality')->nullable();
@@ -28,6 +29,9 @@ return new class extends Migration
             $table->string('new_verification_token')->nullable();
             $table->string('new_email')->nullable(); 
             $table->foreign('speciality')->references('id')->on('speciality')->onDelete('cascade'); 
+            $table->integer("time")->nullable(); 
+            $table->String("timeType")->nullable(); 
+            $table->integer("cost")->nullable(); 
             $table->timestamps();
         });
     }

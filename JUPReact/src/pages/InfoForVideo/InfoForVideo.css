@@ -1,0 +1,75 @@
+.InfoForVideo {
+    height: 100vh;
+    padding-top: 28vh;
+}
+.InfoForVideo .InfoForVideoBody {
+    width: 70vw;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-between;
+}
+.InfoForVideo .namePart {
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.InfoForVideo .image{
+    width: fit-content;
+}
+.InfoForVideo .namePart img {
+    height: 10vh;
+    border-radius: 100%;
+    margin-right: 1vw;
+    
+}
+
+.InfoForVideo .rulesPart {
+    padding: 5vh 4vw;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.504),
+        rgba(255, 255, 255, 0.247)
+    );
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 4px 4px 8px 2px #6f6f6f82;    width: 53vw;
+    border-radius: 20px;
+    
+}
+.InfoForVideo .ruleTitle {
+    font-size: max(3.5vmin, 18px);
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 700;
+    color: #0d4155c6;
+}
+.InfoForVideo .rules {
+    font-size: max(2.6vmin, 15px);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 6vh;
+    margin-top: 6vh;
+    text-align: justify;
+}
+.InfoForVideo .rulesButton {
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    padding: 1vh 1vw;
+    border-radius: 6px;
+    min-height: 25px;
+    height: fit-content;
+    font-size: max(2.4vmin, 13px);
+    font-weight: 500;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
+    color: white;
+    border: none;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+    min-width: 70px;
+}

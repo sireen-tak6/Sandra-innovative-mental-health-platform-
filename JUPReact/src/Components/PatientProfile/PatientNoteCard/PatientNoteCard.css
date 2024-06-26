@@ -1,0 +1,47 @@
+.noteCard {
+    margin-bottom: 5vh;
+    padding-bottom: 3vh;
+    border-bottom: 1px solid black;
+}
+.noteCard .info {
+margin-left: 1vw;
+}
+.noteCard .dataName {
+    font-size: max(2.3vmin, 15px);
+    color: black;
+    margin-left: 1vw;
+    margin-bottom: 2vh;
+    color: #0d4155;
+}
+.noteCard .data {
+    font-size: max(2.3vmin, 15px);
+    color: black;
+    margin-left: 1vw;
+    height: 12vh;
+    width: 40vw;
+    margin-top: 2vh;
+    margin-bottom: 3vh;
+    padding-left: 1vw;
+    background-color: rgba(255, 255, 255, 0.573);
+    color: #0d4155;
+    border-radius: 10px;
+    font-size: max(2vmin, 12px);
+    box-shadow: 2px 2px 5px 0 #4e798877 inset;
+    display: flex;
+    align-items: center;
+    margin-left: 0vw;
+}
+.noteCard .doctorName {
+    color: #0d4155;
+    font-weight: 600;
+    display: flex;
+    margin-left: 0vw;
+}
+.noteCard .notes {
+    padding-left: 0;
+}
+.noteCard .Date {
+    font-size: max(2vmin, 12px);
+    color: #0d4155;
+
+}

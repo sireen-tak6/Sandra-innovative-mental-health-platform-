@@ -1,0 +1,131 @@
+.CustomerService {
+    min-height: 80vh;
+    display: grid;
+    margin-top: 12vh;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50vw;
+    justify-content: center;
+    text-align: center;
+    justify-self: center;
+    color: #0d4155;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.504),
+        rgba(255, 255, 255, 0.247)
+    );
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 4px 4px 8px 2px #6f6f6f82;
+    border-radius: 20px;
+    padding: 4vh 3.5vw;
+}
+.CustomerService .Title {
+    font-size: max(3vmin, 14px);
+    color: #0d4155;
+    font-weight: 600;
+    margin-bottom: 5vh;
+    text-align: center;
+}
+.CustomerService .form-group {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    width: 43vw;
+}
+.CustomerService .inputLabel {
+    text-align: left;
+}
+.CustomerService .form-group label {
+    display: block;
+    font-size: max(2vmin, 12px);
+    margin-bottom: 2vh;
+}
+
+.CustomerService .form-group input,
+.CustomerService .form-group textarea {
+    height: 6vh;
+    width: 20vw;
+    margin-bottom: 2vh;
+    padding-left: 1vw;
+    background-color: rgba(255, 255, 255, 0.573);
+    color: #0d4155;
+    border-radius: 10px;
+    font-size: max(2vmin, 12px);
+    box-shadow: 2px 2px 5px 0 #4e798877 inset;
+}
+
+.CustomerService .form-group input[type="file"] {
+    width: 43vw;
+}
+
+.CustomerService .form-group textarea {
+    height: 20vh; /* Adjust textarea height */
+    width: 43vw;
+    padding: 2%;
+}
+
+.CustomerService .photo-preview {
+    margin-bottom: 8vh;
+}
+.CustomerService .photoContent {
+    display: flex;
+    justify-content: space-evenly;
+}
+.CustomerService .photo-preview h4 {
+    margin-bottom: 2vh;
+}
+
+.CustomerService .photo-preview img {
+    width: 12vw;
+    height: 12vw;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+
+}
+
+.CustomerService .error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 5px;
+}
+.CustomerService input::file-selector-button {
+  font-weight: 500;
+  padding: 1vh 1vw;
+  border-radius: 6px;
+  height: 5vh;
+  margin-top: 0.5vh;
+  margin-bottom: 0.5vh;
+  font-size: max(2.1vmin, 13px);
+  font-weight: 600;
+  border: none;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, #226e8c9d, #0d41557e);
+  color: white;
+}
+
+.CustomerService button {
+    font-weight: 500;
+    padding: 1vh 1vw;
+    border-radius: 6px;
+    min-height: 25px;
+    font-size: max(2.4vmin, 13px);
+    font-weight: 600;
+    border: none;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+    min-width: 70px;
+    margin-top: 2vh;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
+    color: white;
+}
+
+.CustomerService button:disabled {
+    opacity: 0.5;
+    cursor: default;
+}

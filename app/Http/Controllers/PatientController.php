@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Patient;
+use App\Models\SessionNote;
+
 use Illuminate\Http\Request;
 
 class PatientController extends Controller
@@ -18,11 +20,46 @@ class PatientController extends Controller
 
     public function getAllPatientInfo()
     {
-        $users = Patient::all();
-        return response()->json(
-            ['message' => 'fetching all patients information successfully.'
-            ,'patients'=>$users]
-        ); 
+        try{
+            
+            $users = Patient::all();
+            return response()->json(
+                ['status' => 200
+                ,'patients'=>$users]
+            ); 
+        
+        }catch (\Exception $e) {  
+            return response()->json(
+                ['status' => 500
+                ,'message'=>$e]
+            ); 
+        }
+    }
+    public function getPatientNotes(Request $request)
+    {
+        $userID=intval($request->userID);
+        $patientID=intval($request->patientID);
+        $userType=$request->userType;
+        if($userType=="doctor"||$userType=="secretary"||($userType=="patient"&&$userID=$patientID)){
+            try{
+                $Notes = SessionNote::where('patientID',$patientID)->with('doctor','patient','appointment')->orderBy('created_at', 'desc')->get();
+                return response()->json(
+                    ['status' => 200
+                    ,'Notes'=>$Notes]
+                ); 
+            }catch (\Exception $e) {  
+                return response()->json(
+                    ['status' => 500
+                    ,'message'=>$e]
+                ); 
+            }
+        }
+        else{
+            return response()->json(
+                ['status' => 500
+                ,'message'=>"You can't see patient's profiles."]
+            ); 
+        }
     }
     
 

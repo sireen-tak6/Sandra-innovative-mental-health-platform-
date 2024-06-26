@@ -1,0 +1,156 @@
+.appointmentInfo .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.appointmentInfo .modal-content {
+    background-color: rgba(255, 255, 255, 0.83);
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    border-radius: 20px;
+    width: 50vw;
+}
+.appointmentInfo .InfoTitle {
+    color: #226e8c;
+    font-size: max(3vmin, 15px);
+    font-weight: 500;
+    margin-bottom: 2vh;
+    display: flex;
+}
+.appointmentInfo .InfoTitle .hasexit{
+    margin-left: auto;
+}
+.appointmentInfo .InfoTitle .exitButton {
+    margin-left: auto;
+}
+.appointmentInfo .rowData {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.appointmentInfo .data {
+    margin-bottom: 0.2vh;
+    height: 5vh;
+    width: 18vw;
+    margin-bottom: 3vh;
+    padding: 1vw;
+    background-color: rgba(255, 255, 255, 0.573);
+    color: #0d4155;
+    border-radius: 10px;
+    font-size: max(2vmin, 12px);
+    box-shadow: 2px 2px 5px 0 #4e798877 inset;
+    display: flex;
+    align-items: center;
+}
+.appointmentInfo .three .data{
+    width: 10.8vw;
+}
+.appointmentInfo .infoButton {
+    color: black;
+    height: 5vh;
+    border-radius: 10px;
+    align-content: center;
+    width: fit-content;
+    margin: 0 0.5vw;
+    padding: 1%;
+    display: flex;
+    align-items: center;
+    margin-top: 2vh;
+}
+.appointmentInfo img {
+    width: 5vw;
+    height: 4vh;
+}
+.appointmentInfo .BankButton {
+    width: 3.5vw;
+    height: 3.5vw;
+    color: white;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
+    border-radius: 100px;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+    margin-left: 1vw;
+}
+.appointmentInfo .BankButton img {
+    width: 4.5vw;
+    height: 3.5vh;
+}
+.appointmentInfo .Bank {
+    width: 4vw;
+    align-content: center;
+    margin: 0 0.5vw;
+}
+.appointmentInfo .buttons {
+    display: flex;
+    height: 10vh;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 2vh;    
+}
+.appointmentInfo .infoButton2 {
+    width: 3.5vw;
+    height: 3.5vw;
+    color: white;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
+    border-radius: 100px;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+    margin-left: 1vw;
+}
+.appointmentInfo .approveButton {
+    background: linear-gradient(135deg, #226e8c, #0d4155);
+    color: white;
+    height: 5vh;
+    border-radius: 10px;
+    align-content: center;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+    width: 6vw;
+    background-color: #0d4155;
+    margin: 0 0.5vw;
+    padding: 1%;
+
+}
+.appointmentInfo .paidButton {
+    background: linear-gradient(135deg, #226e8c, #0d4155);
+    color: white;
+    height: 5vh;
+    border-radius: 10px;
+    align-content: center;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+    width: 5vw;
+    background-color: #0d4155;
+    margin: 0 0.5vw;
+    padding: 1%;
+
+}
+.appointmentInfo .doneButton {
+    background: linear-gradient(135deg, #226e8c, #0d4155);
+    color: white;
+    height: 5vh;
+    border-radius: 10px;
+    align-content: center;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+    width: 6vw;
+    background-color: #0d4155;
+    margin: 0 0.5vw;
+    padding: 1%;
+
+}
+.appointmentInfo .deleteButton {
+    margin-left: 1vw;
+    background: linear-gradient(135deg, #af4b4b, #742222);
+    color: white;
+    height: 5vh;
+    align-content: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+    width: 5vw;
+    padding: 1%;
+
+}

@@ -8,83 +8,23 @@ import "sweetalert2/src/sweetalert2.scss";
 import "./PatientInfo.css";
 import CircularLoading from "../loadingprogress/loadingProgress";
 
-const PatientInfo = ({ setModalOpen, patientID }) => {
-    const [editable, setEditable] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const [userName, setUserName] = useState("");
-        useEffect(() => {
-        if (
-            localStorage.getItem("user-type") == "patient" &&
-            localStorage.getItem("hasInfo") == "true"
-        ) {
-            getInfo();
-            setEditable(true);
-        } else if (
-            localStorage.getItem("user-type") == "doctor" ||
-            localStorage.getItem("user-type") == "secretary"
-        ) {
-            getInfo(patientID);
-        } else if (localStorage.getItem("user-type") == "patient") {
-            setEditable(true);
-        }
-    }, []);
-    const getInfo = async (patientID) => {
-        setIsLoading(true);
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: "btn btn-success",
-                cancelButton: "btn btn-danger",
-            },
-            buttonsStyling: false,
-        });
-
-        // Use HTML5 form validation (automatic)
-        const userID = localStorage.getItem("user-id");
-        const userType = localStorage.getItem("user-type");
-        const formData2 = new FormData();
-
-        if (patientID) {
-            formData2.append("patientID", patientID);
-        }
-        formData2.append("userID", parseInt(userID));
-        formData2.append("userType", userType);
-        const response = await axiosClient.post("/getInfo", formData2);
-        console.log(response);
-        if (response.status == 200) {
-            console.log(formData);
-            setFormData(response.data.Info[0].data);
-            if (response.data.Info[0].patient.id) {
-                setUserName(response.data.Info[0].patient.user_name);
-            }
-            console.log(formData);
+const PatientInfo = ({
+    setModalOpen,
+    patientID,
+    editable,
+    setEditable,
+    setFormData,
+    formData,
+    isLoading,
+    userName
+}) => {
+    useEffect(() => {
+        if (hasEmptyRequiredField(formData, currentInfo)) {
+            setSaveable(false);
         } else {
-            swalWithBootstrapButtons.fire(
-                response.data.message,
-                "Something went wrong",
-                "error"
-            );
+            setSaveable(true);
         }
-        setIsLoading(false);
-    };
-    const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
-        address: "",
-        phoneNumber: "",
-        gender: "Male",
-        age: "", // Initial age as an empty string
-        maritalStatus: "Married",
-        education: "School",
-        children: "",
-        employmentStatus: "Employed",
-        occupation: "",
-        parentsStatus: "Married",
-        pastConditions: "",
-        medications: "",
-        professionals: "",
-        notes: "",
-    });
-
+    }, [formData]);
     const infos = [
         {
             id: "firstName",
@@ -213,6 +153,7 @@ const PatientInfo = ({ setModalOpen, patientID }) => {
         },
     ];
     const [currentStep, setCurrentStep] = useState(1); // Track the current step
+    const [saveable, setSaveable] = useState(false); // Track the current step
     const currentInfo =
         currentStep == 1
             ? infos
@@ -248,6 +189,20 @@ const PatientInfo = ({ setModalOpen, patientID }) => {
         } else {
             setFormData((prevData) => ({ ...prevData, [id]: value }));
         }
+        const hasEmptyRequired = hasEmptyRequiredField(formData, currentInfo);
+        if(hasEmptyRequired){
+
+            setSaveable(false);
+        }
+        else{
+            setSaveable(true)
+        }
+        setError({
+            __html: hasEmptyRequired
+                ? "<p>Please fill out the required fields.</p>"
+                : "",
+        });
+
         console.log(formData);
     };
     const [error, setError] = useState({ __html: "" });
@@ -284,7 +239,9 @@ const PatientInfo = ({ setModalOpen, patientID }) => {
                         "Your information has been updated.",
                         "success"
                     )
-                    .then(setModalOpen(false));
+                    .then(() => {
+                        window.location.reload(); // Refresh the page after success
+                    });
             } else {
                 swalWithBootstrapButtons.fire(
                     response.data.message,
@@ -295,6 +252,15 @@ const PatientInfo = ({ setModalOpen, patientID }) => {
         } catch (error) {
             console.error("Error saving schedule:", error);
         }
+    };
+    const hasEmptyRequiredField = (formData, currentInfo) => {
+        // Loop through each info object
+        for (const info of currentInfo) {
+            if (info.required && formData[info.id] === "") {
+                return true; // Found an empty required field
+            }
+        }
+        return false; // No empty required fields found
     };
     const exitHandle = () => {
         if (editable) {
@@ -353,15 +319,19 @@ const PatientInfo = ({ setModalOpen, patientID }) => {
                         ) : null}
                     </div>
                     <div className="notesPart">
-                        {localStorage.getItem("uset-type")=="patient"?<>
-                        <div>
-                            - Only authorized doctors can view this information.
-                        </div>
-                        <div>
-                            - This information can be edited anytime and will be
-                            automatically applied to all your appointments.
-                        </div>
-                        </>:null}
+                        {localStorage.getItem("uset-type") == "patient" ? (
+                            <>
+                                <div>
+                                    - Only authorized doctors can view this
+                                    information.
+                                </div>
+                                <div>
+                                    - This information can be edited anytime and
+                                    will be automatically applied to all your
+                                    appointments.
+                                </div>
+                            </>
+                        ) : null}
                     </div>
                     {isLoading ? (
                         <CircularLoading />
@@ -526,7 +496,9 @@ const PatientInfo = ({ setModalOpen, patientID }) => {
                                 )}
                                 {currentStep == 4 &&
                                     localStorage.getItem("user-type") ==
-                                        "patient" && (
+                                        "patient" && saveable &&
+                                    (
+                                        // Check for errors before allowing submit
                                         <button
                                             type="submit"
                                             className="okButton"

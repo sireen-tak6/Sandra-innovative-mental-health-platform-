@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axiosClient from "../../axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMessage } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import "./ChatMessages.css";
 
 export default function ChatMessages() {
+    const videoCallIcon = "../assetss/videoCallIcon.jpg";
     const doctorImg = "../assetss/doctoricon.png";
     const avatar = "../assetss/avatar.png";
 
@@ -16,6 +17,8 @@ export default function ChatMessages() {
     const [messages, setMessages] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
     const [newMessage, setNewMessage] = useState("");
+    const [appointment, setAppointment] = useState(false);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -24,17 +27,35 @@ export default function ChatMessages() {
                 const response = await axiosClient.post(
                     `/show-messages/${localStorage.getItem("selected-chat-id")}`
                 );
-                const newMessages = response.data.messages;
-                localStorage.setItem(
-                    "receverDoctor",
-                    response.data.chat.doctor_id
-                );
-                localStorage.setItem(
-                    "receverPatient",
-                    response.data.chat.patient_id
-                );
 
-                setMessages(newMessages);
+                if (response.data.status == 200) {
+                    console.log(response);
+                    const newMessages = response.data.messages;
+                    localStorage.setItem(
+                        "receverDoctor",
+                        response.data.chat.doctor_id
+                    );
+                    localStorage.setItem(
+                        "receverPatient",
+                        response.data.chat.patient_id
+                    );
+                    setMessages(newMessages);
+                }
+                const formData = new FormData();
+
+                formData.append(
+                    "patientID",
+                    parseInt(response.data.chat.patient_id)
+                );
+                formData.append(
+                    "doctorID",
+                    parseInt(response.data.chat.doctor_id)
+                );
+                const response1 = await axiosClient.post(`/haveAppointment`,formData);
+                if (response1.data.status == 200) {
+                    setAppointment(response1.data.haveAccount);
+                    console.log(response1.data);
+                }
             } catch (error) {
                 console.log(error);
                 setErrorMessage("Failed to fetch messages");
@@ -43,7 +64,7 @@ export default function ChatMessages() {
         //here just fetch the primary messages and show it in the chat
         fetchMessages();
         //check if there are any new questions every five seconds 5 * 1000
-        const interval = setInterval(fetchMessages, 2000);
+        const interval = setInterval(fetchMessages, 5000);
         return () => {
             clearInterval(interval);
         };
@@ -61,7 +82,7 @@ export default function ChatMessages() {
                     )}/${localStorage.getItem("receverDoctor")}`,
                     { message: newMessage }
                 );
-                console.log(respon)
+                console.log(respon);
                 setNewMessage("");
 
                 // Add the new message to the existing messages state
@@ -100,7 +121,7 @@ export default function ChatMessages() {
 
                 {/*this section i will work on it*/}
                 <div className="w-[60%] flex flex-col h-[598px] items-center messages-section">
-                    <div className="w-[50%] bg-secondary h-[80px] mt-9 rounded-full flex items-center ">
+                    <div className="w-[50%] bg-secondary h-[70px] mt-3 mb-2 rounded-full flex items-center ">
                         {localStorage.getItem("user-type") === "patient" ? (
                             <img
                                 src={doctorImg}
@@ -135,22 +156,45 @@ export default function ChatMessages() {
                             width={20}
                             onClick={backChats}
                         ></FontAwesomeIcon>
+                        {appointment ? (
+                            <img
+                                src={videoCallIcon}
+                                height={25}
+                                width={25}
+                                className={"mr-4 cursor-pointer"}
+                                onClick={() => {
+                                    navigate("/intro", {
+                                        state: {
+                                            doctorID:
+                                                localStorage.getItem(
+                                                    "receverDoctor"
+                                                ),
+                                            patientID:
+                                                localStorage.getItem(
+                                                    "receverPatient"
+                                                ),
+                                        },
+                                    });
+                                }}
+                            />
+                        ) : null}
                     </div>
 
-                    <div className="h-[60%] w-full mt-1 overflow-y-scroll">
-                        <div className="h[370px] px-10 py-14 ">
+                    <div className="h-[75%] w-full mt-1 overflow-y-scroll messagesSection">
+                        <div className="h[370px] px-10 py-3 ">
                             {/* here apply the sender Messages <div className='max-w-[45%] bg-secondary rounded-b-xl rounded-tr-xl p-4'></div>*/}
                             {/* here apply the recever Messages <div className=' max-w-[45%] bg-light rounded-b-xl rounded-tl-xl ml-auto p-4'></div> */}
                             <ul>
                                 {messages.map((message) => (
                                     <li
                                         key={message.id}
-                                        className={`max-w-[40%] p-[7px] mt-[8px] ${
+                                        className={`max-w-[40%] p-[7px] mt-[8px] overflow-hidden h-[10%] min-h-[20px] ${
                                             message.sender_id ==
                                             localStorage.getItem("user-id")
-                                                ? "bg-secondary rounded-b-xl rounded-tr-xl text-white"
-                                                : "bg-light rounded-b-xl text-black rounded-tl-xl ml-auto"
+                                                ? "rounded-b-xl rounded-tr-xl send"
+                                                : "rounded-b-xl rounded-tl-xl ml-auto rec"
                                         }`}
+                                        style={{ wordWrap: "break-word" }}
                                     >
                                         {message.message}
                                     </li>

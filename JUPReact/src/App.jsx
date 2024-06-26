@@ -51,7 +51,13 @@ import PatientBooking from "./pages/BookAppointment/BookAppointment";
 import Secretary from "./pages/AddSecretary/AddSecretary";
 import SecretarySchedule from "./pages/SecretarySchedule/Schedule";
 import Appointments from "./pages/Appoinments/Appointments";
-
+import InfoForVideo from "./pages/InfoForVideo/InfoForVideo";
+import VideoCall from "./Components/VideoCall/VideoCall";
+import CustomerService from "./pages/CustomerService/CustomerService";
+import Complaints from "./pages/Complaints/Complaints";
+import Patients from "./pages/Patients/Patients";
+import PatientProfile from "./pages/PatientProfile/PatientProfile";
+import { Test } from "./pages/test";
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<RootLayout />}>
@@ -91,7 +97,13 @@ const router = createBrowserRouter(
             <Route path="Appointments" element={<Appointments />} />
             <Route path="AddSecretary" element={<Secretary />} />
             <Route path="Schedule" element={<SecretarySchedule />} />
-
+            <Route path='Session' element={<VideoCall/>}/>
+            <Route path='intro' element={<InfoForVideo/>}/>
+            <Route path="customerService" element={<CustomerService/>}/>
+            <Route path="complaints" element={<Complaints/>}/>
+            <Route path="Patients" element={<Patients/>}/>
+            <Route path="patientProfile/:id" element={<PatientProfile />} />
+            <Route path="testt" element={<Test/>}/>
 
         </Route>
     )

@@ -1,0 +1,52 @@
+.Patients .cards
+{
+     box-shadow: -5px 0px 10px -2px #01010152;
+     max-height: 400px;
+     background-color: #ffffffd5;
+     max-width: 400px;
+     color: black;     
+} 
+
+
+
+.Patients .botton
+{
+     background-color: #b9f7eb;
+     background-image: linear-gradient(190deg, #b9f7eb8c 1%, #87bed28c 30%);
+}
+ 
+.Patients .cards:hover
+{
+     background-color: #198a5d9b;
+     
+}
+
+.Patients .patientInfo
+{
+     color: black;
+}
+
+
+.Patients ::-webkit-scrollbar
+{
+     width:8px;
+     
+}
+
+.Patients ::-webkit-scrollbar-track
+{
+     background: rgb(142, 32, 32);
+     border-radius: 15px;
+}
+
+.Patients ::-webkit-scrollbar-thumb
+{
+     background: gray;
+     border-radius: 15px;
+}
+.Patients .chatBookButton{
+     display: flex;
+}
+.Patients .buttons{
+    display: flex;
+}

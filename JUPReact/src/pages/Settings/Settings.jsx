@@ -68,7 +68,7 @@ const Settings = () => {
                                 Account Information{" "}
                             </button>
                         ) : null}
-
+                        {userType=="secretary"?null:
                         <button
                             className={`part ${
                                 part === "Password" ? "chossen" : ""
@@ -76,7 +76,7 @@ const Settings = () => {
                             onClick={() => onUpdate("Password")}
                         >
                             Change Password
-                        </button>
+                        </button>}
                         {localStorage.getItem("user-Secretary") && userType=="doctor"? (
                             <button
                                 className={`part ${

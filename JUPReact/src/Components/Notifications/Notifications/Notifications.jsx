@@ -45,7 +45,7 @@ function Notifications() {
 
     useEffect(() => {
         fetchDoctor();
-        const interval = setInterval(fetchDoctor, 10000);
+        const interval = setInterval(fetchDoctor, 100000);
         return () => {
             clearInterval(interval);
         };
@@ -93,7 +93,7 @@ function Notifications() {
             <div className="icon" onClick={() => setOpen(!open)}>
                 <img src={Notification} className="iconImg" alt="" />
                 {unreadCount > 0 && (
-                    <div className="counter">{unreadCount}</div>
+                    <div className="counter">{unreadCount>9?"9+":unreadCount}</div>
                 )}
             </div>
             {open && (

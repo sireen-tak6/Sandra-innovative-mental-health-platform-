@@ -40,7 +40,14 @@ class Patient extends Model implements Authenticatable
     {
         return $this->hasOne(PatientInfo::class , 'patientID'); 
     }
-    
+    public function complaints(): HasMany
+    {
+        return $this->hasMany(Complaint::class, 'patientID');
+    } 
+    public function Note():HasOne
+    {
+        return $this->hasOne(sessionNote::class , 'patientID'); 
+    }
     public function getAuthIdentifierName()
     {
         return 'id'; // Replace with the name of the primary key column in the patients table
@@ -100,5 +107,9 @@ class Patient extends Model implements Authenticatable
     public function getEmailForVerification()
     {
         return $this->email;
+    }
+    public function Usermeetings(): HasMany
+    {
+        return $this->hasMany(Usermeeting::class , 'patientID'); 
     }
 }

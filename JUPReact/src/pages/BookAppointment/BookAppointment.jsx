@@ -11,6 +11,8 @@ import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 import CircularLoading from "../../Components/loadingprogress/loadingProgress";
 import PatientInfo from "../../Components/PatientInfo/PatientInfo";
+import BanksDetails from "../../Components/BanksDetails/BanksDetails";
+import PayForm from "../../Components/Forms/PayForm/PayForm";
 /* 
  waiting{'patientID'=>'waiting','doctor'=>'waiting','secretary'=>'waiting','patient'=>'available'}
 reserved{'patientID'=>'approved','patient'=>reserved,'doctor'=>'reserved','secretary'=>'reserved'}
@@ -25,6 +27,10 @@ const generateEvents = (
 ) => {
     const events = [];
     const today = new Date();
+    const todayTimestamp = today.getTime();
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1); // Set date to tomorrow
+    const tomorrowTimestamp = tomorrow.getTime();
 
     for (let week = 0; week < weeksToShow; week++) {
         availableTimes.forEach(({ day, times }) => {
@@ -32,32 +38,56 @@ const generateEvents = (
                 const [hour, minute] = time.split(":").map(Number);
 
                 // Set event date to the correct day of the week and adjust for multiple weeks
-                const eventDate = new Date(today);
+                const eventDate = new Date(tomorrow);
                 eventDate.setDate(
-                    today.getDate() - today.getDay() + day + week * 7
+                    tomorrow.getDate() - tomorrow.getDay() + day + week * 7
                 );
+
                 eventDate.setHours(hour, minute, 0, 0);
-                const reserved = reservedTimes.find(
-                    (s) =>
-                        s.date === eventDate.toISOString() &&
-                        s.time === time &&
-                        ((left && s.state == "online") ||
-                            (!left && s.state == "onsite"))
-                );
-                if (reserved) {
-                    if (reserved.type == "approved") {
-                        events.push({
-                            title: "reserved",
-                            start: eventDate,
-                            end: new Date(eventDate.getTime() + 60 * 60 * 1000), // Assume each slot is 1 hour
-                            extendedProps: {
-                                day,
-                                time,
-                                patientId: reserved.patientID,
-                                state: reserved.type, // Add patientId for reserved events
-                            },
-                        });
+                if (eventDate.getTime() >= tomorrowTimestamp) {
+                    const reserved = reservedTimes.find(
+                        (s) =>
+                            (s.date === eventDate.toISOString() &&
+                                s.time === time &&
+                                !left &&
+                                s.state == "onsite") ||
+                            (s.date === eventDate.toISOString() &&
+                                s.time === time &&
+                                left &&
+                                s.state == "online")
+                    );
+                    if (reserved) {
+                        if (reserved.type == "approved") {
+                            events.push({
+                                title: "reserved",
+                                start: eventDate,
+                                end: new Date(
+                                    eventDate.getTime() + 60 * 60 * 1000
+                                ), // Assume each slot is 1 hour
+                                extendedProps: {
+                                    day,
+                                    time,
+                                    patientId: reserved.patientID,
+                                    state: reserved.type, // Add patientId for reserved events
+                                },
+                            });
+                        } else {
+                            events.push({
+                                title: "available",
+                                start: eventDate,
+                                end: new Date(
+                                    eventDate.getTime() + 60 * 60 * 1000
+                                ), // Assume each slot is 1 hour
+                                extendedProps: {
+                                    day,
+                                    time,
+                                    patientId: reserved.patientID,
+                                    state: reserved.type, // Add patientId for reserved events
+                                },
+                            });
+                        }
                     } else {
+
                         events.push({
                             title: "available",
                             start: eventDate,
@@ -65,26 +95,13 @@ const generateEvents = (
                             extendedProps: {
                                 day,
                                 time,
-                                patientId: reserved.patientID,
-                                state: reserved.type, // Add patientId for reserved events
                             },
                         });
                     }
-                } else {
-                    events.push({
-                        title: "available",
-                        start: eventDate,
-                        end: new Date(eventDate.getTime() + 60 * 60 * 1000), // Assume each slot is 1 hour
-                        extendedProps: {
-                            day,
-                            time,
-                        },
-                    });
                 }
             });
         });
     }
-    console.log(events);
     return events;
 };
 
@@ -104,6 +121,59 @@ const PatientBooking = () => {
     const userID = localStorage.getItem("user-id");
     const userType = localStorage.getItem("user-type");
     const [onSiteSchedule, setOnSiteSchedule] = useState([]);
+    const [bankModalOpen, setBankModalOpen] = useState(false);
+    const [time, setTime] = useState(null);
+    const [cost, setCost] = useState(null);
+    const [type, setType] = useState(null);
+    const [isClicked, setIsClicked] = useState(false);
+    const [countt, setCountt] = useState(0);
+    const [editable, setEditable] = useState(false);
+    const [isLoadingInfo, setIsLoadingInfo] = useState(false);
+    const [userName, setUserName] = useState("");
+    const [showPayContainer, setShowPayContainer] = useState(false);
+    const [doctorBankAccounts, setDoctorBankAccount] = useState({});
+    const [formData, setFormData] = useState({
+        firstName: "",
+        lastName: "",
+        address: "",
+        phoneNumber: "",
+        gender: "Male",
+        age: "", // Initial age as an empty string
+        maritalStatus: "Married",
+        education: "School",
+        children: "",
+        employmentStatus: "Employed",
+        occupation: "",
+        parentsStatus: "Married",
+        pastConditions: "",
+        medications: "",
+        professionals: "",
+        notes: "",
+    });
+    const [BankAccounts, setBankAccount] = useState({
+        BanqueBemoSaudiFransi: "",
+        AlBarakaSyria: "",
+        Cham: "",
+        InterNationalIslamicBank: "",
+        ByblosBankSyria: "",
+        SyrianArab: "",
+        BankofJordan: "",
+        BankofSyriaandOverseas: "",
+        QatarNationalBank: "",
+        Fransabank: "",
+    });
+    const [startBank, setstartBankAccount] = useState({
+        BanqueBemoSaudiFransi: "",
+        AlBarakaSyria: "",
+        Cham: "",
+        InterNationalIslamicBank: "",
+        ByblosBankSyria: "",
+        SyrianArab: "",
+        BankofJordan: "",
+        BankofSyriaandOverseas: "",
+        QatarNationalBank: "",
+        Fransabank: "",
+    });
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: "btn btn-success",
@@ -113,7 +183,6 @@ const PatientBooking = () => {
     });
     const [onLineSchedule, setOnLineSchedule] = useState([]);
     useEffect(() => {
-        console.log(localStorage.getItem("Schedule"));
         if (localStorage.getItem("Schedule") == "false") {
             swalWithBootstrapButtons
                 .fire({
@@ -125,15 +194,23 @@ const PatientBooking = () => {
                 })
                 .then(navigate("/Schedule"));
         }
+        if (
+            localStorage.getItem("user-type") == "patient" &&
+            localStorage.getItem("hasInfo") == "true"
+        ) {
+            getInfo();
+            setEditable(true);
+        } else if (localStorage.getItem("user-type") == "patient") {
+            setEditable(true);
+        }
     }, []);
 
     useEffect(() => {
-        console.log(localStorage.getItem("hasInfo"))
         if (!localStorage.getItem("user-info")) {
             navigate("/login");
         } else if (
             localStorage.getItem("user-type") == "patient" &&
-            localStorage.getItem("hasInfo")=="false"
+            localStorage.getItem("hasInfo") == "false"
         ) {
             setModalOpen(true);
         } else {
@@ -141,6 +218,60 @@ const PatientBooking = () => {
             fetchAppointments();
         }
     }, [localStorage]);
+    const hasReserved = (userID) => {
+        return (
+            reservedTimes.some(
+                (s) =>
+                    s.patientID == userID &&
+                    s.type != "past" &&
+                    s.type != "done"
+            ) ||
+            onlineselectedSlots.length > 0 ||
+            onsiteselectedSlots.length > 0
+        );
+    };
+
+    const getInfo = async (patientID) => {
+        setIsLoadingInfo(true);
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-success",
+                cancelButton: "btn btn-danger",
+            },
+            buttonsStyling: false,
+        });
+
+        // Use HTML5 form validation (automatic)
+        const userID = localStorage.getItem("user-id");
+        const userType = localStorage.getItem("user-type");
+        const formData2 = new FormData();
+
+        if (patientID) {
+            formData2.append("patientID", patientID);
+        }
+        formData2.append("userID", parseInt(userID));
+        formData2.append("userType", userType);
+        const response = await axiosClient.post("/getInfo", formData2);
+        if (response.status == 200) {
+            setFormData(response.data.Info.data);
+            if (response.data.Info.patient.id) {
+                setUserName(response.data.Info.patient.user_name);
+            }
+            if (response.data.hasBank) {
+                setBankAccount(JSON.parse(response.data.Info.Banks));
+                setstartBankAccount(JSON.parse(response.data.Info.Banks));
+            }
+      
+        } else {
+            swalWithBootstrapButtons.fire(
+                response.data.message,
+                "Something went wrong",
+                "error"
+            );
+        }
+        setIsLoadingInfo(false);
+    };
+
     const [modalOpen, setModalOpen] = useState(false);
     const fetchAppointments = async () => {
         const formData = new FormData();
@@ -159,11 +290,12 @@ const PatientBooking = () => {
                 "getReservedAppointments",
                 formData
             );
-            console.log(response.data);
-            console.log(response.data.onsiteappointments);
+                    console.log(response)
+
             if (response.data.status == 200) {
                 setreservedTimes(response.data.onsiteappointments);
                 setDoctor(response.data.doctor);
+                setDoctorBankAccount(JSON.parse(response.data.doctor.Banks));
             } else {
                 swalWithBootstrapButtons.fire(
                     response.data.message,
@@ -172,8 +304,8 @@ const PatientBooking = () => {
                 );
             }
         } catch (error) {
-            console.log(error);
-            console.error("Error fetching doctors:", error.message);
+        
+           console.error("Error fetching doctors:", error.message);
         }
         setIsloading(false);
     };
@@ -194,11 +326,13 @@ const PatientBooking = () => {
         });
         try {
             const response = await axiosClient.post("getSchedules", formData);
-            console.log(response);
-            console.log(response.data.onlinsechedules);
+            console.log(response)
             if (response.data.status == 200) {
                 setOnLineSchedule(response.data.onlinsechedules);
                 setOnSiteSchedule(response.data.onsitesechedules);
+                setCost(response.data.doctor.cost);
+                setTime(response.data.doctor.time);
+                setType(response.data.doctor.timeType);
             } else {
                 swalWithBootstrapButtons.fire(
                     response.data.message,
@@ -207,7 +341,7 @@ const PatientBooking = () => {
                 );
             }
         } catch (error) {
-            console.error("Error fetching doctors:", error);
+           console.error("Error fetching doctors:", error);
         }
     };
     const handleEventClick = (info) => {
@@ -247,8 +381,8 @@ const PatientBooking = () => {
                     text: "Do you want to delete this appointment!",
                     icon: "warning",
                     showCancelButton: true,
-                    confirmButtonText: "Yes, add!",
-                    cancelButtonText: "No, cancel!",
+                    confirmButtonText: "Yes, Delete!",
+                    cancelButtonText: "No, Cancel!",
                     reverseButtons: true,
                 })
                 .then(async (result) => {
@@ -266,7 +400,6 @@ const PatientBooking = () => {
                                 "/DeleteAppointment",
                                 formData
                             );
-                            console.log(response);
                             if (response.data.status === 200) {
                                 swalWithBootstrapButtons
                                     .fire(
@@ -285,7 +418,6 @@ const PatientBooking = () => {
                                 );
                             }
                         } catch (error) {
-                            console.log(error);
                             swalWithBootstrapButtons.fire(
                                 error.response.data.message,
                                 "error"
@@ -323,19 +455,33 @@ const PatientBooking = () => {
                           )
                       );
             } else {
-                p
-                    ? setonlineSelectedSlots([...onlineselectedSlots, slot])
-                    : setonsiteSelectedSlots([...onsiteselectedSlots, slot]);
+                if (!hasReserved(userID)) {
+                    p
+                        ? setonlineSelectedSlots([...onlineselectedSlots, slot])
+                        : setonsiteSelectedSlots([
+                              ...onsiteselectedSlots,
+                              slot,
+                          ]);
+                }
             }
         }
-        console.log(onlineselectedSlots);
-        console.log(onsiteselectedSlots);
+ 
     };
     const swap = () => {
         setLeft(!left);
     };
-
-    const saveSchedule = async () => {
+    const displayPayment = () => {
+        if (userType == "patient") {
+            if (onlineselectedSlots.length > 0) {
+                setShowPayContainer(true);
+            } else {
+                AddAppointment("cash");
+            }
+        } else {
+            AddAppointment("cash");
+        }
+    };
+    const AddAppointment = async (pay) => {
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: "btn btn-success",
@@ -343,85 +489,192 @@ const PatientBooking = () => {
             },
             buttonsStyling: false,
         });
-        setIsSaving(true);
-        try {
-            const userID = localStorage.getItem("user-id");
-            const userType = localStorage.getItem("user-type");
-            const formData = new FormData();
-            const onlineSelectedData = JSON.parse(
-                JSON.stringify(onlineselectedSlots)
-            ); // Convert to string and parse
-            const onsiteSelectedData = JSON.parse(
-                JSON.stringify(onsiteselectedSlots)
-            ); // Convert to string and parse
+        if (
+            isClicked &&
+            ((onlineselectedSlots.length > 0 &&
+                Object.values(BankAccounts).filter((value) => value !== "")
+                    .length > 0) ||
+                onlineselectedSlots.length == 0)
+        ) {
+            setIsSaving(true);
+            try {
+                const userID = localStorage.getItem("user-id");
+                const userType = localStorage.getItem("user-type");
+                const formData = new FormData();
+                const onlineSelectedData = JSON.parse(
+                    JSON.stringify(onlineselectedSlots)
+                ); // Convert to string and parse
+                const onsiteSelectedData = JSON.parse(
+                    JSON.stringify(onsiteselectedSlots)
+                ); // Convert to string and parse
 
-            console.log(onlineSelectedData);
-            console.log(onsiteSelectedData);
+        
 
-            formData.append("onsite", JSON.stringify(onsiteSelectedData)); // Convert to string before appending
-            formData.append("online", JSON.stringify(onlineSelectedData)); // Convert to string before appending
-            formData.append("userID", parseInt(userID));
-            formData.append("userType", userType);
-            formData.append("doctorID", parseInt(id));
+                formData.append("onsite", JSON.stringify(onsiteSelectedData));
+                formData.append("online", JSON.stringify(onlineSelectedData));
+                formData.append("userID", parseInt(userID));
+                formData.append("userType", userType);
+                formData.append("doctorID", parseInt(id));
+                formData.append("pay", pay);
 
-            const response = await axiosClient.post(
-                "/AddAppointment",
-                formData
-            );
-            if (response.data.status == 200) {
-                swalWithBootstrapButtons
-                    .fire(
-                        "changes saved successfully",
-                        "Your schedule has been updated.",
-                        "success"
-                    )
-                    .then(() => {
-                        window.location.reload(); // Refresh the page after success
-                    });
-            } else {
-                swalWithBootstrapButtons.fire(
-                    response.data.message,
-                    "Something went wrong",
-                    "error"
+                const response = await axiosClient.post(
+                    "/AddAppointment",
+                    formData
                 );
+                if (response.data.status == 200) {
+                    swalWithBootstrapButtons
+                        .fire(
+                            "changes saved successfully",
+                            "Your schedule has been updated.",
+                            "success"
+                        )
+                        .then(() => {
+                            window.location.reload();
+                        });
+                } else {
+                    swalWithBootstrapButtons.fire(
+                        response.data.message,
+                        "Something went wrong",
+                        "error"
+                    );
+                }
+            } catch (error) {
+               r("Error saving schedule:", error);
             }
-            console.log(response);
-        } catch (error) {
-            console.error("Error saving schedule:", error);
         }
         setIsSaving(false);
     };
     const editopen = async () => {
         setModalOpen(true);
-    }
+    };
+
+    const bankAdded = async () => {
+        if (isClicked) {
+            saveBanks();
+            setBankModalOpen(false);
+            checkBanks();
+        } else {
+            saveBanks();
+            setBankModalOpen(false);
+        }
+    };
+    const saveBanks = async () => {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-success",
+                cancelButton: "btn btn-danger",
+            },
+            buttonsStyling: false,
+        });
+  
+        const userID = localStorage.getItem("user-id");
+        const userType = localStorage.getItem("user-type");
+        const formData = new FormData();
+
+        formData.append("Banks", JSON.stringify(BankAccounts)); // Convert to string before appending
+
+        formData.append("userID", parseInt(userID));
+        formData.append("userType", userType);
+        formData.append("doctorID", parseInt(id));
+
+        const response = await axiosClient.post("/setBanks", formData);
+        if (response.data.status == 200) {
+            swalWithBootstrapButtons.fire(
+                "changes saved successfully",
+                "Your Bank information has been updated.",
+                "success"
+            );
+            setstartBankAccount(BankAccounts);
+        } else {
+            swalWithBootstrapButtons.fire(
+                response.data.message,
+                "Something went wrong",
+                "error"
+            );
+        }
+    };
+
+    const cancelBank = () => {
+        setCountt(0);
+        setBankAccount(startBank);
+        setIsClicked(false);
+        setBankModalOpen(false);
+    };
+    const handleChange = (event) => {
+        const { id, value } = event.target;
+
+        // Handle number input for age, ensuring positive values
+        setBankAccount((prevData) => ({ ...prevData, [id]: value }));
+        const c = Object.values(BankAccounts).filter(
+            (value) => value !== ""
+        ).length;
+        setCountt(c);
+
+      
+    };
+
+    const checkBanks = () => {
+        setIsClicked(true);
+        if (
+            (onlineselectedSlots.length > 0 &&
+                Object.values(BankAccounts).filter((value) => value !== "")
+                    .length > 0) ||
+            onlineselectedSlots.length == 0
+        ) {
+            displayPayment();
+        } else if (onlineselectedSlots.length > 0) {
+            setBankModalOpen(true);
+        }
+    };
+
+    const openBanks = (event) => {
+        setBankModalOpen(true);
+    };
     return (
         <div className="AppointmentPage">
             <div className="Title">
-                <div className="EditInfoButton">
-                    <button type="button" onClick={editopen}>
+                {userType == "patient" ? (
+                    <>
+                        <div className="EditInfoButton">
+                            <button type="button" onClick={editopen}>
+                                Edit Info
+                            </button>
+                        </div>
+                        <div className="AddBankButton">
+                            <button type="button" onClick={openBanks}>
+                                Banks Account
+                            </button>
+                        </div>
+                    </>
+                ) : null}
 
-                    Edit Info
-                    </button>
-                </div>
-                <h1 className="Titletext">Set Schedule</h1>
+                <h1 className="Titletext">New Appointment</h1>
                 <div className="form-box">
-                    <div className="button-box">
-                        <div className={`btn ${left ? "left" : ""}`}></div>
-                        <button
-                            type="button"
-                            className={`toggle-btn ${left ? "" : "selected"}`}
-                            onClick={swap}
-                        >
-                            Onsite
-                        </button>
-                        <button
-                            type="button"
-                            className={`toggle-btn ${left ? "selected" : ""}`}
-                            onClick={swap}
-                        >
-                            Online
-                        </button>
-                    </div>
+                    {userType == "patient" ? (
+                        <div className="button-box">
+                            <div className={`btn ${left ? "left" : ""}`}></div>
+                            <button
+                                type="button"
+                                className={`toggle-btn ${
+                                    left ? "" : "selected"
+                                }`}
+                                onClick={swap}
+                            >
+                                Onsite
+                            </button>
+                            <button
+                                type="button"
+                                className={`toggle-btn ${
+                                    left ? "selected" : ""
+                                }`}
+                                onClick={swap}
+                            >
+                                Online
+                            </button>
+                        </div>
+                    ) : (
+                        <div className={`btnText`}>Onsite</div>
+                    )}
                 </div>
             </div>
             <div className="calendar">
@@ -442,7 +695,7 @@ const PatientBooking = () => {
                                         text: `${
                                             doctor !== null
                                                 ? doctor.user_name
-                                                : ""
+                                                : userName
                                         }`,
                                     },
                                 }}
@@ -460,8 +713,8 @@ const PatientBooking = () => {
                                     const State = info.event.title;
                                     const patientID =
                                         info.event.extendedProps.patientId;
-                                    const type = info.event.extendedProps.state;
-
+                                    const type =
+                                        info.event.extendedProps.state ?? null;
                                     return (
                                         <div
                                             className={`checkboxContainter ${
@@ -534,7 +787,17 @@ const PatientBooking = () => {
                                                     disabled={
                                                         type != "approved" ||
                                                         patientID == userID
-                                                            ? false
+                                                            ? !hasReserved(
+                                                                  userID
+                                                              ) ||
+                                                              (hasReserved(
+                                                                  userID
+                                                              ) &&
+                                                                  type !=
+                                                                      "available" &&
+                                                                  type != null)
+                                                                ? false
+                                                                : true
                                                             : true
                                                     }
                                                 />
@@ -666,7 +929,17 @@ const PatientBooking = () => {
                                                     disabled={
                                                         type != "approved" ||
                                                         patientID == userID
-                                                            ? false
+                                                            ? !hasReserved(
+                                                                  userID
+                                                              ) ||
+                                                              (hasReserved(
+                                                                  userID
+                                                              ) &&
+                                                                  type !=
+                                                                      "available" &&
+                                                                  type != null)
+                                                                ? false
+                                                                : true
                                                             : true
                                                     }
                                                 />
@@ -699,12 +972,44 @@ const PatientBooking = () => {
                 <CircularLoading />
             ) : !isLoading ? (
                 <div className="SaveButton">
-                    <button onClick={saveSchedule}>Save Schedule</button>
+                    <button type="button" onClick={checkBanks}>
+                        Add Appointment
+                    </button>
                 </div>
             ) : (
                 <></>
             )}
-            {modalOpen && <PatientInfo setModalOpen={setModalOpen}  />}
+            {modalOpen && (
+                <PatientInfo
+                    setModalOpen={setModalOpen}
+                    editable={editable}
+                    setEditable={setEditable}
+                    formData={formData}
+                    setFormData={setFormData}
+                    isLoading={isLoadingInfo}
+                />
+            )}
+            {bankModalOpen && (
+                <BanksDetails
+                    BankAccounts={BankAccounts}
+                    handleChange={handleChange}
+                    bankAdded={bankAdded}
+                    cancelBank={cancelBank}
+                />
+            )}
+            {showPayContainer && (
+                <PayForm
+                    doctorBanks={doctorBankAccounts}
+                    appointment={onlineselectedSlots[0]}
+                    setShowPayContainer={setShowPayContainer}
+                    AddAppointment={AddAppointment}
+                    time={time}
+                    type={type}
+                    cost={cost}
+                    cancelBank={cancelBank}
+                    editable={true}
+                />
+            )}
         </div>
     );
 };

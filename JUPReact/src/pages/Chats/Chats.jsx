@@ -76,9 +76,10 @@ const Chats = () => {
     const handleDeleteChat = async (chatId) => {
         setSelectedChatId(chatId);
         localStorage.setItem("delete-chat", chatId);
-        await axiosClient.post(`/delete-chat/${chatId}/${id}`);
+        const response=await axiosClient.post(`/delete-chat/${chatId}/${id}`);
+        console.log(response)
         // Refresh the chat list after deletion
-        window.location.reload(); // Refresh the page after success
+        fetchData(); // Refresh the page after success
     };
 
     const handleTrashClick = (event, chatId) => {
@@ -234,9 +235,9 @@ const Chats = () => {
                                         );
                                     })
                                 ) : (
-                                    <div className="flex items-center my-8">
-                                        <li className="text-primary text-xl pl-[40%]">
-                                            No Chats
+                                    <div className="flex items-center mt-[60px] my-8 h-[3%]">
+                                        <li className="text-primary mt-[80px] text-xl pl-[40%]">
+                                        <p className='mt-[10px] mb-[10px]'>No Chats</p>
                                         </li>
                                     </div>
                                 )}

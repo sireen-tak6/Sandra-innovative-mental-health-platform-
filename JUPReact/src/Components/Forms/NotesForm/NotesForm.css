@@ -1,0 +1,71 @@
+.Notesmodal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Notesmodal .Notesmodal-content {
+    background-color: rgba(255, 255, 255, 0.83);
+    padding: 20px;
+    border-radius: 5px;
+    border-radius: 20px;
+    width: fit-content;
+    max-width: 49vw;
+    margin-top: 8vh;
+    text-align: start;
+    margin-bottom: 1vh;
+    font-size: max(2.3vmin, 15px);
+}
+.Notesmodal .NotesTitle {
+    color: #226e8c;
+    font-size: max(3vmin, 15px);
+    font-weight: 500;
+    margin-bottom: 3vh;
+    display: flex;
+    justify-content: center;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}
+
+.Notesmodal textarea {
+    height: 12vh;
+    width: 40vw;
+    margin-top: 2vh;
+    margin-bottom: 3vh;
+    padding-left: 1vw;
+    background-color: rgba(255, 255, 255, 0.573);
+    color: #0d4155;
+    border-radius: 10px;
+    font-size: max(2vmin, 12px);
+    box-shadow: 2px 2px 5px 0 #4e798877 inset;
+    display: flex;
+    align-items: center;
+}
+.Notesmodal .buttonContainer {
+    text-align: center;
+}
+.Notesmodal button {
+    font-weight: 500;
+    padding: 1vh 1vw;
+    border-radius: 6px;
+    min-height: 25px;
+    font-size: max(2.4vmin, 13px);
+    font-weight: 600;
+    border: none;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+    width: fit-content;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
+    background-color: #b9f7eb;
+    color: white;
+    margin-top: 2vh;
+}

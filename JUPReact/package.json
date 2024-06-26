@@ -20,6 +20,7 @@
     "@fullcalendar/timegrid": "^6.1.11",
     "@mui/material": "^5.15.18",
     "@mui/x-date-pickers": "^6.20.0",
+    "@zegocloud/zego-uikit-prebuilt-call-rn": "^5.3.1",
     "axios": "^1.5.1",
     "bootstrap": "^5.3.2",
     "mdb-react-ui-kit": "^6.3.0",

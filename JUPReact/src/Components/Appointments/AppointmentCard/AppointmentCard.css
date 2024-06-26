@@ -8,76 +8,117 @@
 
 .AppointmentCard .CardInfo {
     display: flex;
-    justify-content: space-evenly;
-    width: 50vw;
-    height: 8vh;
+    height: 10vh;
+    align-items: center;
 }
 .AppointmentCard .info {
-    width: 5vw;
+    width: 4vw;
     align-content: center;
+    margin: 0 0.5vw;
 }
-.AppointmentCard .infoButton{
+.AppointmentCard .infoButton {
     width: 3.5vw;
     height: 3.5vw;
     color: white;
     background: linear-gradient(135deg, #226e8c, #0d4155);
     border-radius: 100px;
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
-
 }
-.AppointmentCard img{
+.AppointmentCard .BankButton {
+    width: 3.5vw;
+    height: 3.5vw;
+    color: white;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
+    border-radius: 100px;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.AppointmentCard img {
     width: 5vw;
     height: 4vh;
-    
-
+}
+.AppointmentCard .BankButton img {
+    width: 4.5vw;
+    height: 3.5vh;
+}
+.AppointmentCard .Bank {
+    width: 4vw;
+    align-content: center;
+    margin: 0 0.5vw;
 }
 .AppointmentCard .name {
-    width: 5vw;
+    width: 8vw;
     align-content: center;
+    margin: 0 0.5vw;
 }
 .AppointmentCard .time {
     width: 4vw;
     align-content: center;
+    margin: 0 0.5vw;
 }
 .AppointmentCard .day {
-    width: 8vw;
+    width: 7vw;
     align-content: center;
+    margin: 0 0.5vw;
 }
 
 .AppointmentCard .date {
-    width: 10vw;
+    width: 8vw;
     align-content: center;
+    margin: 0 0.5vw;
 }
 .AppointmentCard .state {
+    width: 5vw;
+    margin: 0 0.5vw;
+    align-content: center;
+}
+.AppointmentCard .duration {
+    width: 7vw;
+    margin: 0 0.5vw;
+    align-content: center;
+}
+.AppointmentCard .cost {
+    width: 5vw;
+    margin: 0 0.5vw;
+    align-content: center;
+}
+.AppointmentCard .Type {
     width: 6vw;
-
+    margin: 0 0.5vw;
     align-content: center;
 }
-.AppointmentCard .type {
-    width: 10vw;
-    align-content: center;
-}
-
 .none {
     border-bottom: 1px black solid;
 }
 .AppointmentCard .buttons {
-    width: 17vw;
     display: flex;
+    height: 10vh;
+    align-items: center;
+
 }
 .AppointmentCard .approveButton {
-    width: 8vw;
-    margin-right: 1vw;
     background: linear-gradient(135deg, #226e8c, #0d4155);
     color: white;
     height: 5vh;
     border-radius: 10px;
     align-content: center;
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
-
+    width: 7vw;
+    background-color: #0d4155;
+    margin: 0 0.5vw;
+}
+.AppointmentCard .paidButton {
+    background: linear-gradient(135deg, #226e8c, #0d4155);
+    color: white;
+    height: 5vh;
+    border-radius: 10px;
+    align-content: center;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+    width: 5vw;
+    background-color: #0d4155;
+    margin: 0 0.5vw;
 }
 .AppointmentCard .deleteButton {
-    width: 8vw;
     margin-left: 1vw;
     background: linear-gradient(135deg, #af4b4b, #742222);
     color: white;
@@ -85,21 +126,12 @@
     align-content: center;
     border-radius: 10px;
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
-
-}
-.AppointmentCard .notFirst {
-    margin-left: 8vw;
+    width: 5vw;
 }
 .AppointmentCard .none2 {
-    width: 8vw;
-    margin-left: 1vw;
     background-color: rgba(255, 255, 255, 0);
-    color: white;
-    height: 5vh;
     background: none;
     box-shadow: none;
-
-    
 }
 .AppointmentCard .first {
     color: #0d4155;
@@ -107,20 +139,5 @@
     background: none;
     box-shadow: none;
     font-weight: 600;
-    font-size: max(2.5vmin,14px);
-}
-@media screen and (max-width: 750px) {
-    .AppointmentCard {
-        display: block;
-        padding: 3vh 5vw;
-    }
-    .AppointmentCard .image,
-    .AppointmentCard img {
-        width: 80vw;
-        border-radius: 15px;
-        height: 24vh;
-        margin-right: auto;
-        margin-left: auto;
-        margin-bottom: 2vh;
-    }
+    font-size: max(2.5vmin, 14px);
 }

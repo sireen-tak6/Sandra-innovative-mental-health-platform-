@@ -10,11 +10,32 @@ import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 import "./AppointmentCard.css";
 import CircularLoading from "../../loadingprogress/loadingProgress";
+import PayForm from "../../Forms/PayForm/PayForm";
 
-const AppointmentCard = ({ item, last, first, setPatientId, setModalOpen }) => {
+const AppointmentCard = ({
+    item,
+    last,
+    first,
+    setPatientId,
+    setModalOpen,
+    formData,
+    setFormData,
+    setIsLoadingInfo,
+    setUserName,
+    setAppointment,
+    setBanks,
+    showPayContainer,
+    setShowPayContainer,
+    Banks,
+    setShowInfo,
+}) => {
     const infoPic = "../images/info.svg";
+    const BankPic = "../images/BankIcon.svg";
 
+    const userID = localStorage.getItem("user-id");
+    const userType = localStorage.getItem("user-type");
     const [date, setdate] = useState(null);
+    const [patientbank, setpatientbank] = useState(null);
     const [isSaving, setIsSaving] = useState(false);
     const daysOfWeek = [
         "Sunday",
@@ -24,17 +45,25 @@ const AppointmentCard = ({ item, last, first, setPatientId, setModalOpen }) => {
         "Thursday",
         "Friday",
         "Saturday",
-        "day",
+        "Day",
     ];
     useEffect(() => {
-        if (item.date == "date") {
-            setdate("date");
+        if (item.date == "Date") {
+            setdate("Date");
         } else {
             const date2 = new Date(item.date);
             setdate(date2);
         }
     }, [item]);
-    const approve = async (id) => {
+
+    useEffect(() => {
+        if (item.patientID) {
+            getInfo();
+        }
+    }, [item.patientID]);
+
+    const getInfo = async () => {
+        setIsLoadingInfo(true);
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: "btn btn-success",
@@ -42,93 +71,41 @@ const AppointmentCard = ({ item, last, first, setPatientId, setModalOpen }) => {
             },
             buttonsStyling: false,
         });
-        setIsSaving(true);
-        try {
-            const userID = localStorage.getItem("user-id");
-            const userType = localStorage.getItem("user-type");
-            const formData = new FormData();
-            // Convert to string before appending
-            formData.append("userID", parseInt(userID));
-            formData.append("userType", userType);
-            formData.append("appointmentId", parseInt(id));
 
-            const response = await axiosClient.post(
-                "/ApproveAppointment",
-                formData
-            );
-            if (response.data.status == 200) {
-                swalWithBootstrapButtons
-                    .fire(
-                        "changes saved successfully",
-                        "Your schedule has been updated.",
-                        "success"
-                    )
-                    .then(() => {
-                        window.location.reload(); // Refresh the page after success
-                    });
-            } else {
-                swalWithBootstrapButtons.fire(
-                    response.data.message,
-                    "Something went wrong",
-                    "error"
-                );
-            }
-        } catch (error) {
-            console.log(error);
-            console.error("Error saving schedule:", error);
-        }
-        setIsSaving(false);
-    };
-    const remove = async (id) => {
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: "btn btn-success",
-                cancelButton: "btn btn-danger",
-            },
-            buttonsStyling: false,
-        });
-        setIsSaving(true);
-        try {
-            const userID = localStorage.getItem("user-id");
-            const userType = localStorage.getItem("user-type");
-            const formData = new FormData();
-            // Convert to string before appending
-            formData.append("userID", parseInt(userID));
-            formData.append("userType", userType);
-            formData.append("appointmentId", parseInt(id));
+        // Use HTML5 form validation (automatic)
+        const userID = localStorage.getItem("user-id");
+        const userType = localStorage.getItem("user-type");
+        const formData2 = new FormData();
 
-            const response = await axiosClient.post(
-                "/DeleteAppointment",
-                formData
-            );
-            if (response.data.status == 200) {
-                swalWithBootstrapButtons
-                    .fire(
-                        "changes saved successfully",
-                        "Your schedule has been updated.",
-                        "success"
-                    )
-                    .then(() => {
-                        window.location.reload(); // Refresh the page after success
-                    });
-            } else {
-                swalWithBootstrapButtons.fire(
-                    response.data.message,
-                    "Something went wrong",
-                    "error"
-                );
-            }
-            console.log(response);
-        } catch (error) {
-            console.log(error);
-            console.error("Error saving schedule:", error);
+        if (item.patientID) {
+            console.log(item.patientID);
+            formData2.append("patientID", item.patientID);
         }
-        setIsSaving(false);
+        formData2.append("userID", parseInt(userID));
+        formData2.append("userType", userType);
+        const response = await axiosClient.post("/getInfo", formData2);
+        console.log(response);
+        if (response.status == 200) {
+            console.log(formData);
+            setFormData(response.data.Info.data);
+            setUserName(item.patient ? item.patient.user_name : "unknown");
+            if (userType != "patient") {
+                setpatientbank(JSON.parse(response.data.Info.Banks));
+            }
+            console.log(formData);
+        } else {
+            swalWithBootstrapButtons.fire(
+                response.data.message,
+                "Something went wrong",
+                "error"
+            );
+        }
+        setIsLoadingInfo(false);
     };
-    const openInfo = (id) => {
-        setPatientId(id);
-        setModalOpen(true);
-        console.log(id);
+    const openInfos = (item) => {
+        setAppointment(item);
+        setShowInfo(true);
+        console.log(showPayContainer);
     };
 
     return (
@@ -138,21 +115,35 @@ const AppointmentCard = ({ item, last, first, setPatientId, setModalOpen }) => {
                     <CircularLoading />
                 </div>
             ) : (
-                <div className={`AppointmentCard ${last ? "none" : "none"} `}>
+                <div className={`AppointmentCard none `}>
                     <div className="CardInfo">
-                        <div className={`info ${first ? "first" : ""}`}>
-                            {item.patientID !== null ? (
-                                <button
-                                    type="button"
-                                    onClick={() => openInfo(item.patientID)}
-                                    className={`${first ? "" : "infoButton"}`}
-                                >
-                                    {first ? "info" : <img src={infoPic} />}
-                                </button>
-                            ) : null}
+                        <div className={`name ${first ? "first" : ""}`}>
+                            <Link
+                                to={
+                                    item.patient
+                                        ? `/patientProfile/${item.patient.id}`
+                                        : null
+                                }
+                                key={item.patient ? item.patient.id : null}
+                            >
+                                {item.patient
+                                    ? item.patient.user_name
+                                    : "unknown"}
+                            </Link>
                         </div>
                         <div className={`name ${first ? "first" : ""}`}>
-                            {item.patient ? item.patient.user_name : "unknown"}
+                            {item.doctor ? (
+                                <Link
+                                    to={
+                                        item.doctor.id
+                                            ? `/doctorProile/${item.doctor.id}`
+                                            : null
+                                    }
+                                    key={item.doctor.id ? item.doctor.id : null}
+                                >
+                                    {item.doctor ? item.doctor.user_name : ""}
+                                </Link>
+                            ) : null}
                         </div>
                         <div className={`time ${first ? "first" : ""}`}>
                             {item.time}
@@ -161,7 +152,7 @@ const AppointmentCard = ({ item, last, first, setPatientId, setModalOpen }) => {
                             {daysOfWeek[item.day]}
                         </div>
                         <div className={`date ${first ? "first" : ""}`}>
-                            {date == "date"
+                            {date == "Date"
                                 ? date
                                 : `${date.getDate()} / ${date.getMonth() + 1} /
                             ${date.getFullYear()}`}
@@ -169,88 +160,45 @@ const AppointmentCard = ({ item, last, first, setPatientId, setModalOpen }) => {
                         <div className={`state ${first ? "first" : ""}`}>
                             <div className={item.state}>{item.state}</div>
                         </div>
-                        <div className={`type ${first ? "first" : ""}`}>
+
+                        <div className={`duration ${first ? "first" : ""}`}>
+                            <div className={item.duration}>
+                                {item.duration} {item.timeType}
+                            </div>
+                        </div>
+                        <div className={`cost ${first ? "first" : ""}`}>
+                            <div className={item.cost}>{item.cost}</div>
+                        </div>
+                        <div className={`Type ${first ? "first" : ""}`}>
                             <div className={item.type}>{item.type}</div>
                         </div>
                     </div>
-                    {first ? (
-                        <div className="buttons">
-                            <div
-                                onClick={() => {}}
-                                className={`approveButton ${
-                                    first ? "first" : ""
-                                }`}
-                            >
-                                Approve
-                            </div>
-                            <div
-                                onClick={() => {}}
-                                className={`deleteButton ${
-                                    first ? "first" : ""
-                                }`}
-                            >
-                                Cancel
-                            </div>
+                    <div className="buttons">
+                        <div>
+                            {first ? (
+                                <div
+                                    className={`deleteButton ${
+                                        first ? "first" : ""
+                                    }`}
+                                >
+                                    Info
+                                </div>
+                            ) : (
+                                <button
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        openInfos(item);
+                                    }}
+                                    type="button"
+                                    className={`deleteButton ${
+                                        first ? "first" : ""
+                                    }`}
+                                >
+                                    Info
+                                </button>
+                            ) }
                         </div>
-                    ) : null}
-                    {item.type == "waiting" ? (
-                        <>
-                            <div
-                                className={`approveButton ${
-                                    first ? "first" : ""
-                                }`}
-                            >
-                                <button
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        approve(item.id);
-                                    }}
-                                    type="button"
-                                    className={`approveButton ${
-                                        first ? "first" : ""
-                                    }`}
-                                >
-                                    Approve
-                                </button>{" "}
-                            </div>
-                            <div className="">
-                                <button
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        remove(item.id);
-                                    }}
-                                    type="button"
-                                    className={`deleteButton ${
-                                        first ? "first" : ""
-                                    }`}
-                                >
-                                    Cancel
-                                </button>{" "}
-                            </div>
-                        </>
-                    ) : !first ? (
-                        <>
-                            <div
-                                className={`approveButton none2 ${
-                                    first ? "first" : ""
-                                }`}
-                            ></div>
-                            <div className="">
-                                <button
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        remove(item.id);
-                                    }}
-                                    type="button"
-                                    className={`deleteButton ${
-                                        first ? "" : "notFirst"
-                                    }`}
-                                >
-                                    Cancel
-                                </button>{" "}
-                            </div>{" "}
-                        </>
-                    ) : null}
+                    </div>
                 </div>
             )}
         </Link>

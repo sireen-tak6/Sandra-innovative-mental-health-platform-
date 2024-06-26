@@ -85,6 +85,11 @@ function Navbarr() {
                                     Doctors
                                 </Nav.Link>
                             ) : null}
+                            {Type == "doctor" || Type == "secretary" ? (
+                                <Nav.Link href="/Patients" className="l">
+                                    Patients
+                                </Nav.Link>
+                            ) : null}
                             <Nav.Link href="/articles" className="l">
                                 Articles
                             </Nav.Link>
@@ -118,7 +123,6 @@ function Navbarr() {
                                             </Nav.Link>
                                         </>
                                     ) : null}
-                                    {Type != "admin" ? (
                                         <Nav.Link
                                             href={`/appointments`}
                                             // href={`/newAppointment/${Type=="secretary"?user.doctorID:id}`}
@@ -126,7 +130,6 @@ function Navbarr() {
                                         >
                                             Appointements
                                         </Nav.Link>
-                                    ) : null}
                                     {Type != "admin" && Type != "patient" ? (
                                         <>
                                             <Nav.Link
@@ -137,6 +140,24 @@ function Navbarr() {
                                             </Nav.Link>
                                         </>
                                     ) : null}
+                                    {Type != "admin" ? (
+                                        <>
+                                            <Nav.Link
+                                                href="/customerService"
+                                                className="l"
+                                            >
+                                                Customer-Service
+                                            </Nav.Link>
+                                        </>
+                                    ) : null}
+                                    <>
+                                        <Nav.Link
+                                            href="/complaints"
+                                            className="l"
+                                        >
+                                            Complaints
+                                        </Nav.Link>
+                                    </>
                                     <Nav.Link className="l">
                                         <div className="s">
                                             <button
@@ -212,6 +233,17 @@ function Navbarr() {
                                                             Add Secretary
                                                         </NavDropdown.Item>
                                                     )}
+                                                </>
+                                            ) : null}
+                                             {Type === "patient" ? (
+                                                <>
+                                                    <NavDropdown.Item
+                                                        href={`/patientProfile/${id}`}
+                                                        className="o"
+                                                    >
+                                                        My Profile
+                                                    </NavDropdown.Item>
+                                                    
                                                 </>
                                             ) : null}
                                             <NavDropdown.Item

@@ -10,6 +10,8 @@ use App\Models\Message;
 use Illuminate\Http\Request;
 use App\Models\Notification;
 use Carbon\Carbon;
+use App\Models\Appointment;
+use Illuminate\Support\Facades\DB;
 
 class ChatController extends Controller
 {
@@ -217,10 +219,13 @@ class ChatController extends Controller
 
         // Fetch all the messages of this chat
         $messages = Message::where('chat_id', $chat->id)->get();
-
+        
+       
         return response()->json([
             'messages' => $messages,
             'chat' => $chat,
+            'status'=>200,
+          
         ]);
     }
 

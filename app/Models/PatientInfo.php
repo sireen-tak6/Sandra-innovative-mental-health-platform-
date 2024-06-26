@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 use App\Models\Patient;
+
 class PatientInfo extends Model
 {
     use HasFactory;
     protected $table='patientInfo';
-    protected $fillable=['patientID','data','notes','appointments','appointmentsDone'];
+    protected $fillable=['patientID','data','notes','appointments','appointmentsDone','Banks'];
     public function setDataAttribute($value)
     {
         $this->attributes['data'] = json_encode($value);
@@ -34,5 +35,14 @@ class PatientInfo extends Model
     {
         return $this->belongsTo(Patient::class , 'patientID'); 
     }  
+    public function setBanksAttribute($value)
+    {
+        $this->attributes['Banks'] = json_encode($value);
+    }
+
+    public function getBanksAttribute($value)
+    {
+        return json_decode($value, true); // Cast to associative array
+    }
     
 }

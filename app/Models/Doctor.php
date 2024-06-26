@@ -36,7 +36,11 @@ class Doctor extends Model implements Authenticatable, MustVerifyEmailContract
         'email_verified_at',
         'verification_token',
         'new_email',
-        'new_verification_token'
+        'new_verification_token',
+        'Banks',
+        'time',
+        'cost',
+        'timeType'
     ];
     
     protected $appends = ['Document', 'isVerfiy'];
@@ -63,13 +67,28 @@ class Doctor extends Model implements Authenticatable, MustVerifyEmailContract
     {
         return $this->hasOne(Secretary::class , 'doctorID'); 
     }
-    
+    public function complaints(): HasMany
+    {
+        return $this->hasMany(Complaint::class, 'doctorID');
+    }  
+    public function Note():HasOne
+    {
+        return $this->hasOne(sessionNote::class , 'doctorID'); 
+    }
     //this is the relationship between the doctors and the chats tables 
     public function chats(): HasMany
     {
         return $this->hasMany(Chat::class, 'doctor_id');
     }
-    
+    public function setBanksAttribute($value)
+    {
+        $this->attributes['Banks'] = json_encode($value);
+    }
+
+    public function getBanksAttribute($value)
+    {
+        return json_decode($value, true); // Cast to associative array
+    }
     public function getAuthIdentifierName()
     {
         return 'id'; // Replace with the name of the primary key column in the patients table
@@ -176,5 +195,9 @@ class Doctor extends Model implements Authenticatable, MustVerifyEmailContract
         }
 
         return false;
+    }
+    public function Usermeetings(): HasMany
+    {
+        return $this->hasMany(Usermeeting::class, 'doctorID');
     }
 }
