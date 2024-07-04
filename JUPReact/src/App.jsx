@@ -57,7 +57,6 @@ import CustomerService from "./pages/CustomerService/CustomerService";
 import Complaints from "./pages/Complaints/Complaints";
 import Patients from "./pages/Patients/Patients";
 import PatientProfile from "./pages/PatientProfile/PatientProfile";
-import { Test } from "./pages/test";
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<RootLayout />}>
@@ -103,7 +102,6 @@ const router = createBrowserRouter(
             <Route path="complaints" element={<Complaints/>}/>
             <Route path="Patients" element={<Patients/>}/>
             <Route path="patientProfile/:id" element={<PatientProfile />} />
-            <Route path="testt" element={<Test/>}/>
 
         </Route>
     )

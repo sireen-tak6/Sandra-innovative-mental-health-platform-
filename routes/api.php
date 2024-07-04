@@ -218,3 +218,4 @@ Route::post('getPatientNotes' , [PatientController::class ,'getPatientNotes']);
 Route::post('addSessionNote' , [AppointmentController::class ,'addSessionNote']);
 Route::post('endSession' , [AppointmentController::class ,'endSession']);
 Route::post('breakSession' , [AppointmentController::class ,'breakSession']);
+Route::post('SearchAppointment' , [SearchController::class ,'SearchAppointment']);
