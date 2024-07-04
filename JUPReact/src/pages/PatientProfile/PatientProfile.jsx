@@ -11,7 +11,6 @@ import jsPDF from "jspdf";
 //components
 import ProfilePatientInfo from "../../Components/PatientProfile/ProfilePatientInfo/ProfilePatientInfo";
 import PatientNotes from "../../Components/PatientProfile/PatientNotes/PatientNotes";
-import PatientInfoProv from "../../Providers/PatientInfoProv";
 import PrintPatientProfile from "../../Components/PatientProfile/PrintPatientProfile/PrintPatientProfile";
 
 function PatientProfile() {

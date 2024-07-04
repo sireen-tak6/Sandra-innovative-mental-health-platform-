@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Scout\Searchable;
 
 class Appointment extends Model
 {
-    use HasFactory ,HasApiTokens;
+    use HasFactory ,HasApiTokens,Searchable;
 
     protected $fillable = [
         'day',
@@ -63,6 +64,17 @@ class Appointment extends Model
     {
         return json_decode($value, true); // Cast to associative array
     }
+
+
+    public function toSearchableArray()
+    {
+        return [
+            'PatientBanks' => $this->PatientBanks,
+            'DoctorBanks' => $this->DoctorBanks,
+        ];
+    }
+    
+
     protected static function boot()
     {
         parent::boot();

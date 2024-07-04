@@ -4,12 +4,14 @@
     height: 10vh;
     text-align: center;
     padding-left: 1vw;
+    align-items: center;
 }
 
 .AppointmentCard .CardInfo {
     display: flex;
     height: 10vh;
     align-items: center;
+    
 }
 .AppointmentCard .info {
     width: 4vw;

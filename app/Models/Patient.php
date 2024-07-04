@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Laravel\Scout\Searchable;
 
 class Patient extends Model implements Authenticatable
 {
-    use HasFactory, HasApiTokens;
+    use HasFactory, HasApiTokens,Searchable;
 
     protected $fillable = [
         'user_name',
@@ -111,5 +112,11 @@ class Patient extends Model implements Authenticatable
     public function Usermeetings(): HasMany
     {
         return $this->hasMany(Usermeeting::class , 'patientID'); 
+    }
+    public function toSearchableArray()
+    {
+        return [
+        'user_name' => $this->user_name,
+        ];
     }
 }

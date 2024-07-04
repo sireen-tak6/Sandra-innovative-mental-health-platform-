@@ -118,7 +118,7 @@ const Appointments = () => {
         <div className="Appointments">
             <Appointmentsprov value={Type} onUpdate={setType}>
                 <div className="TypesPart">
-                    <AppointmentsTypes />
+                    <AppointmentsTypes setAppointments={setAppointments}/>
                 </div>
                 {isLoading ? (
                     <CircularLoading />
