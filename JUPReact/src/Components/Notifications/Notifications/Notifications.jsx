@@ -115,7 +115,7 @@ function Notifications() {
                                         ? `/articles/${n.data.articleCat}/${n.data.articleID}`
                                         : n.type == "Message"
                                         ? "/chats"
-                                        : n.type == "Appointment"
+                                        : n.type == "Appointment"||n.type=="Appointment paid"||n.type=="Appointment approve"
                                         ? "/Appointments"
                                         : ""
                                 }
@@ -290,7 +290,23 @@ function Notifications() {
                                             {getDate(n)}
                                         </div>
                                     </>
-                                ) : n.type == "Appointment" ? (
+                                ) : n.type == "Appointment paid" ? (
+                                    <>
+                                        <span className="Type">
+                                            New {n.type}..!
+                                        </span>{" "}
+                                        <span>
+                                            Your appointment with Dr.
+                                            {n.data.doctorName} has been
+                                            paid. <br /> Date: {getDate2(n.data.date)}
+                                            .
+                                            <br />
+                                            Time: {n.data.time}.
+                                        </span>
+                                        <div className="notificationDate">
+                                            {getDate(n)}
+                                        </div>
+                                    </>) : n.type == "Appointment" ? (
                                     <>
                                         <span className="Type">
                                             New {n.type}..!

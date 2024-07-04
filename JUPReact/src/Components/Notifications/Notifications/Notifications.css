@@ -57,31 +57,32 @@
     font-weight: 500;
 }
 
-.unread{
+.notifications .unread{
   background-color: #c6e5f082;
   
 }
- .first{
+.notifications .first{
   border-radius: 20px 20px 0 0 ;
+  height: fit-content;
 
 }
 
-.last{
+.notifications .last{
   border-radius: 0px 0px 20px 20px ;
   border-bottom:none;
 
 }
-.firstlast{
+.notifications .firstlast{
   border-radius: 20px 20px 20px 20px ;
   border-bottom: none;
 
 }
-.notificationDate{
+.notifications .notificationDate{
   margin-top: 1vh;
   font-size: max(1.9vmin, 10px);
   color: rgb(151, 151, 151);
 }
-.none{
+.notifications .none{
   text-align: center;
   align-items: center;
 }
