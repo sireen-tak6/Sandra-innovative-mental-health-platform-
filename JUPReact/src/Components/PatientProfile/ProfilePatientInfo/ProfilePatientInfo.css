@@ -19,6 +19,7 @@
     border-radius: 20px;
     padding: 5vh 2vw;
     min-height: 30vh;
+    margin-bottom: 5vh;
 }
 .PatientProfile .infoPart .mainInfo .imageframe {
     background-color: black;

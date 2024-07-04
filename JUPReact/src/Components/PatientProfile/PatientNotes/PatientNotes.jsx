@@ -10,7 +10,7 @@ import CircularLoading from "../../loadingprogress/loadingProgress";
 import { TextareaT } from "react-bootstrap-icons";
 
 import PatientNoteCard from "../PatientNoteCard/PatientNoteCard";
-function PatientNotes({ id ,setTopNotes}) {
+function PatientNotes({ id ,setTopNotes,editedNotes}) {
 
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -39,6 +39,15 @@ function PatientNotes({ id ,setTopNotes}) {
                 if (response.status == 200) {
                     setNotes(response.data.Notes);
                     setTopNotes(response.data.Notes);
+                    const processedData = response.data.Notes.map((record) => ({
+                        patient_name: record.patient.user_name,
+                        doctor_name: record.doctor.user_name,
+                        notes: record.Notes,
+                        preMed: record.preMed,
+                        postMed: record.postMed,
+                        created_at: record.created_at,
+                      }));
+                      editedNotes(processedData)
                 } else {
                     swalWithBootstrapButtons.fire(
                         response.data.message,

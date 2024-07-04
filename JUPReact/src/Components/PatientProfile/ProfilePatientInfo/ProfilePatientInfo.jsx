@@ -1,4 +1,4 @@
-import React, { useEffect, useState , useContext} from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { AiFillHeart, AiFillStar } from "react-icons/ai";
 import axiosClient from "../../../axios";
 import { useNavigate } from "react-router-dom";
@@ -15,9 +15,7 @@ import PayForm from "../../Forms/PayForm/PayForm";
 import BanksDetails from "../../BanksDetails/BanksDetails";
 import PatientInfo from "../../PatientInfo/PatientInfo";
 
-
-const ProfilePatientInfo = ({ id,downloadPDF ,setTopPatientInfo}) => {
-
+const ProfilePatientInfo = ({ id, downloadPDF, setTopPatientInfo,notesSummarization,summarizationLoad }) => {
     const [patientInfo, setPatientInfo] = useState(null);
     const [bankModalOpen, setBankModalOpen] = useState(false);
     const [countt, setCountt] = useState(0);
@@ -78,6 +76,7 @@ const ProfilePatientInfo = ({ id,downloadPDF ,setTopPatientInfo}) => {
     });
     const userType = localStorage.getItem("user-type") ?? "none";
 
+
     useEffect(() => {
         const fetchData = async () => {
             const userID = localStorage.getItem("user-id");
@@ -90,7 +89,7 @@ const ProfilePatientInfo = ({ id,downloadPDF ,setTopPatientInfo}) => {
             formData2.append("userType", userType);
             try {
                 const response = await axiosClient.post("/getInfo", formData2);
-                console.log(response);
+               
                 if (response.status == 200) {
                     setPatientInfo(response.data.Info);
                     setTopPatientInfo(response.data.Info);
@@ -111,6 +110,7 @@ const ProfilePatientInfo = ({ id,downloadPDF ,setTopPatientInfo}) => {
                         "error"
                     );
                 }
+                
             } catch (error) {
                 console.log(error);
             }
@@ -188,7 +188,7 @@ const ProfilePatientInfo = ({ id,downloadPDF ,setTopPatientInfo}) => {
     const infoOpen = async () => {
         setModalOpen(true);
     };
-
+   
     if (patientInfo === null) {
         return (
             <div className="data infoPart">
@@ -322,6 +322,11 @@ const ProfilePatientInfo = ({ id,downloadPDF ,setTopPatientInfo}) => {
                             </button>
                         </div>
                     </div>
+                </div>
+
+                <div className="secondaryInfo">
+                    <div className="title">Notes Summarization :</div>
+                    <div className="data Education">{summarizationLoad? <CircularLoading/> : notesSummarization}</div>{" "}
                 </div>
                 {bankModalOpen &&
                 localStorage.getItem("user-type") === "patient" &&

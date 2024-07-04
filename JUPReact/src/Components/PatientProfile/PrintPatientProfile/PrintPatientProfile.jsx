@@ -2,7 +2,7 @@
 import React from "react";
 import "./PrintPatientProfile.css";
 
-const PrintPatientProfile = React.forwardRef(({ patientInfos, notes }, ref) => {
+const PrintPatientProfile = React.forwardRef(({ patientInfos, notes ,summarization }, ref) => {
     const getDate = (n) => {
         const date2 = new Date(n.created_at);
         const date = `${date2.getDate()} / ${
@@ -116,7 +116,13 @@ const PrintPatientProfile = React.forwardRef(({ patientInfos, notes }, ref) => {
                     {patientInfos.data.notes || "none"}
                 </div>
             </div>
-
+            <div className="print-summarization">
+                <div className=" data">
+                    <span className="key">Notes Summarization:</span>
+                </div>
+                {true &&
+                   summarization}
+            </div>
             <div className="print-notes">
                 <div className=" data">
                     <span className="key">Doctors Notes:</span>

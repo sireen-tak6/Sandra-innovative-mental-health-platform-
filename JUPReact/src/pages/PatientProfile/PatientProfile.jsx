@@ -1,6 +1,7 @@
 import { React, useState, useEffect, useContext, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 //css
 import "./PatientProfile.css";
@@ -17,6 +18,8 @@ function PatientProfile() {
     const { id } = useParams();
     const [PatientInfos, setPatientInfo] = useState(null);
     const [Notes, setNotes] = useState(null);
+    const [summarizationLoad, setSummarizationLoad] = useState(true);
+    const [EditedNotes, setEditedNotes] = useState(null);
     const printRef = useRef();
     const downloadPDF = async () => {
         const capture = printRef.current;
@@ -44,7 +47,7 @@ function PatientProfile() {
                     null,
                     "FAST"
                 );
-                position -= pdfHeight;
+                position -= (pdfHeight-7);
                 if (position > imgHeight * -1) {
                     pdf.addPage();
                 }
@@ -60,6 +63,26 @@ function PatientProfile() {
             );
         }
     };
+    const [NotesSummarization, setNotesSummarization] = useState(null);
+    useEffect(() => {
+        if (EditedNotes !== null) {
+            const getSummarization = async () => {
+                console.log(Notes);
+                const response = await axios.post(
+                    `http://127.0.0.1:5173/summarization`,
+                    {
+                        Notes: EditedNotes,
+                    }
+                );
+                console.log(response);
+                if (response.data["response"]) {
+                    setNotesSummarization(response.data["response"]);
+                    setSummarizationLoad(false);
+                }
+            };
+            getSummarization();
+        }
+    }, [EditedNotes]);
 
     return (
         <>
@@ -68,8 +91,14 @@ function PatientProfile() {
                     id={id}
                     downloadPDF={downloadPDF}
                     setTopPatientInfo={setPatientInfo}
+                    notesSummarization={NotesSummarization}
+                    summarizationLoad={summarizationLoad}
                 />
-                <PatientNotes id={id} setTopNotes={setNotes} />
+                <PatientNotes
+                    id={id}
+                    setTopNotes={setNotes}
+                    editedNotes={setEditedNotes}
+                />
             </div>
             {PatientInfos && Notes && (
                 <div
@@ -83,6 +112,7 @@ function PatientProfile() {
                         ref={printRef}
                         patientInfos={PatientInfos}
                         notes={Notes}
+                        summarization={NotesSummarization}
                     />
                 </div>
             )}

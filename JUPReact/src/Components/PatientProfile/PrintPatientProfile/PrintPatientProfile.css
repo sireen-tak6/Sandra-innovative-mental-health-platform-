@@ -21,16 +21,16 @@
 
 }
 
- .print-secondary-info, .print-notes {
+ .print-secondary-info, .print-notes,.print-summarization {
     margin-bottom: 10mm;
 }
 
-.print-main-info .data, .print-secondary-info .data ,.print-notes .data, .header .data{
+.print-main-info .data, .print-secondary-info .data ,.print-notes .data, .header .data,.print-summarization .data{
     margin-bottom: 5mm;
     width:32vw ;
 }
 
-.print-main-info .key, .print-secondary-info .key, .print-notes .key ,.header .key{
+.print-main-info .key, .print-secondary-info .key, .print-notes .key ,.header .key,.print-summarization .key{
     font-weight: bold;
     color: #000;
 }
