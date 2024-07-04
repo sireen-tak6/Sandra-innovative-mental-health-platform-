@@ -26,6 +26,11 @@ export default function UseCasePart() {
                     image={bot}
                 />
                 <UseCaseCard
+                    title="Book Appointments Online or Onsite"
+                    content="Book appointments online or in-person. Pay securely electronically."
+                    image={chat}
+                />
+                <UseCaseCard
                     title="Talk to a Doctor Online"
                     content="Receive personalized advice and support from the comfort of home."
                     image={chat}
