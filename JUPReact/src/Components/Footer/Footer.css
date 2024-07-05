@@ -17,6 +17,9 @@ p {
     background-color: #ffffffd5;
     box-shadow: 0px 0px 10px 8px rgba(0, 0, 0, 0.2);
 }
+html[dir="rtl"] .footer{
+    text-align: right;
+}
 @media screen and (max-width: 600px) {
     .footer .footerlogo {
         margin-left: auto;

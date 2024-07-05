@@ -9,11 +9,14 @@ import {
 
 //css
 import "./Footer.css";
+import { useTranslation } from "react-i18next";
 
 //images
 import logo from "./sandrapic/anotherlogo.png";
 
 function Footer2() {
+    const { t, i18n } = useTranslation();
+    console.log(i18n.language)
     return (
         <footer>
             <div className="footer">
@@ -21,8 +24,8 @@ function Footer2() {
                     className="text-center text-lg-start text-muted"
                     id="footer"
                 >
-                    <MDBContainer className="text-center text-md-start mt-5">
-                        <MDBRow className="mt-3">
+                    <MDBContainer className={`text-center  mt-5 ${i18n.language == 'ar' ? 'text-md-end' : 'text-md-start'}`}>
+                    <MDBRow className="mt-3">
                             <MDBCol
                                 md="3"
                                 lg="4"
@@ -31,11 +34,10 @@ function Footer2() {
                             >
                                 <h6 className="text-uppercase fw-bold mb-4">
                                     <MDBIcon icon="gem" className="me-3" />
-                                    Sandra
+                                    {t('BrandName')}
                                 </h6>
                                 <p>
-                                    if you care about your mental health and you
-                                    want contorl on your nerve just be quiet
+                                {t('FooterDes')} 
                                 </p>
                                 <p>
                                     <img
@@ -53,11 +55,11 @@ function Footer2() {
                                 className="mx-auto mb-4"
                             >
                                 <h6 className="text-uppercase fw-bold mb-4">
-                                    Quick Links
+                                {t('FooterQuickLinks')}   
                                 </h6>
                                 <p>
                                     <a href="/home" className="text-reset">
-                                        Home
+                                    {t('NavbarHome')}     
                                     </a>
                                 </p>
                                 {localStorage.getItem("user-type") == null ? (
@@ -67,7 +69,7 @@ function Footer2() {
                                                 href="/login"
                                                 className="text-reset"
                                             >
-                                                Login{" "}
+                                              {t('NavbarLogin')} 
                                             </a>
                                         </p>
                                         <p>
@@ -75,7 +77,7 @@ function Footer2() {
                                                 href="/signup"
                                                 className="text-reset"
                                             >
-                                                Sign Up
+                                            {t('NavbarSignup')}
                                             </a>
                                         </p>
                                     </>
@@ -89,11 +91,11 @@ function Footer2() {
                                 className="mx-auto mb-4"
                             >
                                 <h6 className="text-uppercase fw-bold mb-4">
-                                    Services
+                                {t('FooterServices')}     
                                 </h6>
                                 <p>
                                     <a href="/articles" className="text-reset">
-                                        Articles
+                                    {t('NavbarArticles')}      
                                     </a>
                                 </p>
                                 <p>
@@ -107,12 +109,12 @@ function Footer2() {
                                         }
                                         className="text-reset"
                                     >
-                                        Doctors
+                                    {t('NavbarDoctors')}
                                     </a>
                                 </p>{" "}
                                 <p>
                                     <a href="#!" className="text-reset">
-                                        Talk to sandra
+                                    {t('NavbarTalk')}
                                     </a>
                                 </p>
                                 {localStorage.getItem("user-type") &&
@@ -123,7 +125,7 @@ function Footer2() {
                                                 href="/verfiy"
                                                 className="text-reset"
                                             >
-                                                verify your certificate
+                                         {t('FooterVerify')}        
                                             </a>
                                         </p>
                                     </>
@@ -134,7 +136,7 @@ function Footer2() {
                                             href="/Settings"
                                             className="text-reset"
                                         >
-                                            Settings
+                                         {t('NavbarSettings')} 
                                         </a>
                                     </p>
                                 ) : null}
@@ -147,11 +149,11 @@ function Footer2() {
                                 className="mx-auto mb-md-0 mb-4"
                             >
                                 <h6 className="text-uppercase fw-bold mb-4">
-                                    Contact
+                                {t('FooterContact')}   
                                 </h6>
                                 <p>
                                     <MDBIcon icon="envelope" />
-                                    Sandra@gmail.com
+                                        Sandra@gmail.com
                                 </p>
                                 <p>
                                     <MDBIcon icon="phone" />
