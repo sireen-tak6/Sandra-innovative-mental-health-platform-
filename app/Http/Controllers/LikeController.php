@@ -40,7 +40,7 @@ class LikeController extends Controller
         if ($like) {
             // Delete the existing like record
             $like->delete();
-            $notification=Notification::where('type','Like')->where('userID',$doctor_id)->where('data->patientID',$patient_id)->get();
+            $notification=Notification::where('type','Like')->where('userID',$doctor_id)->where('data->patientID',$patient_id)->limit(1)->first();
             if($notification){
                 $notification->delete();
             }
