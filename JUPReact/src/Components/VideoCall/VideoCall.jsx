@@ -13,6 +13,7 @@ const bg = "../assetss/forhome.png";
 export default function VideoCall() {
     const [RoomID, setRoomID] = useState(null); // Unique user ID for the other person
     const [startTime, setStartTime] = useState(null); // Duration in seconds
+    const [startBreakTime, setStartBreakTime] = useState(null); // Duration in seconds
     const [appointment, setAppointment] = useState(null);
     const [theAppointment, setTheAppointment] = useState(null);
     const [callStarted, setCallStarted] = useState(false);
@@ -28,7 +29,9 @@ export default function VideoCall() {
     const patientID = location.state?.patientID;
     const roomJoinedRef = useRef(false);
     const startTimeRef = useRef(null);
+    const startBreakTimeRef = useRef(null);
     const callDuration = useRef(0);
+    const callBreakDuration = useRef(0);
     const UsersCount = useRef(1);
 
     useEffect(() => {
@@ -39,6 +42,20 @@ export default function VideoCall() {
             }
         }
     }, [doctorID, patientID]);
+
+    useEffect(() => {
+        if (startBreakTimeRef.current) {
+            const checkBreakDuration = setInterval(() => {
+                const currentTime = new Date();
+                const breakDuration = currentTime.getTime() - startBreakTimeRef.current.getTime();
+                if (breakDuration >= 15 * 60 * 1000) {
+                    endSession(true);
+                    clearInterval(checkBreakDuration);
+                }
+            }, 60000);
+            return () => clearInterval(checkBreakDuration);
+        }
+    }, [startBreakTimeRef.current]);
 
     const appointmentCheck = async () => {
         const formData = new FormData();
@@ -87,14 +104,25 @@ export default function VideoCall() {
             const today = new Date();
             startTimeRef.current = today;
             console.log("Call started at: ", startTimeRef.current);
+        }        
+        if (UsersCount.current==1) {
+            const today = new Date();
+            startBreakTimeRef.current = today;
+            console.log("Call Break started at: ", startBreakTimeRef.current);
         }
         setCallStarted(true);
 
         zp.joinRoom({
             container: element,
+            showScreenSharingButton:false,
+            showTextChat: true,
+            maxUsers: 2,
 
             scenario: {
                 mode: ZegoUIKitPrebuilt.OneONoneCall,
+                config: {
+                    role: "Host",
+              },
             },
             onUserJoin: () => {
                 UsersCount.current = UsersCount.current + 1;
@@ -102,15 +130,22 @@ export default function VideoCall() {
                     const today = new Date();
                     startTimeRef.current = today;
                 }
+                if (startBreakTimeRef.current) {
+                    startBreakTimeRef.current=null;
+                }
                 console.log("newAdded");
                 console.log(UsersCount.current);
-                console.log(startTimeRef.current);
+                console.log(startBreakTimeRef.current);
             },
             onUserLeave: () => {
                 UsersCount.current = UsersCount.current - 1;
                 console.log("remove");
                 console.log(UsersCount.current);
-                 if (startTimeRef.current) {
+                if (UsersCount.current==1) {
+                    const today = new Date();
+                    startBreakTimeRef.current = today;
+                }
+                if (startTimeRef.current) {
                     const endTimetoday = new Date();
                     console.log("Call ended at: ", endTimetoday);
                     const durationInSeconds =
@@ -208,7 +243,7 @@ export default function VideoCall() {
             },
         });
     };
-    const endSession = async () => {
+    const endSession = async (breakLimit) => {
         const formData = new FormData();
         const userID = localStorage.getItem("user-id");
         const userType = localStorage.getItem("user-type");
@@ -222,7 +257,7 @@ export default function VideoCall() {
         formData.append("appointmentID", parseInt(appointmentID));
         formData.append("userID", parseInt(userID));
         formData.append("userType", userType);
-        formData.append("autoClose", UsersCount.current == 1);
+        formData.append("autoClose", UsersCount.current == 1||breakLimit);
         const response = await axiosClient.post(`/endSession`, formData);
         console.log(response);
         if (response.data.status == 200) {
