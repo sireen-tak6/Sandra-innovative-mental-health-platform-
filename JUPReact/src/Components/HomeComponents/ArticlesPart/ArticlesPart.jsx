@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../../../axios";
+import { useTranslation } from "react-i18next";
 
 import CircularLoading from "../../loadingprogress/loadingProgress";
 import NoData from "../../NoData/NoData";
@@ -11,6 +12,8 @@ export default function ArticlesPart() {
     const navigate = useNavigate();
     const [Articles, setArticles] = useState([]);
     const [loading, setLoading] = useState(false);
+    const {t } = useTranslation();
+
     useEffect(() => {
         fetchDoctor();
     }, []);
@@ -35,17 +38,15 @@ export default function ArticlesPart() {
     };
     return (
         <div className="section ArticlesSection">
-            <div className="ArticlesTitle">Curated Content</div>
+            <div className="ArticlesTitle">{t('HomeArticlesTitle')}</div>
             <div className="Articlestext">
-                Grow & Thrive Empower yourself with the latest knowledge and
-                practical tips. Read our top articles chosen to inspire and
-                guide your personal growth.
+            {t('HomeArticlesDes')} 
             </div>
             <div className="TopArticles">
                 {loading ? (
                     <CircularLoading />
                 ) : Articles.length == 0 ? (
-                    <NoData content="there is no Articles yet :(" />
+                    <NoData content={t('HomeArticlesNoData')}/>
                 ) : (
                     <>
                         {Articles.slice(0, 3).map((article) => (
@@ -67,7 +68,7 @@ export default function ArticlesPart() {
                 )}
             </div>
             <div className="Articlesbutton">
-                <button type="button" onClick={() => ShowArticle()}> All Articles </button>
+                <button type="button" onClick={() => ShowArticle()}>{t('HomeArticlesAll')} </button>
             </div>
         </div>
     );

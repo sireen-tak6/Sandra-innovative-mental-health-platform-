@@ -10,7 +10,7 @@ export default function NumbersCard({ title, count, color, image }) {
         <div className={"numbersCard " + color}>
             <div className="content">
                 <div className="cardTitle">{title} : </div>
-                <div className="CardCount"> {count}</div>
+                <div className="CardCount"> {count} </div>
             </div>
             <div className="image">
                 <img src={image} />

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../../../axios";
+import { useTranslation } from "react-i18next";
 
 //css
 import "./DoctorsPart.css";
@@ -11,6 +12,7 @@ export default function DoctorsPart() {
     const navigate = useNavigate();
     const [doctors, setDoctors] = useState([]);
     const [loading, setLoading] = useState(false);
+    const {t } = useTranslation();
 
     useEffect(() => {
         fetchDoctor();
@@ -37,16 +39,15 @@ export default function DoctorsPart() {
     };
     return (
         <div className="section DoctorsSection">
-            <div className="DoctorsTitle">Verified Expertise</div>
+            <div className="DoctorsTitle">{t('HomeDoctorsTitle')}</div>
             <div className="Doctorstext">
-                Explore our trusted doctors and connect with the support you
-                deserve.
+            {t('HomeDoctorsDes')}
             </div>
             <div className="TopDoctors">
                 {loading ? (
                     <CircularLoading />
                 ) : doctors.length == 0 ? (
-                    <NoData content="there is no doctors yet :(" />
+                    <NoData content={t('HomeDoctorsNoData')} />
                 ) : (
                     <>
                         {doctors.slice(0, 3).map((doctor) => (
@@ -68,8 +69,8 @@ export default function DoctorsPart() {
             </div>
             <div className="Doctorsbutton">
                 <button type="button" onClick={() => ShowDoctor()}>
-                    {" "}
-                    All Doctors{" "}
+                    
+                    {t('HomeDoctorsAll')}   
                 </button>
             </div>
         </div>

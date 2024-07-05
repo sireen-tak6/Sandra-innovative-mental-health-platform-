@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 //css
 import "./HeadingPart.css";
+import { useTranslation } from 'react-i18next';
+
 export default function HeadingPart() {
     const navigator = useNavigate();
     const SignUp = () => {
@@ -10,25 +12,27 @@ export default function HeadingPart() {
     const Login = () => {
         navigator("/login");
     };
+    const { t, i18n } = useTranslation();
+
+  
 
     return (
         <div className="section headingSection">
             <div className="headingContent">
                 <div className="websiteTitle">
-                    Sandra: Your Partner in Wellness
+                  {t('HomeHeadingTitle')}  
                 </div>
                 <div className="headingtext">
-                    <p>Start your journey to well-being today.</p>
+                    <p> {t('HomeHeadingFirstsen')}</p>
                     <p>
-                        Explore our resources and connect with the support you
-                        deserve.
+                    {t('HomeHeadingSecSen')} 
                     </p>
                 </div>
                 {localStorage.getItem("user-info") !== null ? null : (
                     <div className="headingbuttons">
                         <div>
                             <button className="button" onClick={() => SignUp()}>
-                                Signup
+                            {t('NavbarSignup')}   
                             </button>
                         </div>
                         <div>
@@ -36,7 +40,7 @@ export default function HeadingPart() {
                                 className="button s"
                                 onClick={() => Login()}
                             >
-                                Login
+                            {t('NavbarLogin')}    
                             </button>
                         </div>
                     </div>

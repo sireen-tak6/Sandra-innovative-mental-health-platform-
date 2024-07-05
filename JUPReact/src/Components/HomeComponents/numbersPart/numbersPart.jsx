@@ -5,6 +5,7 @@ import axiosClient from "../../../axios";
 //css
 import "./numbersPart.css";
 import NumbersCard from "../numbersCard/numbersCard";
+import { useTranslation } from "react-i18next";
 
 export default function NumbersPart() {
     const navigate = useNavigate();
@@ -14,6 +15,7 @@ export default function NumbersPart() {
     const [Articles, setArticles] = useState(0);
     const [Doctors, setDoctors] = useState(0);
     const [Users, setUsers] = useState(0);
+    const {t } = useTranslation();
 
     const [loading, setLoading] = useState(false);
     useEffect(() => {
@@ -40,22 +42,22 @@ export default function NumbersPart() {
     };
     return (
         <div className="section numbersSection">
-            <div className="Title">Thriving Community</div>
+            <div className="Title">{t('HomeNumberTitle')}</div>
             <div className="cards">
                 <NumbersCard
-                    title="Users"
+                    title={t('HomeNumberUsers')}
                     count={Users}
                     color="green"
                     image={user}
                 />
                 <NumbersCard
-                    title="Doctors"
+                    title={t('HomeNumberDoctors')}
                     count={Doctors}
                     color="yellow"
                     image={doctor}
                 />
                 <NumbersCard
-                    title="Articles"
+                    title={t('HomeNumberArticles')}
                     count={Articles}
                     color="blue"
                     image={article}

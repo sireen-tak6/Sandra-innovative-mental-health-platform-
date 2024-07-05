@@ -23,9 +23,10 @@
 .Nav .logoImage {
     border-radius: 5px;
 }
-.o {
+.Nav .o {
     color: black;
 }
+
 .Nav .l {
     color: rgb(0, 0, 0);
 }
@@ -50,7 +51,87 @@
     margin-left: 0;
     padding-left: 0;
 }
-@media screen and (max-width: 750px) {
+
+.Nav .button-box {
+    width: 6vw;
+    height: 4vh;
+    position: absolute;
+    display: flex;
+    border-radius: 30px;
+    background: #fff;
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+.Nav .toggle-btn {
+    font-size: max(2.5vmin, 12px);
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    outline: none;
+    position: relative;
+    text-align: center;
+    width: 3vw;
+    transition: 0.5s;
+    height: 4vh;
+}
+
+.Nav .selected {
+    color: white;
+}
+
+.Nav .btn {
+    top: 0;
+    position: absolute;
+    width: 3vw;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
+    border-radius: 15px;
+    box-shadow: 3px 0px 8px 2px #6f6f6f82;
+    transition: 0.5s;
+    height: 4vh;
+}
+.Nav .left {
+    box-shadow: -3px 0px 8px 2px #6f6f6f82;
+}
+.Nav .language-toggle {
+    display: flex;
+    align-items: center;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+html[dir="rtl"] .Nav .me-auto .info {
+    margin-right: auto;
+    margin-left: 5vmin;
+}
+html[dir="rtl"] .Nav .brand{
+    margin-right: 2vmin;
+
+}
+html[dir="rtl"] .Nav .button {
+    margin-right: 0;
+    padding-right: 0;
+}
+html[dir="rtl"] .Nav .left {    
+    right: 3vw;
+}
+html[dic="rlt"] .Nav .btn {
+    right: 0;
+}
+html[dir="rtl"] .Nav .language-toggle {
+    margin-left: 3vw;
+}
+html[dir="ltr"] .Nav .left {
+    left: 3vw;
+}
+html[dir="ltr"] .Nav .btn {
+    left: 0;
+}
+html[dir="ltr"] .Nav .language-toggle {
+    margin-right: 3vw;
+}
+html[dir="rtl"] .Nav .o {
+    text-align: right;
+}
+@media screen and (max-width: 800px) {
     .Nav .me-auto .info {
         margin-left: 0;
         margin-right: 5vmin;

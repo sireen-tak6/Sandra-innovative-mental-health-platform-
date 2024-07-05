@@ -16,7 +16,6 @@ import DoctorsPart from "../../Components/HomeComponents/DoctorsPart/DoctorsPart
 import ArticlesPart from "../../Components/HomeComponents/ArticlesPart/ArticlesPart";
 
 export default function Home2() {
-    
 
     return (
         <div className="HomePage">

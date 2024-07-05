@@ -1,0 +1,68 @@
+{
+  "BrandName": "ساندرا",
+  "NavbarHome": "الصفحة الرئيسية",
+  "NavbarDoctors":"المعالجون النفسيون",
+  "NavbarPatients":"المرضى",
+  "NavbarArticles":"المقالات",
+  "NavbarTalk":"تكلم مع ساندرا",
+  "NavbarChats":"المحادثات",
+  "NavbarVerReq":"طلبات التوثيق",
+  "NavbarAppointments":"المواعيد",
+  "NavbarSchedule":"الجدول الزمني",
+  "NavbarCustomerService":"خدمة العملاء",
+  "NavbarComplaints":"الشكاوي",
+  "NavbarSignup":"تسجيل",
+  "NavbarLogin":"تسجيل دخول",
+  "NavbarProfile":"الحساب الشخصي",
+  "NavbarAddSec":"إضافة مساعدة",
+  "NavbarEn":"En",
+  "NavbarAr":"Ar",
+  "NavbarSettings":"الإعدادات",
+  "NavbarLogout":"تسجيل خروج",
+
+  "FooterDes": "إذا كنت تهتم بصحتك العقلية وترغب في التحكم في أعصابك، فحاول الاسترخاء والهدوء.",
+  "FooterQuickLinks": "روابط سريعة",
+  "FooterContact": "الاتصال",
+  "FooterVerify": "تحقق من شهادتك",
+  "FooterServices": "الخدمات",
+
+  "HomeHeadingTitle": "ساندرا: شريكك في الراحة",
+  "HomeHeadingFirstsen": "ابدأ رحلتك نحو الرفاهية اليوم.",
+  "HomeHeadingSecSen": "استكشف خدماتنا وتواصل مع المساعدة التي تستحقها.",
+  "HomeUseCaseTitle": "ابدأ مسارك نحو صحة أفضل",
+
+  "HomeUseCaseFirstTitle": "اعثر على المعالج النفسي الموثوق المناسب",
+  "HomeUseCaseFirstDes": "تواصل مع معالجين نفسيين مؤهلين وموثوقين للحصول على رعاية شخصية.",
+  "HomeUseCaseSecTitle": "تواصل بأمان",
+  "HomeUseCaseSectDes": "تواصل مع مساعدنا الذكي للحصول على التوجيه الأولي.",
+  "HomeUseCaseThiTitle": "احجز مواعيد عبر الإنترنت أو في العيادة",
+  "HomeUseCaseThiDes": "احجز المواعيد عبر الإنترنت أو شخصيًا. ادفع بأمان إلكترونيًا.",
+  "HomeUseCaseFourthTitle": "تحدث مع المعالجين النفسيين عبر الإنترنت",
+  "HomeUseCaseFourthDes": "احصل على نصائح ودعم شخصي من منزلك.",
+  "HomeUseCaseFifthTitle": "تعلم من الخبراء",
+  "HomeUseCaseFifthDes": "تصفح المقالات المكتوبة والموثقة من قبل خبراء حول الصحة العقلية.",
+
+  "HomeAboutTitle": "من نحن",
+  "HomeAboutBody": "منصتنا هي أكثر من مجرد موقع، إنها مجتمع حيث يتواصل المرضى والمعالجون النفسيون لدعم بعضهم البعض في رحلتهم نحو صحة عقلية أفضل. نحن نؤمن بأن الجميع يستحقون الوصول إلى الخبرة الموثوقة والرعاية الشخصية، وهذا بالضبط ما نقدمه.",
+
+  "HomeNumberTitle": "مجتمع مزدهر",
+  "HomeNumberUsers": "المستخدمون",
+  "HomeNumberDoctors": "المعالجون النفسيون",
+  "HomeNumberArticles": "المقالات",
+
+  "HomeDoctorsTitle": "الخبرة الموثقة",
+  "HomeDoctorsDes": "استكشف معالجينا النفسيين الموثوق بهم وتواصل مع الدعم الذي تستحقه.",
+  "HomeDoctorsNoData": "لا يوجد معالجين نفسيين حتى الآن :(",
+  "HomeDoctorsPoints":"النقاط",
+  "HomeDoctorsLikes":"الإعجابات",
+  "HomeDoctorsProfile":"الملف الشخصي",
+  "HomeDoctorsAll": "جميع المعالجين",
+
+  "HomeArticlesTitle": "محتوى مخصص",
+  "HomeArticlesDes": "انمو واستفيد. امنح نفسك القوة بأحدث المعرفة والنصائح العملية. اقرأ مقالاتنا المختارة لتلهمك وترشدك في نموك الشخصي.",
+  "HomeArticlesNoData": "لا توجد مقالات حتى الآن  :(",
+  "HomeArticlesAll": "جميع المقالات"
+
+
+  }
+  

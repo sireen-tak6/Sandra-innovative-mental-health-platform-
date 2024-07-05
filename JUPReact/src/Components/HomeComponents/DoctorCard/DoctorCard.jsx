@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 //css
 import "./DoctorCard.css";
@@ -16,6 +17,8 @@ export default function DoctorCard({
     const showDoctorProfile = () => {
         navigate(`/doctorProile/${id}`);
     };
+    const {t } = useTranslation();
+
     return (
         <div className="DoctorCard">
             <div className="Information">
@@ -35,8 +38,8 @@ export default function DoctorCard({
                     </div>
                     <div className="DoctorSpeciality">{speciality}</div>
                     <div className="DoctorRate">
-                        <div className="DoctorPoints"> points : {point}</div>
-                        <div className="DoctorLikes">likes : {like}</div>
+                        <div className="DoctorPoints">{t('HomeDoctorsPoints')}  : {point}</div>
+                        <div className="DoctorLikes">{t('HomeDoctorsLikes')}  : {like}</div>
                     </div>
 
                     <div className="profileButton">
@@ -44,7 +47,7 @@ export default function DoctorCard({
                             type="button"
                             onClick={() => showDoctorProfile()}
                         >
-                            profile
+                           {t('HomeDoctorsProfile')}
                         </button>
                     </div>
                 </div>

@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 //css
 import "./AboutPart.css";
 export default function AboutPart() {
     const navigate = useNavigate();
+    const {t } = useTranslation();
+
     return (
         <div className="section AboutSection">
             <div className="AboutSection2">
                 <div className="aboutText">
-                    <div className="Title">About us</div>
+                    <div className="Title">{t('HomeAboutTitle')}</div>
                     <div className="aboutText2">
-                        <b>Sandra</b> is more than just a platform, it's a
-                        community. Here, patients and doctors connect to empower
-                        one another on the journey to better mental well-being.
-                        We believe everyone deserves access to trusted expertise
-                        and personalized care, and that's exactly what we
-                        provide.
+                        <b>{t('BrandName')}</b> ... {t('HomeAboutBody')}
                     </div>
                 </div>
             </div>

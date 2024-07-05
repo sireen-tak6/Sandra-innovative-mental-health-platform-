@@ -8,15 +8,19 @@
     justify-content: center;
     padding: 20vh 5vw;
     flex-direction: column;
-    align-content: flex-start;
+    align-content:flex-start;
     margin-bottom: 8vh;
 }
+html[dir="rtl"] .HomePage .headingSection {
+    background-image: url("../images/homecoverAr.png");
 
+}
 .HomePage .headingSection .headingContent {
     width: 40vw;
     justify-content: center;
     padding: 4vh 2vw;
 }
+
 .HomePage .headingSection .headingContent .websiteTitle {
     font-size: max(4.3vmin, 15px);
     color: #08384c;
