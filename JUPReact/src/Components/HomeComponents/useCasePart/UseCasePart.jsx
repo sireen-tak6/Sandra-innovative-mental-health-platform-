@@ -11,6 +11,7 @@ export default function UseCasePart() {
     const bot = "../images/botIcon.svg";
     const doctor = "../images/DoctorsIcon.svg";
     const chat = "../images/chatIcon.svg";
+    const appointment = "../images/AppointmentIcon.svg";
     const article = "../images/articleIcon.svg";
     const { t, i18n } = useTranslation();
     return (
@@ -30,7 +31,7 @@ export default function UseCasePart() {
                 <UseCaseCard
                     title={t('HomeUseCaseThiTitle')}
                     content={t('HomeUseCaseThiDes')}
-                    image={chat}
+                    image={appointment}
                 />
                 <UseCaseCard
                     title={t('HomeUseCaseFourthTitle')}

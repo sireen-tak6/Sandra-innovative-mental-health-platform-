@@ -98,6 +98,13 @@
     margin-top: 2vh;
     margin-bottom: 2vh;
 }
+.Nav .language-toggle2 {
+    display: flex;
+    align-items: center;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+
 html[dir="rtl"] .Nav .me-auto .info {
     margin-right: auto;
     margin-left: 5vmin;
@@ -119,6 +126,9 @@ html[dic="rlt"] .Nav .btn {
 html[dir="rtl"] .Nav .language-toggle {
     margin-left: 3vw;
 }
+html[dir="rtl"] .Nav .language-toggle2 {
+    margin-left: 5vw;
+}
 html[dir="ltr"] .Nav .left {
     left: 3vw;
 }
@@ -127,6 +137,9 @@ html[dir="ltr"] .Nav .btn {
 }
 html[dir="ltr"] .Nav .language-toggle {
     margin-right: 3vw;
+}
+html[dir="ltr"] .Nav .language-toggle2 {
+    margin-right: 5vw;
 }
 html[dir="rtl"] .Nav .o {
     text-align: right;

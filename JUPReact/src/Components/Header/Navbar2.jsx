@@ -25,7 +25,7 @@ import Notifications from "../Notifications/Notifications/Notifications";
 import { useTranslation } from "react-i18next";
 
 function Navbarr() {
-    const {t, i18n } = useTranslation();
+    const { t, i18n } = useTranslation();
     const left = useRef(false);
 
     const { query, setQuery, click, setClick } = useContext(SearchContext);
@@ -61,13 +61,13 @@ function Navbarr() {
         console.log(click);
     };
     const ChangeLang = (lng) => {
-        left.current=!left.current;
+        left.current = !left.current;
         console.log(left.current);
         i18n.changeLanguage(lng);
         document.documentElement.dir = lng === "ar" ? "rtl" : "ltr"; // Set direction
     };
     return (
-        <Container className="Container">
+        <Container className="">
             <Navbar className="Nav" expand="md" fixed="top">
                 <Container fluid>
                     <Navbar.Brand href="/user">
@@ -81,40 +81,40 @@ function Navbarr() {
                                     className="logoImage"
                                 />
                             </div>
-                           {t('BrandName')} 
+                            {t("BrandName")}
                         </div>
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarNav" />
                     <Navbar.Collapse id="navbarNav">
                         <Nav className="me-auto">
                             <Nav.Link href="/home" className="l">
-                              {t('NavbarHome') } 
+                                {t("NavbarHome")}
                             </Nav.Link>
                             {Type != "admin" ? (
                                 <Nav.Link href="/doctor" className="l">
-                                  {t('NavbarDoctors')}  
+                                    {t("NavbarDoctors")}
                                 </Nav.Link>
                             ) : null}
                             {Type == "doctor" || Type == "secretary" ? (
                                 <Nav.Link href="/Patients" className="l">
-                                   {t('NavbarPatients')} 
+                                    {t("NavbarPatients")}
                                 </Nav.Link>
                             ) : null}
                             <Nav.Link href="/articles" className="l">
-                            {t('NavbarArticles')} 
+                                {t("NavbarArticles")}
                             </Nav.Link>
 
                             {localStorage.getItem("user-info") ? (
                                 <>
                                     {Type == "patient" ? (
                                         <Nav.Link href="/Chatbot" className="l">
-                                           {t('NavbarTalk')} 
+                                            {t("NavbarTalk")}
                                         </Nav.Link>
                                     ) : null}
                                     {Type !== "admin" &&
                                     Type !== "secretary" ? (
                                         <Nav.Link href="/chats" className="l">
-                                           {t('NavbarChats')}
+                                            {t("NavbarChats")}
                                         </Nav.Link>
                                     ) : null}
                                     {Type == "admin" ? (
@@ -123,13 +123,13 @@ function Navbarr() {
                                                 href="/request/verfiy"
                                                 className="l"
                                             >
-                                              {t('NavbarVerReq')} 
+                                                {t("NavbarVerReq")}
                                             </Nav.Link>
                                             <Nav.Link
                                                 href="/control/doctors"
                                                 className="l"
                                             >
-                                               {t('NavbarDoctors')} 
+                                                {t("NavbarDoctors")}
                                             </Nav.Link>
                                         </>
                                     ) : null}
@@ -138,7 +138,7 @@ function Navbarr() {
                                         // href={`/newAppointment/${Type=="secretary"?user.doctorID:id}`}
                                         className="l"
                                     >
-                                    {t('NavbarAppointments')}    
+                                        {t("NavbarAppointments")}
                                     </Nav.Link>
                                     {Type != "admin" && Type != "patient" ? (
                                         <>
@@ -146,7 +146,7 @@ function Navbarr() {
                                                 href="/Schedule"
                                                 className="l"
                                             >
-                                             {t('NavbarSchedule')} 
+                                                {t("NavbarSchedule")}
                                             </Nav.Link>
                                         </>
                                     ) : null}
@@ -156,7 +156,7 @@ function Navbarr() {
                                                 href="/customerService"
                                                 className="l"
                                             >
-                                             {t('NavbarCustomerService')}  
+                                                {t("NavbarCustomerService")}
                                             </Nav.Link>
                                         </>
                                     ) : null}
@@ -165,7 +165,7 @@ function Navbarr() {
                                             href="/complaints"
                                             className="l"
                                         >
-                                          {t('NavbarComplaints')}  
+                                            {t("NavbarComplaints")}
                                         </Nav.Link>
                                     </>
                                     <Nav.Link className="l">
@@ -198,15 +198,50 @@ function Navbarr() {
                                         </div>
                                     </Nav.Link>
                                     <Nav.Link href="/signup" className="l">
-                                    {t('NavbarSignup')}   
+                                        {t("NavbarSignup")}
                                     </Nav.Link>
 
                                     <Nav.Link href="/login" className="l">
-                                    {t('NavbarLogin')} 
+                                        {t("NavbarLogin")}
                                     </Nav.Link>
                                 </>
                             )}
-
+                            {localStorage.getItem("user-info") ? null : (
+                                <Nav.Link className="l">
+                                    {" "}
+                                    <div className="language-toggle2 ">
+                                        <div className="button-box">
+                                            <div
+                                                className={`btn ${
+                                                    left.current ? "left" : ""
+                                                }`}
+                                            ></div>
+                                            <button
+                                                type="button"
+                                                className={`toggle-btn ${
+                                                    left.current
+                                                        ? ""
+                                                        : "selected"
+                                                }`}
+                                                onClick={() => ChangeLang("en")}
+                                            >
+                                                {t("NavbarEn")}
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className={`toggle-btn ${
+                                                    left.current
+                                                        ? "selected"
+                                                        : ""
+                                                }`}
+                                                onClick={() => ChangeLang("ar")}
+                                            >
+                                                {t("NavbarAr")}
+                                            </button>
+                                        </div>{" "}
+                                    </div>
+                                </Nav.Link>
+                            )}
                             <div className="info">
                                 {localStorage.getItem("user-info") ? (
                                     <>
@@ -233,14 +268,14 @@ function Navbarr() {
                                                         href={`/doctorProile/${id}`}
                                                         className="o"
                                                     >
-                                                    {t('NavbarProfile')}    
+                                                        {t("NavbarProfile")}
                                                     </NavDropdown.Item>
                                                     {!Secretary && (
                                                         <NavDropdown.Item
                                                             href={`/AddSecretary`}
                                                             className="o"
                                                         >
-                                                        {t('NavbarAddSec')}    
+                                                            {t("NavbarAddSec")}
                                                         </NavDropdown.Item>
                                                     )}
                                                 </>
@@ -251,7 +286,7 @@ function Navbarr() {
                                                         href={`/patientProfile/${id}`}
                                                         className="o"
                                                     >
-                                                     {t('NavbarProfile')}
+                                                        {t("NavbarProfile")}
                                                     </NavDropdown.Item>
                                                 </>
                                             ) : null}
@@ -276,7 +311,7 @@ function Navbarr() {
                                                                 ChangeLang("en")
                                                             }
                                                         >
-                                                         {t('NavbarEn')}  
+                                                            {t("NavbarEn")}
                                                         </button>
                                                         <button
                                                             type="button"
@@ -289,7 +324,7 @@ function Navbarr() {
                                                                 ChangeLang("ar")
                                                             }
                                                         >
-                                                         {t('NavbarAr')}  
+                                                            {t("NavbarAr")}
                                                         </button>
                                                     </div>{" "}
                                                 </div>
@@ -298,14 +333,14 @@ function Navbarr() {
                                                 href="/Settings"
                                                 className="o"
                                             >
-                                            {t('NavbarSettings')}  
+                                                {t("NavbarSettings")}
                                             </NavDropdown.Item>
 
                                             <NavDropdown.Item
                                                 onClick={Logout}
                                                 className="o"
                                             >
-                                              {t('NavbarLogout')} 
+                                                {t("NavbarLogout")}
                                             </NavDropdown.Item>
                                         </NavDropdown>
                                     </>

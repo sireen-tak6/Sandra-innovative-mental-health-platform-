@@ -7,7 +7,7 @@ const NoData = ({ content }) => {
     return (
         <>
             <div className="NoDataContainer">
-                <p>{content} </p>
+                <p id="content">{content} </p>
             </div>
         </>
     );

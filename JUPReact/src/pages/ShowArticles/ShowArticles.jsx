@@ -14,6 +14,7 @@ import ArticlesProv from "../../Providers/Articlesprov";
 
 const ShowArticles = () => {
     const [Category, setCategory] = useState(0);
+    
     return (
         <div className="ShowArticles">
             <ArticleCategoryProv value={Category} onUpdate={setCategory}>

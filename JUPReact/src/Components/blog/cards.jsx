@@ -14,11 +14,13 @@ import NoData from "../NoData/NoData";
 //providers
 import { ArticlesContext } from "../../Providers/Articlesprov";
 import { MyContext } from "../../Providers/ArticleCategoryprov";
+import { useTranslation } from "react-i18next";
 
 const Cards = () => {
     const { Articles, setArticles } = useContext(ArticlesContext);
     const { Category } = useContext(MyContext);
     const [Visible, setVisible] = useState(6);
+    const {t } = useTranslation();
 
     useEffect(() => {
         if (Category === 0) {
@@ -110,7 +112,7 @@ const Cards = () => {
             return (
                 <div class="ButtonContainer">
                     <Button onClick={showMoreItems} className="LoadMoreButton">
-                        load More
+                      {t('cardsLoadMore')}  
                     </Button>
                 </div>
             );
@@ -147,7 +149,7 @@ const Cards = () => {
     } else {
         return (
             <section className="blog">
-                <NoData content="No Articles yet :(" />
+                <NoData content={t('HomeArticlesNoData')} />
             </section>
         );
     }

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import "sweetalert2/src/sweetalert2.scss";
 import "./SignUpLoginForm.css";
 import CircularLoading from "../../loadingprogress/loadingProgress";
+import { useTranslation } from "react-i18next";
 
 const SignUpLoginForm = ({
     onsubmit,
@@ -19,19 +20,20 @@ const SignUpLoginForm = ({
     confirmpassword,
     setloading,
     isloading,
-
 }) => {
+    const { t } = useTranslation();
+
     return (
         <form onSubmit={onsubmit}>
             {Type === "SignUp" || Type == "SecretaryLogin" ? (
                 <div className="div">
-                    <div className="label">user name :</div>
+                    <div className="label">{t("SignLogUsername")}:</div>
                     <input
                         type="text"
                         id="user_name"
                         name="user_name"
                         className="form-control form-control-lg"
-                        placeholder="Your User Name"
+                        placeholder={t("SignLogUsername")}
                         value={user_name}
                         onChange={(ev) => setUser_name(ev.target.value)}
                     />
@@ -40,12 +42,12 @@ const SignUpLoginForm = ({
             ) : null}
             {Type !== "SecretaryLogin" ? (
                 <div className="div">
-                    <div className="label">email :</div>
+                    <div className="label">{t("SignLogEmail")}:</div>
                     <input
                         type="email"
                         id="email"
                         className="form-control form-control-lg"
-                        placeholder="Your Email"
+                        placeholder={t("SignLogEmail")}
                         value={email}
                         onChange={(ev) => setEmail(ev.target.value)}
                     />
@@ -53,30 +55,30 @@ const SignUpLoginForm = ({
                 </div>
             ) : null}
             <div className="div">
-                <div className="label">Password :</div>
+                <div className="label">{t("SignLogPassword")}:</div>
                 <input
                     type="password"
                     id="password"
                     name="password"
                     className="form-control form-control-lg"
-                    placeholder="Password"
+                    placeholder={t("SignLogPassword")}
                     value={password}
                     onChange={(ev) => setPassword(ev.target.value)}
                 />
                 <label htmlFor="password"></label>
-                {Type !== "SignUp" ? <a>forgot password?</a> : null}
+                {Type !== "SignUp" ? <a>{t("SignLogforgetPass")}</a> : null}
             </div>{" "}
             {Type === "SignUp" ? (
                 <>
                     {" "}
                     <div className="div">
-                        <div className="label">confirm Password :</div>
+                        <div className="label">{t("SignLogconPass")}:</div>
                         <input
                             type="password"
                             id="confirmpassword"
                             name="confirmpassword"
                             className="form-control form-control-lg "
-                            placeholder="Confirm Password"
+                            placeholder={t("SignLogconPass")}
                             value={confirmpassword}
                             onChange={(ev) =>
                                 setConfirmPassword(ev.target.value)
@@ -90,12 +92,12 @@ const SignUpLoginForm = ({
                         <>
                             <div className="submitPart">
                                 <button type="submit" className="button">
-                                    Sign Up
+                                    {t("SignupTitle")}
                                 </button>
                             </div>
                             <div className="LoginButton">
-                                you already have an account ?{" "}
-                                <Link to="/login">Login</Link>
+                                {t("SignLogSignask")}{" "}
+                                <Link to="/login">{t("LoginTitle")}</Link>
                             </div>
                         </>
                     )}
@@ -107,11 +109,13 @@ const SignUpLoginForm = ({
                     ) : (
                         <>
                             <div className="submitPart">
-                                <button type="submit" className="button">Login</button>
+                                <button type="submit" className="button">
+                                    {t("LoginTitle")}
+                                </button>
                             </div>
                             <div className="signupButton">
-                                you don't have an account :{" "}
-                                <Link to="/signup">Sign Up</Link>
+                                {t("SignLogLogAsk")}{" "}
+                                <Link to="/signup">{t("SignupTitle")}</Link>
                             </div>
                         </>
                     )}

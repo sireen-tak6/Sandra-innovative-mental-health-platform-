@@ -3,13 +3,17 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import "./InfoForVideo.css";
 import axiosClient from "../../axios";
+import { useTranslation } from "react-i18next";
 
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 const InfoForVideo = () => {
     
-    const doctor = "../assetss/doctoricon.png";
+    const maleDoctor = "../images/maleDoctor.jpg";
+    const femaleDoctor = "../images/femaleDoctor.jpg";
+    const patient = "../images/MaleUser.jpg";
     const [appointment, setAppointment] = useState(null);
+    const { t, i18n } = useTranslation();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -68,36 +72,39 @@ const InfoForVideo = () => {
                 }
             });
     };
+    const info=JSON.parse(localStorage.getItem('user-info'));
     return (
         <div className="InfoForVideo">
             <div className="InfoForVideoBody">
                 <div className="namePart">
                     <div className="image">
-                        <img src={doctor}></img>
+                        {localStorage.getItem("user-type")=="doctor"?info.gender==1?<img src={femaleDoctor}></img>:
+                        <img src={maleDoctor}></img>:<img src={patient}></img>}
                     </div>
                     <div className="name">
                        {localStorage.getItem("user-type")=="doctor"?"DR. ":""}{localStorage.getItem("user-name")}
                     </div>
                 </div>
                 <div className="rulesPart">
-                    <div className="ruleTitle">Rules:</div>
+                    <div className="ruleTitle">{t('ConfRulesTitle')}</div>
                     <div className="rules">
                         <div>
-                            - You must share the session link with only one
-                            patient.{" "}
+                        {t('ConfRules1')}
                         </div>
                         <div>
-                            - The session link is activated only once to
-                            maintain security.
+                        {t('ConfRules2')}
                         </div>
                         <div>
-                            - If the page is updated or refreshed , the session
-                            link will be canceled and you must create another
-                            session.
+                        {t('ConfRules3')}
+                            
+                        </div>
+                        <div>
+                        {t('ConfRules4')}
+                            
                         </div>
                     </div>
                     <div className="rulesButton">
-                        <button onClick={AgreePage}>Continue</button>
+                        <button onClick={AgreePage}>{t('ConfContinue')}</button>
                     </div>
                 </div>
             </div>

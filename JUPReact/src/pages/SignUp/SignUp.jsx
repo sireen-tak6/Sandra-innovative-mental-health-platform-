@@ -6,11 +6,14 @@ import axiosClient from "../../axios";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 import "./SignUp.css";
+import { useTranslation } from "react-i18next";
 
 //components
 import SignUpLoginForm from "../../Components/Forms/SignUpLoginForm/SignUpLoginForm";
 
 const SignUp = () => {
+    const {t } = useTranslation();
+
     useEffect(() => {
         if (localStorage.getItem("user-info")) {
             navigate("/login");
@@ -139,13 +142,13 @@ const SignUp = () => {
                     <div className="swapPart">
                         <button type="button" className="swap" onClick={swap}>
                             {moveright !== null && moveright
-                                ? "User Sign Up"
-                                : "Doctor Sign Up"}
+                                ?t('SignupUserButton') 
+                                :t('SignupDoctorButton')}
                         </button>
                     </div>
                 </div>
                 <div className="left1">
-                    <div className="title">Doctor Sign Up</div>
+                    <div className="title">{t('SignupDoctorButton')}</div>
                     {error.__html && (
                         <div
                             className="error"
@@ -169,7 +172,7 @@ const SignUp = () => {
                 </div>
 
                 <div className="right">
-                    <div className="title">Patient Sign Up</div>
+                    <div className="title">{t('SignupPatientButton')}</div>
                     {error.__html && (
                         <div
                             className="error"

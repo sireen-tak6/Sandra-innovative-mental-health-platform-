@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axiosClient from "../../axios";
+import { useTranslation } from "react-i18next";
 
 //css
 import Swal from "sweetalert2/dist/sweetalert2.js";
@@ -12,6 +13,8 @@ import "./Categories.css";
 import { MyContext } from "../../Providers/ArticleCategoryprov";
 
 const Categories = () => {
+    const {t } = useTranslation();
+
     const { Category, Categories, handleUpdate, setCategories } =
         useContext(MyContext);
     const userType = localStorage.getItem("user-type");
@@ -54,40 +57,38 @@ const Categories = () => {
     return (
         <div className="Categories">
             <div className="titleAdd">
-                <h2>Discover Nice Articles here</h2>
+                <h2> {t('CategoriesTitle')}</h2>
                 {userType === "doctor" ? (
                     <>
                         <Link to="pending" id="addArticle" className="link">
-                            Pending Articles
+                        {t('CategoriesPendingButton')}
                         </Link>
                         <Link to="AddArticle" id="addArticle" className="link">
-                            Add new Article
+                        {t('CategoriesAddButton')} 
                         </Link>
                     </>
                 ) : userType === "admin" ? (
                     <Link to="pending" id="addArticle" className="link">
-                        Pending Articles
+                       {t('CategoriesPendingButton')} 
                     </Link>
                 ) : null}
             </div>
 
             <br />
             <h6>
-                There is hope. With the right support, you can overcome your
-                challenges and live a happy and fulfilling life.
+            {t('CategoriesDes')}  
             </h6>
             <Row>
                 <Col>
                     <div className="cat">
-                        Embark on an Article Category Journey to Uncover a
-                        Universe of Relevant Knowledge :<br />
+                    {t('CategoriesDes2')} <br />
                         <button
                             onClick={() => onUpdate(0)}
                             id={0}
                             className={Category === 0 ? "selected" : "none"}
                         >
                             {" "}
-                            All
+                            {t('CategoriesAll')}   
                         </button>
                         {Categories.length > 0
                             ? Categories.map((item) => (
@@ -113,7 +114,7 @@ const Categories = () => {
                                 }
                             >
                                 {" "}
-                                Favorite
+                                {t('CategoriesFav')}  
                             </button>
                         ) : null}
                     </div>

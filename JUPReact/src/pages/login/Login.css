@@ -38,7 +38,11 @@
     transition: transform 0.5s ease-in-out;
     border-radius: 20px 0 0 20px;
 }
+html[dir="rtl"] .Login .pic {
+    border-radius: 0px 20px 20px  0px;
+    box-shadow: 5px 0px 10px -2px #01010149;
 
+}
 .Login .left1 {
     padding: 3.5vh 3vw;
     position: absolute;
@@ -50,18 +54,34 @@
     transition: transform 0.5s ease-in-out;
     z-index: 10;
 }
+html[dir="rtl"] .Login .left1 {
+    right: 0;
+
+
+}
 .Login .move-right {
     transform: translateX(100%);
     border-radius: 0px 20px 20px 0px;
     box-shadow: -5px 0px 10px -2px #01010149;
-    background-image: url("../images/Forms/Secretary.png");
+    background-image: url("../images/Forms/secretaryLogin.png");
 
 }
+html[dir="rtl"] .Login .move-right {
+    transform: translateX(-100%);
+    border-radius: 20px 0 0 20px;
+    box-shadow: 5px 0px 10px -2px #01010149;
 
+}
 .Login .move-left {
     transform: translateX(0%);
     border-radius: 20px 0 0 20px;
     box-shadow: 5px 0px 10px -2px #01010149;
+}
+html[dir="rtl"] .Login .move-left {
+    transform: translateX(0%);
+    border-radius: 0px 20px 20px 0px;
+    box-shadow: -5px 0px 10px -2px #01010149;
+
 }
 .Login .right {
     width: 50%;

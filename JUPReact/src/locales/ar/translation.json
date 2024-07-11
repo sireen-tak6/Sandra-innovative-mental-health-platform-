@@ -61,7 +61,46 @@
   "HomeArticlesTitle": "محتوى مخصص",
   "HomeArticlesDes": "انمو واستفيد. امنح نفسك القوة بأحدث المعرفة والنصائح العملية. اقرأ مقالاتنا المختارة لتلهمك وترشدك في نموك الشخصي.",
   "HomeArticlesNoData": "لا توجد مقالات حتى الآن  :(",
-  "HomeArticlesAll": "جميع المقالات"
+  "HomeArticlesAll": "جميع المقالات",
+
+  "CategoriesFav": "المفضلة",
+  "CategoriesAll": "الكل",
+  "CategoriesDes2": "انطلق في رحلة عبر تصنيفات المقالات لاكتشاف عالم من المعرفة المفيدة:",
+  "CategoriesDes": "هناك أمل. مع الدعم المناسب، يمكنك التغلب على تحدياتك والعيش حياة سعيدة ومرضية.",
+  "CategoriesPendingButton": "المقالات المعلقة",
+  "CategoriesAddButton": "إضافة مقال جديد",
+  "CategoriesTitle": "اكتشف مقالات رائعة هنا",
+
+  "cardsLoadMore":"المزيد",
+
+  "SignupUserButton":"تسجيل المستخدم",
+  "SignupDoctorButton":"تسجيل المعالج النفسي",
+  "SignupPatientButton":"تسجيل المريض",
+  "SignupTitle":"تسجيل",
+
+  "LoginUser":"تسجيل دخول المستخدم",
+  "LoginSecretary":"تسجيل دخول المساعدة",
+  "LoginTitle":"تسجيل دخول",
+
+  "SignLogUsername":"اسم المستخدم",
+  "SignLogEmail":"البريد الالكتروني",
+  "SignLogPassword":"كلمة المرور",
+  "SignLogforgetPass":"نسيت كلمة المرور؟",
+  "SignLogconPass":"تأكيد كلمة المرور",
+  "SignLogSignask":"تملك حساب ؟" ,
+  "SignLogLogAsk":"ليس لديك حساب ؟"  ,
+
+  "ConfRulesTitle":"القواعد",
+  "ConfRules1":"- يُسمح فقط للأفراد الذين لديهم موعد محدد بالدخول.",
+  "ConfRules2":"- يتم تخزين معلومات الجلسة حتى تتمكن من تقديم الشكاوى.",
+  "ConfRules3":"- تنتهي الجلسة تلقائيًا إذا غادر أحد المشاركين لأكثر من 15 دقيقة.",
+  "ConfRules4":"- يتم احتساب الوقت فقط عندما يكون كلا المشاركين حاضرين.",
+  "ConfContinue":"متابعة"
+
+
+
+
+
 
 
   }

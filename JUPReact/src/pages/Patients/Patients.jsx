@@ -9,7 +9,7 @@ import "./Patients.css";
 import Swal from "sweetalert2";
 
 export default function Patients() {
-    const patientImg = "../images/maledoctor.jpg";
+    const patientImg = "../images/MaleUser.jpg";
 
     const navigate = useNavigate();
     const [patients, setPatients] = useState([]);

@@ -24,7 +24,9 @@
     display: flex;
     box-shadow: 0px 0px 10px 8px #87bed249;
 }
-
+.SignUp .swap{
+    font-size: max(3.5vmin, 20px);
+}
 .SignUp .pic {
     background-color: #f6f0dd;
     background-image: url("../images/Forms/girl.png");
@@ -38,7 +40,11 @@
     transition: transform 0.5s ease-in-out;
     border-radius: 20px 0 0 20px;
 }
+html[dir="rtl"] .SignUp .pic {
+    border-radius: 0px 20px 20px  0px;
+    box-shadow: 5px 0px 10px -2px #01010149;
 
+}
 .SignUp .left1 {
     padding: 3.5vh 3vw;
     position: absolute;
@@ -50,16 +56,32 @@
     transition: transform 0.5s ease-in-out;
     z-index: 10;
 }
+html[dir="rtl"] .SignUp .left1 {
+    right: 0;
+
+
+}
 .SignUp .move-right {
     transform: translateX(100%);
     border-radius: 0px 20px 20px 0px;
     box-shadow: -5px 0px 10px -2px #01010149;
 }
+html[dir="rtl"] .SignUp .move-right {
+    transform: translateX(-100%);
+    border-radius: 20px 0 0 20px;
+    box-shadow: 5px 0px 10px -2px #01010149;
 
+}
 .SignUp .move-left {
     transform: translateX(0%);
     border-radius: 20px 0 0 20px;
     box-shadow: 5px 0px 10px -2px #01010149;
+}
+html[dir="rtl"] .SignUp .move-left {
+    transform: translateX(0%);
+    border-radius: 0px 20px 20px 0px;
+    box-shadow: -5px 0px 10px -2px #01010149;
+
 }
 .SignUp .right {
     width: 50%;

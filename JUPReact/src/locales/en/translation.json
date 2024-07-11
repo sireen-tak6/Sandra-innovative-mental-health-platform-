@@ -61,5 +61,40 @@
     "HomeArticlesTitle":"Curated Content",
     "HomeArticlesDes":" Grow & Thrive Empower yourself with the latest knowledge and practical tips. Read our top articles chosen to inspire and guide your personal growth.",
     "HomeArticlesNoData":"There are no Articles yet :(",
-    "HomeArticlesAll":" All Articles"
+    "HomeArticlesAll":" All Articles",
+
+    "CategoriesFav":"Favorite",
+    "CategoriesAll":"All",
+    "CategoriesDes2":" Embark on an Article Category Journey to Uncover a Universe of Relevant Knowledge :",
+    "CategoriesDes":" There is hope. With the right support, you can overcome your challenges and live a happy and fulfilling life.",
+    "CategoriesPendingButton":"Pending Articles",
+    "CategoriesAddButton":"Add new Article",
+    "CategoriesTitle":"Discover Nice Articles here",
+
+    "cardsLoadMore":"load More",
+
+    "SignupUserButton":"User Sign Up",
+    "SignupDoctorButton":"psychotherapist Sign Up",
+    "SignupPatientButton":"Patient Sign Up",
+    "SignupTitle":"Sign Up",
+
+    "LoginUser":"User Login",
+    "LoginSecretary":"Secretary Login",
+    "LoginTitle":"Login",
+
+    "SignLogUsername":"User name",
+    "SignLogEmail":"Email",
+    "SignLogPassword":"Password",
+    "SignLogforgetPass":"forgot password?",
+    "SignLogconPass":"confirm Password",
+    "SignLogSignask":"you already have an account ?",
+    "SignLogLogAsk":"you don't have an account ?"    ,
+
+    "ConfRulesTitle":"Rules",
+    "ConfRules1":"- Only individuals with a scheduled appointment are permitted.",
+    "ConfRules2":"- Conference information is stored, and complaints can be filed.",
+    "ConfRules3":"- Conference end automatically if a participant leaves for over 15 minutes.",
+    "ConfRules4":"- time counts only when both are present.",
+    "ConfContinue":"Continue"
+    
   }

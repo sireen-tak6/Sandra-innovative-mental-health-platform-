@@ -68,7 +68,8 @@ def create_chain(vectorStore):
     retriever_prompt = ChatPromptTemplate.from_messages([
         MessagesPlaceholder(variable_name="chat_history"),
         ("user", "{input}"),
-        ("user", " Given the above conversation,if it is empty just chat with user and if not generate a search query to look up in order to get information relevant to the conversation")
+        ("user", """ Given the above conversation,if it is empty just chat with user and if not
+         generate a search query to look up in order to get information relevant to the conversation""")
     ])
     history_aware_retriever = create_history_aware_retriever(
         llm=model,

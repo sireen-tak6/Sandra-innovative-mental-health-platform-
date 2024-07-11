@@ -21,7 +21,10 @@
     color: #1c627e;
     margin-right: auto;
 }
-
+html[dir="rtl"] .Categories .titleAdd h2 {
+    margin-left: auto;
+    margin-right: 0;
+}
 .Categories .cat {
     height: auto;
     margin-bottom: 15px;
@@ -33,11 +36,11 @@
 .Categories .selected {
     background-color: #b9f7eb;
     border: none;
-    background-image: linear-gradient(140deg, #b9f7eb8c 20%, #87bed28c 60%);
+    background: linear-gradient(135deg, #226e8c, #0d4155);
     border-radius: 6px;
     padding: 0.5% 1.3% 0.5% 1.3%;
     margin: 3vmin 1% 0 0;
-    color: #1c627e;
+    color: white;
     font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
         "Lucida Sans", Arial, sans-serif;
     font-size: max(2.1vmin, 11px);

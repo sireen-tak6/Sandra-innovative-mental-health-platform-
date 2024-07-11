@@ -23,11 +23,8 @@ export default function Doctor() {
     const userId = localStorage.getItem("user-id");
 
     useEffect(() => {
-        if (!localStorage.getItem("user-info")) {
-            navigate("/login");
-        } else {
+   
             fetchDoctors();
-        }
     }, [navigate]);
     const handleError = () => {
         Swal.fire({

@@ -208,7 +208,7 @@ const ProfilePatientInfo = ({ id, downloadPDF, setTopPatientInfo,notesSummarizat
             <div className="infoPart">
                 <div className="mainInfo">
                     <div className="imageframe">
-                        <img src="../images/maleDoctor.jpg" alt="" />
+                    {patientInfo.data.gender=="Female"?<img src="../images/FemaleUser.jpg" alt=""/>:<img src="../images/MaleUser.jpg" alt=""/>}
                     </div>
 
                     <div className="info">

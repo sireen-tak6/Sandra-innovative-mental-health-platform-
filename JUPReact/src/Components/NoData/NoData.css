@@ -2,7 +2,7 @@
     display: grid;
     margin-top: 2vh;
 }
-.NoDataContainer p {
+.NoDataContainer #content {
     padding: 1vh 1.5vw;
     border-radius: 10px;
     background-color: #ffffffc8;
