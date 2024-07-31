@@ -521,6 +521,7 @@ const PatientBooking = () => {
                     "/AddAppointment",
                     formData
                 );
+                console.log(response)
                 if (response.data.status == 200) {
                     swalWithBootstrapButtons
                         .fire(
@@ -539,7 +540,7 @@ const PatientBooking = () => {
                     );
                 }
             } catch (error) {
-               r("Error saving schedule:", error);
+               Error("Error saving schedule:", error);
             }
         }
         setIsSaving(false);

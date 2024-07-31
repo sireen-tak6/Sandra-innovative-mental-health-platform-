@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.P .vidddeo {
+    height: 300px;
+    box-shadow: -5px 0px 10px -2px #01010149;
+}
+
+.P .buttonnn {
+    box-shadow: -5px 0px 10px -2px #01010149;
+    height: 40px;
+    width: 80px;
+    color: white;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
+    border-radius: 15%;
+    font-weight: 700;
+}
+
+.P .buttonnnn {
+    box-shadow: -5px 0px 10px -2px #01010149;
+    height: 40px;
+    width: 140px;
+    color: white;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
+    border-radius: 15%;
+    font-weight: 700;
+}
+
+.P .onn:hover {
+    background-color: #eee;
+}

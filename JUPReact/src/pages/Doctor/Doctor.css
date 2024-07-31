@@ -19,8 +19,8 @@
 
 .Doctor .botton
 {
-     background-color: #b9f7eb;
-     background-image: linear-gradient(190deg, #b9f7eb8c 1%, #87bed28c 30%);
+     color: white;
+     background: linear-gradient(135deg, #226e8c, #0d4155);
 }
  
 .Doctor .cards:hover

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {
     Route,
     RouterProvider,
@@ -57,11 +57,22 @@ import CustomerService from "./pages/CustomerService/CustomerService";
 import Complaints from "./pages/Complaints/Complaints";
 import Patients from "./pages/Patients/Patients";
 import PatientProfile from "./pages/PatientProfile/PatientProfile";
+
+//Khaled
+import './components/translateCom.js';
+import AdminPost from './pages/AdminPost/AdminPost';
+import PostsSession from './pages/PostsSession/PostsSession';
+import SharePost from './pages/SharePost/SharePost';
+import SuggestVideo from './pages/SuggestVideo/SuggestVideo';
+import SeePost from './pages/SeePost/SeePost';
+import LikedPost from './pages/LikedPost/LikedPost';
+
+
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<RootLayout />}>
            <Route index element={<Home2 />} />
-           
+
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<SignUp />} />
             <Route path="home" element={<Home2 />} />
@@ -103,11 +114,19 @@ const router = createBrowserRouter(
             <Route path="Patients" element={<Patients/>}/>
             <Route path="patientProfile/:id" element={<PatientProfile />} />
 
+
+            <Route path='/admin/posts' element={<AdminPost/>}/>
+            <Route path='/posts' element={<PostsSession/>}/>
+            <Route path='/share/post' element={<SharePost/>}/>
+            <Route path='/suggest/videos' element={<SuggestVideo/>}></Route>
+            <Route path='/see/post' element={<SeePost/>}/>
+            <Route path='/liked/post' element={<LikedPost/>}></Route>
+
         </Route>
     )
 );
 const App = () => {
-
+    
     return (
         <div className="body">
             <SearchProv>

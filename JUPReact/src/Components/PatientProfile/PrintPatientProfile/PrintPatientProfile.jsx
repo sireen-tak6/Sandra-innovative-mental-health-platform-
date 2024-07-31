@@ -42,58 +42,58 @@ const PrintPatientProfile = React.forwardRef(({ patientInfos, notes ,summarizati
                 </div>
             </div>
             <div className="print-main-info">
-                <div className="userName">{patientInfos.patient.user_name}</div>
+                <div className="userName">{patientInfos?.patient?.user_name}</div>
                 <div className="flexdata">
                     <div className="data">
                         <span className="key">Name: </span>
-                        {patientInfos.data.firstName}{" "}
-                        {patientInfos.data.lastName}
+                        {patientInfos?.data?.firstName??""}{" "}
+                        {patientInfos?.data?.lastName??""}
                     </div>
                     <div className="data">
                         <span className="key">Age: </span>
-                        {patientInfos.data.age} Years
+                        {patientInfos?.data?.age??""} Years
                     </div>
                     <div className="data">
                         <span className="key">Gender: </span>
-                        {patientInfos.data.gender}
+                        {patientInfos?.data?.gender??""}
                     </div>
                 </div>
                 <div className="flexdata">
                     <div className="data">
                         <span className="key">Marital Status: </span>
-                        {patientInfos.data.maritalStatus}
+                        {patientInfos?.data?.maritalStatus??""}
                     </div>
                     <div className="data">
                         <span className="key">Phone: </span>
-                        {patientInfos.data.phoneNumber}
+                        {patientInfos?.data?.phoneNumber??""}
                     </div>
                     <div className="data">
                         <span className="key">Address: </span>
-                        {patientInfos.data.address}
+                        {patientInfos?.data?.address??""}
                     </div>
                 </div>
                 <div className="flexdata">
                     <div className="data">
                         <span className="key">Children: </span>
-                        {patientInfos.data.children}
+                        {patientInfos?.data?.children??""}
                     </div>
                     <div className="data">
                         <span className="key">Parents Status: </span>
-                        {patientInfos.data.parentsStatus || "none"}
+                        {patientInfos?.data?.parentsStatus || "none"}
                     </div>
                     <div className="data">
                         <span className="key">Education: </span>
-                        {patientInfos.data.education}
+                        {patientInfos?.data?.education??""}
                     </div>
                 </div>
                 <div className="flexdata">
                     <div className="data">
                         <span className="key">Employment Status: </span>
-                        {patientInfos.data.employmentStatus}
+                        {patientInfos?.data?.employmentStatus??""}
                     </div>
                     <div className="data">
                         <span className="key">Occupation: </span>
-                        {patientInfos.data.occupation}
+                        {patientInfos?.data?.occupation??""}
                     </div>
                 </div>
             </div>
@@ -101,19 +101,19 @@ const PrintPatientProfile = React.forwardRef(({ patientInfos, notes ,summarizati
             <div className="print-secondary-info">
                 <div className="data">
                     <span className="key">Past Conditions: </span>
-                    {patientInfos.data.pastConditions || "none"}
+                    {patientInfos?.data?.pastConditions || "none"}
                 </div>
                 <div className="data">
                     <span className="key">Professionals: </span>
-                    {patientInfos.data.professionals || "none"}
+                    {patientInfos?.data?.professionals || "none"}
                 </div>
                 <div className="data">
                     <span className="key">Medications: </span>
-                    {patientInfos.data.medications || "none"}
+                    {patientInfos?.data?.medications || "none"}
                 </div>
                 <div className="data">
                     <span className="key">Notes: </span>
-                    {patientInfos.data.notes || "none"}
+                    {patientInfos?.data?.notes || "none"}
                 </div>
             </div>
             <div className="print-summarization">

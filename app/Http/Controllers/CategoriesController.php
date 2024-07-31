@@ -17,11 +17,6 @@ class CategoriesController extends Controller
     public function insert(){
         $cats=[  
             [
-                'name'=>"Disorders",
-                'description'=>"Information on common disorders like depression, anxiety, and treatment options",
-                'image'=>"../images/category/Stress-Management.png"
-            ],
-            [
                 'name'=>"Stress Management",
                 'description'=>"Tips for coping with stress and daily pressures",
                 'image'=>"../images/category/Stress-Management.png"
@@ -29,43 +24,39 @@ class CategoriesController extends Controller
             [
                 'name'=>"Youth Mental Health",
                 'description'=>"Guidance on issues affecting young people",
-                'image'=>"../images/category/Stress-Management.png"
+                'image'=>"../images/category/youth-mental-health-.jpg"
             ],  
             [
                 'name'=>"Relationships",
                 'description'=>"Improving personal connections and communication",
-                'image'=>"../images/category/Stress-Management.png"
+                'image'=>"../images/category/Relashionships.jpg"
             ],  
             [
                 'name'=>"Self-Improvement",
                 'description'=>"Tips for personal growth and well-being",
-                'image'=>"../images/category/Stress-Management.png"
+                'image'=>"../images/category/self-development.png"
             ],
             [
                 'name'=>"Elderly Mental Health",
                 'description'=>"Addressing psychological challenges in seniors",
-                'image'=>"../images/category/Stress-Management.png"
+                'image'=>"../images/category/Elderly-Mental-Health.jpg"
             ],
             [
                 'name'=>"Therapy",
                 'description'=>"Seeking and benefiting from psychological help",
-                'image'=>"../images/category/Stress-Management.png"
+                'image'=>"../images/category/therapist.jpg"
             ],  
             [
                 'name'=>"Psychology Basics",
                 'description'=>"Basics of psychology and understanding mental factors",
-                'image'=>"../images/category/Stress-Management.png"
+                'image'=>"../images/category/psychological-disorders.png"
             ],  
             [
                 'name'=>"Culture & Mental Health",
                 'description'=>"How culture impacts mental health",
-                'image'=>"../images/category/Stress-Management.png"
+                'image'=>"../images/category/MentalHealth.jpg"
             ],
-            [
-                'name'=>"Prevention & Wellness",
-                'description'=>"Tips for staying mentally healthy and preventing disorders",
-                'image'=>"../images/category/Stress-Management.png"
-            ],
+       
         ];
         Category::insert($cats);
         return "hello";

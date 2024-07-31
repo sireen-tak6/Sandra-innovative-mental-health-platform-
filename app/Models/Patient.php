@@ -37,10 +37,11 @@ class Patient extends Model implements Authenticatable
     {
         return $this->hasMany(Appointment::class , 'patientID'); 
     }
-    public function information ():HasOne
+    public function information()
     {
         return $this->hasOne(PatientInfo::class , 'patientID'); 
     }
+    
     public function complaints(): HasMany
     {
         return $this->hasMany(Complaint::class, 'patientID');
@@ -109,10 +110,7 @@ class Patient extends Model implements Authenticatable
     {
         return $this->email;
     }
-    public function Usermeetings(): HasMany
-    {
-        return $this->hasMany(Usermeeting::class , 'patientID'); 
-    }
+ 
     public function toSearchableArray()
     {
         return [

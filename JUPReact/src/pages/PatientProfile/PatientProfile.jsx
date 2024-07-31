@@ -18,7 +18,6 @@ function PatientProfile() {
     const { id } = useParams();
     const [PatientInfos, setPatientInfo] = useState(null);
     const [Notes, setNotes] = useState(null);
-    const [summarizationLoad, setSummarizationLoad] = useState(true);
     const [EditedNotes, setEditedNotes] = useState(null);
     const printRef = useRef();
     const downloadPDF = async () => {
@@ -64,25 +63,7 @@ function PatientProfile() {
         }
     };
     const [NotesSummarization, setNotesSummarization] = useState(null);
-    useEffect(() => {
-        if (EditedNotes !== null) {
-            const getSummarization = async () => {
-                console.log(Notes);
-                const response = await axios.post(
-                    `http://127.0.0.1:5173/summarization`,
-                    {
-                        Notes: EditedNotes,
-                    }
-                );
-                console.log(response);
-                if (response.data["response"]) {
-                    setNotesSummarization(response.data["response"]);
-                    setSummarizationLoad(false);
-                }
-            };
-            getSummarization();
-        }
-    }, [EditedNotes]);
+   
 
     return (
         <>
@@ -91,8 +72,7 @@ function PatientProfile() {
                     id={id}
                     downloadPDF={downloadPDF}
                     setTopPatientInfo={setPatientInfo}
-                    notesSummarization={NotesSummarization}
-                    summarizationLoad={summarizationLoad}
+                    setNotesSummarization={setNotesSummarization}
                 />
                 <PatientNotes
                     id={id}
@@ -100,7 +80,7 @@ function PatientProfile() {
                     editedNotes={setEditedNotes}
                 />
             </div>
-            {PatientInfos && Notes && (
+            {(
                 <div
                     style={{
                         position: "absolute",

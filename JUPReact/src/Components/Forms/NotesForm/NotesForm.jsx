@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axiosClient from "../../../axios";
+import axios from "axios";
 import "./NotesForm.css";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
@@ -10,6 +11,7 @@ const NotesForm = ({ appointment, patientID, doctorID, setNotesOpen ,setNotesDon
     const [preSessionMeds, setPreSessionMeds] = useState(""); // State for pre-session meds
     const [postSessionMeds, setPostSessionMeds] = useState("");
     const [sessionNotes, setSessionNotes] = useState(""); // State for session notes
+    const [loading, setloading] = useState(false); // State for session notes
     const navigate = useNavigate();
     const handlePreSessionMedsChange = (event) => {
         setPreSessionMeds(event.target.value);
@@ -21,10 +23,13 @@ const NotesForm = ({ appointment, patientID, doctorID, setNotesOpen ,setNotesDon
     const handleSessionNotesChange = (event) => {
         setSessionNotes(event.target.value);
     };
+    const [NotesSummarization, setNotesSummarization] = useState(null);
+
     // Implement logic to submit medication data to your backend (e.g., using axios)
     // This could involve sending the pre-session meds, post-session meds, patient ID, etc.
     // Replace with your actual API call
     const submitMedicationData = async (event) => {
+        setloading(true);
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: "btn btn-success",
@@ -57,7 +62,38 @@ const NotesForm = ({ appointment, patientID, doctorID, setNotesOpen ,setNotesDon
                 formData
             );
             console.log(response);
+
             if (response.data.status == 200) {
+                const processedData = response.data.notes.map((record) => ({
+                    patient_name: record.patient.user_name,
+                    doctor_name: record.doctor.user_name,
+                    notes: record.Notes,
+                    preMed: record.preMed,
+                    postMed: record.postMed,
+                    created_at: record.created_at,
+                  }));
+                if (processedData !== null) {
+                        const response2 = await axios.post(
+                            `http://127.0.0.1:5173/summarization`,
+                            {
+                                Notes: processedData,
+                            }
+                        );
+                        console.log(response2);
+                        if (response2.data["response"]) {
+                            formData.append("userType", userType);
+                            formData.append("userID", parseInt(patientID));
+                            formData.append("sum", response2.data["response"]);
+                            const response3= await axiosClient.post(
+                                `/AddNotesSummarization`,
+                                formData
+                            );
+                            console.log(response3)
+                            setNotesSummarization(response2.data["response"]);
+                            console.log(response.data["response"]);
+                        }
+                    };
+                }
                 swalWithBootstrapButtons.fire(
                     "Note Added.",
                     "The Note has been added successfully.",
@@ -68,7 +104,7 @@ const NotesForm = ({ appointment, patientID, doctorID, setNotesOpen ,setNotesDon
                 if (onSubmit) {
                     onSubmit();
                 }
-            }
+            
         }
         else{
             setNotesOpen(false);
@@ -77,6 +113,7 @@ const NotesForm = ({ appointment, patientID, doctorID, setNotesOpen ,setNotesDon
                     onSubmit();
                 } 
         }
+        setloading(false)
     };
 
     return (
@@ -115,9 +152,9 @@ const NotesForm = ({ appointment, patientID, doctorID, setNotesOpen ,setNotesDon
                         <button
                             variant="primary"
                             type="button"
-                            onClick={submitMedicationData}
+                            onClick={loading?null:submitMedicationData}
                         >
-                            Save
+                            {loading?"...":"Save"}
                         </button>
                     </div>
                 </form>

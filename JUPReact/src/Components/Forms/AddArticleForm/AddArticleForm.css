@@ -92,9 +92,8 @@ select:focus {
 .FormCol .contentbutton::before {
     content: "Select text file";
     display: inline-block;
-    background-color: #b9f7eb;
-    background-image: linear-gradient(140deg, #b9f7eb8c 20%, #87bed28c 60%);
-    color: #0d4155;
+    color: white;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
     padding: 1.4vh 1vw;
     border: none;
     border-radius: 5px;
@@ -107,8 +106,8 @@ select:focus {
 }
 
 .FormCol .contentbutton:active::before {
-    background-color: #b9f7eb;
-    background-image: linear-gradient(140deg, #72d9c58c 20%, #35839f8c 60%);
+    color: white;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
 }
 
 .FormCol .imagePart {
@@ -181,9 +180,8 @@ select:focus {
     font-weight: 500;
     padding: 1vh 2vw;
     margin: 5vmin 2.5vmin 0vmin 2.5vmin;
-    background-color: #b9f7eb;
-    background-image: linear-gradient(140deg, #b9f7eb8c 20%, #87bed28c 60%);
-    color: #0d4155;
+    color: white;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
     width: min-content;
     border-radius: 6px;
     min-height: 30px;
@@ -192,8 +190,8 @@ select:focus {
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
 }
 .FormCol .submitPart button:active::before {
-    background-color: #b9f7eb;
-    background-image: linear-gradient(140deg, #72d9c58c 20%, #35839f8c 60%);
+    color: white;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
 }
 
 @media screen and (max-width: 750px) {

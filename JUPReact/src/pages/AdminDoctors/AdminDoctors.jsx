@@ -7,8 +7,8 @@ import "./AdminDoctors.css";
 import Swal from "sweetalert2";
 
 export default function AdminDoctors() {
-    const doctorImg = "../images/maleDoctor.png";
-    const doctorImgfemale = "../images/femaleDoctor.png";
+    const doctorImg = "../images/maleDoctor.jpg";
+    const doctorImgfemale = "../images/femaleDoctor.jpg";
     const medalia = "../assetss/medaliaicon.png";
     const [doctors, setDoctors] = useState([]);
     const [likes, setLikes] = useState([]);
@@ -143,7 +143,7 @@ export default function AdminDoctors() {
                         ></img>
                     </div>
 
-                    <div className="w-[45%] ml-auto mb-6">
+                    <div className="w-[48%] ml-auto mb-6">
                         <ul
                             className="max-h-[410px] lists"
                             style={{ overflowX: "hidden" }}

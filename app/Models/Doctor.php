@@ -196,8 +196,5 @@ class Doctor extends Model implements Authenticatable, MustVerifyEmailContract
 
         return false;
     }
-    public function Usermeetings(): HasMany
-    {
-        return $this->hasMany(Usermeeting::class, 'doctorID');
-    }
+  
 }

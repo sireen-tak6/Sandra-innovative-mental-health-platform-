@@ -17,7 +17,7 @@
     display: flex;
     position: relative;
 }
-.Schedule .AddBankButton{
+.Schedule .AddBankButton {
     padding: 1vh 1vw;
     border-radius: 6px;
     min-height: 25px;
@@ -31,8 +31,6 @@
         "Lucida Sans", Arial, sans-serif;
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
     min-width: 70px;
-  
-
 }
 .Schedule .Titletext {
     margin-left: auto;
@@ -47,7 +45,6 @@
     background: #fff;
     right: 0;
     box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.2);
-
 }
 
 .Schedule .toggle-btn {
@@ -82,14 +79,13 @@
 .Schedule .left {
     left: 6vw;
     box-shadow: -3px 0px 8px 2px #6f6f6f82;
-
 }
 .Schedule .grid3 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     width: 95vw;
 }
-.Schedule .loader{
+.Schedule .loader {
     width: 95vw;
     margin-top: 0;
 }
@@ -123,14 +119,12 @@
     -webkit-backdrop-filter: blur(10px);
     box-shadow: 2px 2px 4px 1px #6f6f6f82;
     background: linear-gradient(135deg, #226e8c, #0d4155);
-
 }
 
-.Schedule .checked{
+.Schedule .checked {
     background: linear-gradient(135deg, #f6f4ef, #e5decb);
     color: #226e8c;
     font-weight: 700;
-
 }
 
 .Schedule .add {
@@ -141,7 +135,6 @@
     font-size: 2.1vmin;
     padding: 0px;
     background: linear-gradient(135deg, #ffffff, #e9e9e9);
-
 }
 .Schedule .day {
     color: #0d4155c6;
@@ -153,13 +146,12 @@
 .Schedule .SaveButton {
     font-weight: 500;
     padding: 1vh 1vw;
-    background-color: #b9f7eb;
     border-radius: 6px;
     min-height: 25px;
     font-size: max(2.4vmin, 13px);
     font-weight: 600;
-    background-image: linear-gradient(140deg, #b9f7eb8c 20%, #87bed28c 60%);
-    color: #226e8c;
+    color: white;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
     border: none;
     font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
         "Lucida Sans", Arial, sans-serif;
@@ -190,7 +182,6 @@
 .Schedule .timeButtons {
     display: flex;
     justify-content: space-evenly;
-    
 }
 .Schedule .timeButtons button {
     font-weight: 500;
@@ -206,17 +197,14 @@
     min-width: 70px;
     margin-top: 5vh;
 }
-.Schedule .okButton{
-    background-image: linear-gradient(140deg, #b9f7eb8c 20%, #87bed28c 60%);
-    background-color: #b9f7eb;
-    color: #226e8c;
-
+.Schedule .okButton {
+    color: white;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
 }
-.Schedule .cancelButton{
+.Schedule .cancelButton {
     background-image: linear-gradient(140deg, #5151518c 20%, #bababa8c 60%);
     background-color: #535353;
     color: white;
-
 }
 .Schedule .modal-content {
     background: white;
@@ -241,7 +229,7 @@
     background-color: #717171;
 }
 
- .react-time-picker__inputGroup__input {
+.react-time-picker__inputGroup__input {
     border: none;
     color: white;
     padding: 5px;
@@ -250,10 +238,9 @@
     width: 4vw;
 }
 
- .react-time-picker__inputGroup__divider {
+.react-time-picker__inputGroup__divider {
     color: white;
     font-size: 24px; /* Adjust the font size as needed */
-
 }
 
 .Schedule .react-time-picker__clock {
@@ -268,17 +255,16 @@
     cursor: pointer;
 }
 .Schedule .react-time-picker__inputGroup__amPm {
-    border:none;
+    border: none;
     box-shadow: none;
 }
-.Schedule .react-time-picker__inputGroup__amPm option{
+.Schedule .react-time-picker__inputGroup__amPm option {
     color: #226e8c;
     font-weight: 500;
 }
-.Schedule .react-time-picker__inputGroup__hour{
+.Schedule .react-time-picker__inputGroup__hour {
     width: 50px;
 }
-.Schedule element.style{
+.Schedule element.style {
     width: 50px;
-
 }

@@ -78,6 +78,7 @@ const AppointmentsTypes = ({setAppointments}) => {
                         </div>
                     </div>
                         </div>
+                        {userType!="admin"?
                     <div className="NewButton">
                         <a
                             href={`${
@@ -90,7 +91,7 @@ const AppointmentsTypes = ({setAppointments}) => {
                         >
                             New appointment
                         </a>
-                    </div>
+                    </div>:null}
             </div>
             <div className="TypesDiv">
                 {Types.map(

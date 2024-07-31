@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('sessionNotes', function (Blueprint $table) {
             $table->id();
-            $table->String('Notes')->nullable();
-            $table->String('preMed')->nullable();
-            $table->String('postMed')->nullable();
+            $table->String('Notes',2500)->nullable();
+            $table->String('preMed',2500)->nullable();
+            $table->String('postMed',2500)->nullable();
             $table->unsignedBigInteger('patientID');
             $table->unsignedBigInteger('doctorID');
             $table->unsignedBigInteger('appointmentID');

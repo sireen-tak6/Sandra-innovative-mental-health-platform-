@@ -73,6 +73,61 @@ class PatientInformationController extends Controller
         }
        
     }
+      // for adding schedule from doctor or secretary
+      public function AddNotesSummarization(Request $request)
+      {
+         
+          $userID=$request->userID;
+          $userType=$request->userType;
+          $data = $request->sum; // Decode JSON data
+        
+          if($userType=="doctor"){
+              $user=Patient::find($userID);
+              if($user){
+                  $info=PatientInfo::where("patientID",$userID)->get();
+                  if(count($info)>0){
+                      try{
+                      $patientInfo = $info->first();
+                      $patientInfo['NotesSummarization']=$data;
+                      $patientInfo->save();
+                      }catch(\Exception $e){
+                          return response()->json(['status'=>500,'message'=> $e]);
+              
+                      }
+                     
+                  }
+                  else{
+                      try{
+                          
+                          $info=new PatientInfo();
+                          $info->patientID=$userID;
+                          $info['NotesSummarization']=$data;
+                          $info->save();
+                      }catch(\Exception $e){
+                          return response()->json(['status'=>500,'message'=> $e]);
+              
+                      }
+                  }
+                  return response()->json([
+                      'status' => 200,
+                      'message' =>"your info added successfully" ,
+                  ]);
+              }
+              else{
+                  return response()->json([
+                      'status' => 500,
+                      'message' =>"user not found" ,
+                  ]);
+              }
+          }
+          else{    
+              return response()->json([
+                  'status' => 500,
+                  'message' =>"you can't add any informaion" ,
+              ]);
+          }
+         
+      }
     public function getInfo(Request $request){
         $userID=$request->userID;
         $userType=$request->userType;

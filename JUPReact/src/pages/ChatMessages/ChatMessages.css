@@ -46,12 +46,12 @@
 }
 
 .posforMessages .rec {
-    background-color: #6aa3b99e;
+    background-color: #aeccd8fa;
     color: rgb(0, 0, 0);
     font-weight: 500;
 }
 .posforMessages .send {
-    background-color: rgba(91, 100, 101, 0.679);
+    background-color: rgb(28, 74, 87);
     color: rgb(255, 255, 255);
     font-weight: 500;
 }

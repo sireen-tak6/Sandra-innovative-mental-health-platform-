@@ -15,14 +15,16 @@ use App\Http\Controllers\DislikeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\SearchController;
-use App\Http\Controllers\DoctorVerfiyController; 
-use App\Http\Controllers\NotificationController; 
-use App\Http\Controllers\SecretaryController; 
-use App\Http\Controllers\AppointmentController; 
+use App\Http\Controllers\DoctorVerfiyController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\SecretaryController;
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\PatientInformationController;
-use App\Http\Controllers\ComplaintController; 
-use App\Http\Controllers\PatientController; 
-
+use App\Http\Controllers\ComplaintController;
+use App\Http\Controllers\PatientController;
+use App\Http\Controllers\DlikeController;
+use App\Http\Controllers\PlikeController;
+use App\Http\Controllers\PostController;
 
 
 /*
@@ -44,41 +46,41 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //this section for auth
 
-Route::post('/signup/user' , [AuthController::class , 'signup']); 
+Route::post('/signup/user' , [AuthController::class , 'signup']);
 Route::post('/signup/doctor',[AuthController::class , 'signupDoctor']);
 
-//this api for verfiy patient email before login 
-Route::get('/verify-email-patient/{token}', 
+//this api for verfiy patient email before login
+Route::get('/verify-email-patient/{token}',
 [AuthController::class, 'verifyEmailUser'])
 ->name('verify.email.user');
-//this api for verify doctor email before login 
-Route::get('/verify-email/{token}', 
+//this api for verify doctor email before login
+Route::get('/verify-email/{token}',
 [AuthController::class, 'verifyEmail'])
 ->name('verify.email');
-Route::get('/verify-new-email/{token}', 
+Route::get('/verify-new-email/{token}',
 [SettingsController::class, 'verifyEmail'])
 ->name('verify.new.email');
 Route::post('/login',[AuthController::class,'login']);
 Route::post('/login/Secretary',[AuthController::class,'SecretaryLogin']);
-Route::post('/logout/{type}/{id}', [AuthController::class , 'logout']); 
+Route::post('/logout/{type}/{id}', [AuthController::class , 'logout']);
 
-//Admin api 
-//for me 
+//Admin api
+//for me
 Route::get('firstAdmin' , [AdminController::class , 'AddFirstAdmin']);
-//for sireen  
-Route::get('secondAdmin' , [AdminController::class , 'AddSecondAdmin']); 
-//for accept or reject doctors depend on them documents 
-Route::post('/AcceptOrReject/{doctorId}' , [AdminController::class , 'acceptOrRejectDoctor']); 
-//for show all doctor 
+//for sireen
+Route::get('secondAdmin' , [AdminController::class , 'AddSecondAdmin']);
+//for accept or reject doctors depend on them documents
+Route::post('/AcceptOrReject/{doctorId}' , [AdminController::class , 'acceptOrRejectDoctor']);
+//for show all doctor
 Route::get('/show/doctor' , [AdminController::class , 'getAllDoctors']);
-//for delete doctor 
+//for delete doctor
 Route::delete('/delete/doctor/{doctorId}', [AdminController::class, 'deleteDoctor']);
-//for show admin information 
-Route::post('/show/admin/info/{id}' , [AdminController::class , 'getAdminById']); 
-//for get document and doctor info 
+//for show admin information
+Route::post('/show/admin/info/{id}' , [AdminController::class , 'getAdminById']);
+//for get document and doctor info
 Route::get('/admin/file-info', [AdminController::class, 'getFileAndDoctorInfo']);
-//for get images 
-Route::get('/get/images' , [AdminController::class , 'getImages']); 
+//for get images
+Route::get('/get/images' , [AdminController::class , 'getImages']);
 
 
 //Notification api
@@ -87,56 +89,56 @@ Route::post('/unreadNotificationCount',[NotificationController::class,'GetNotifi
 Route::post('/markAsRead/{notificationID}',[NotificationController::class,'markAsRead']);
 
 
-//Chat api 
-//first function openChat 
+//Chat api
+//first function openChat
 //it's work
 Route::post('/open-chat/{user_type}/{user_id}/{other_user_id}' , [ChatController::class , 'openChat']);
 //second function sendMessage
-//it's work  
+//it's work
 Route::post('/send-message/{sender_id}/{receiver_id}', [ChatController::class, 'sendMessage']);
 //third function showMessages
 //it's work
-Route::post('/show-messages/{id}',[ChatController::class , 'showMessages']); 
-//forth function showChat 
-//it's work 
-Route::post('/show-chat/{id}' , [ChatController::class , 'showChat']);  
+Route::post('/show-messages/{id}',[ChatController::class , 'showMessages']);
+//forth function showChat
+//it's work
+Route::post('/show-chat/{id}' , [ChatController::class , 'showChat']);
 //fifth function GetChatById
-//it's work 
-Route::post('/get-chat/{id}' , [ChatController::class , 'GetChatByID']); 
+//it's work
+Route::post('/get-chat/{id}' , [ChatController::class , 'GetChatByID']);
 
 //sixth function deleteChat
-//it's work 
-Route::post('/delete-chat/{id}/{user_id}' , [ChatController::class , 'deleteChat']); 
+//it's work
+Route::post('/delete-chat/{id}/{user_id}' , [ChatController::class , 'deleteChat']);
 
 //doctor api
-// it's work 
+// it's work
 Route::get('/get/doctors' , [DoctorController::class ,'getAllDoctor']);
 Route::post('/doctorInfo/{doctorId}' , [DoctorController::class ,'DoctorInfo']);
 Route::post('/doctorArticles/{doctorId}' , [DoctorController::class ,'DoctorArticles']);
 
-//this section for the HomeController 
+//this section for the HomeController
 Route::post('BestArticles' , [HomeController::class ,'BestArticles']);
 Route::post('/best/doctor' , [HomeController::class ,'getBestDoctors']);
 Route::post('/numbers' , [HomeController::class ,'numbers']);
 
-//this section for the LikeController 
+//this section for the LikeController
 // it's work
 Route::post('/show/likes/{doctor_id}', [LikeController::class, 'showLikes']);
-// it's work 
+// it's work
 Route::post('/add/like/{doctor_id}/{patient_id}', [LikeController::class ,'AddLike']);
 
 
-//this function for the DisLike Controller 
-//it's work 
+//this function for the DisLike Controller
+//it's work
 Route::post('/add/dislike/{doctor_id}/{patient_id}' , [DislikeController::class , 'AddDislike']);
-//it's work 
+//it's work
 Route::post('/show/dislike/{doctor_id}', [DislikeController::class ,'showDislikes']);
 
-//this funcitons for Doctor verfiy controller 
-Route::post('/verfiy/{doctor_id}' , [DoctorVerfiyController::class , 'uploadFile']); 
+//this funcitons for Doctor verfiy controller
+Route::post('/verfiy/{doctor_id}' , [DoctorVerfiyController::class , 'uploadFile']);
 
 
-//this section for DoctorController 
+//this section for DoctorController
 Route::post('/isVerfiy/{id}', [DoctorController::class , 'isVerfiyDoctor']);
 
 
@@ -219,3 +221,30 @@ Route::post('addSessionNote' , [AppointmentController::class ,'addSessionNote'])
 Route::post('endSession' , [AppointmentController::class ,'endSession']);
 Route::post('breakSession' , [AppointmentController::class ,'breakSession']);
 Route::post('SearchAppointment' , [SearchController::class ,'SearchAppointment']);
+Route::post('AddNotesSummarization' , [PatientInformationController::class ,'AddNotesSummarization']);
+//---------------Khaled-------------------
+
+
+//this section for the Posts
+// on the test
+Route::post('/posts', [PostController::class, 'store']);
+//on the test
+Route::get('/posts/{id}', [PostController::class, 'show']);
+//on the test
+Route::get('/get/posts' , [PostController::class, 'getAllPosts']);
+//on the test
+Route::post('/add/post/like/{post_id}/{patient_id}' , [PlikeController::class , 'addPostLike']);
+//on the test
+Route::get('/get/post/like/{post_id}' , [PlikeController::class , 'showPostLikes']);
+//on the test
+Route::get('get/suggestion/post/{id}' , [PostController::class , 'suggestionPost']);
+//on the test
+Route::get('/delete/post/{id}', [PostController::class , 'deletePost']);
+//on the test
+Route::get('doctor/post/{id}' , [PostController::class , 'getPostSharedByDoctor']);
+//on the test
+Route::post('/add/post/dlike/{post_id}/{patient_id}' , [DlikeController::class , 'addPostDlike']);
+//on the test
+Route::get('/get/post/dlike/{post_id}' , [DlikeController::class , 'showPostDlikes']);
+//on the test
+Route::get('/get/post/by/category/{category}' , [PostController::class , 'getPostsBySameCategory']);

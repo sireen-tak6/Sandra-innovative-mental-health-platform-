@@ -1,0 +1,45 @@
+.boo .first .infoForAdmin
+{
+    background-color: #ffffffbc;
+    box-shadow: -5px 0px 10px -2px #01010152;
+    border-radius: 5%;
+    height: 200px;
+    width: 90%;
+}
+
+.boo .second .postInfo
+{
+    background-color: #ffffffbc;
+    box-shadow: -5px 0px 10px -2px #01010152;
+    border-radius: 5%;
+    height: 300px;
+    width: 90%;
+}
+
+.boo .second .postInfo .vid
+{
+    height: inherit;
+    width: 50%;
+    border-radius: inherit;
+}
+
+.boo .second .postInfo .doctorInfo .img
+{
+    border-radius: 100%;
+}
+
+.boo .second .postInfo .per .img
+{
+    border-radius: 100%;
+}
+
+.boo .second .postInfo .del .btnnn
+{
+    border-radius: 20px;
+    border: #791111b7 solid 2px;
+    color: rgb(255, 255, 250);
+    background-color: #8a1b1b;    
+    box-shadow: -5px 0px 10px -2px #01010152;
+    width: 150px;
+    height: 40px;
+}

@@ -82,9 +82,9 @@ export default function VideoCall() {
         roomJoinedRef.current = true;
 
         // generate Kit Token
-        const appID = 1079263476;
+        const appID = 2010751212;
 
-        const serverSecret = "420074fe9fc9ec6527ba27fcdde454d0";
+        const serverSecret = "fe5c50ceb20aa365be79c7de6656eb73";
         const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
             appID,
             serverSecret,
@@ -117,7 +117,6 @@ export default function VideoCall() {
             showScreenSharingButton:false,
             showTextChat: true,
             maxUsers: 2,
-
             scenario: {
                 mode: ZegoUIKitPrebuilt.OneONoneCall,
                 config: {
@@ -125,6 +124,8 @@ export default function VideoCall() {
               },
             },
             onUserJoin: () => {
+                console.log("join")
+                console.log(userType)
                 UsersCount.current = UsersCount.current + 1;
                 if (UsersCount.current==2) {
                     const today = new Date();
@@ -160,6 +161,9 @@ export default function VideoCall() {
             },
             onLeaveRoom: () => {
                 setCallStarted(false);
+                console.log(startTimeRef.current)
+                console.log(UsersCount.current)
+                console.log(roomJoinedRef.current )
                 roomJoinedRef.current = false; // Reset ref when leaving the room
                 if (UsersCount.current == 2 && startTimeRef.current) {
                     const endTimetoday = new Date();

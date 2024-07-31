@@ -66,7 +66,6 @@ const SignUpLoginForm = ({
                     onChange={(ev) => setPassword(ev.target.value)}
                 />
                 <label htmlFor="password"></label>
-                {Type !== "SignUp" ? <a>{t("SignLogforgetPass")}</a> : null}
             </div>{" "}
             {Type === "SignUp" ? (
                 <>
@@ -113,10 +112,12 @@ const SignUpLoginForm = ({
                                     {t("LoginTitle")}
                                 </button>
                             </div>
-                            <div className="signupButton">
-                                {t("SignLogLogAsk")}{" "}
-                                <Link to="/signup">{t("SignupTitle")}</Link>
-                            </div>
+                            {Type !== "SecretaryLogin" && (
+                                <div className="signupButton">
+                                    {t("SignLogLogAsk")}{" "}
+                                    <Link to="/signup">{t("SignupTitle")}</Link>
+                                </div>
+                            )}
                         </>
                     )}
                 </>

@@ -24,7 +24,7 @@ const Settings = () => {
             : userType === "admin"
             ? "Password"
             : userType === "secretary"
-            ? "Password"
+            ? "Contact"
             : "Account"
     );
     const [isLoaded, setIsLoaded] = useState(false);

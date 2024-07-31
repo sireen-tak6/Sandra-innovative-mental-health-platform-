@@ -99,9 +99,8 @@
     margin-top: 2vh;
 }
 .PatientInfo .okButton{
-    background-image: linear-gradient(140deg, #b9f7eb8c 20%, #87bed28c 60%);
-    background-color: #b9f7eb;
-    color: #226e8c;
+    color: white;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
 
 }
   .PatientInfo .prevButton {

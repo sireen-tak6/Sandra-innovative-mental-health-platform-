@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.iimg {
+    border: 2px dashed #01010152;
+    border-radius: 4%;
+    background-color: #01010152;
+    opacity: 0.9;
+}
+
+.main {
+    border: 3px solid #ffffff49;
+    background-color: #ffffffbc;
+    /* Updated background color with opacity */
+    box-shadow: -5px 0px 10px -2px #01010152;
+    height: 550px;
+    width: 800px;
+    /* display: flex; */
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+    border-radius: 5%;
+    /* background-image: url('../assets/sharepost.png'); */
+    background-size: cover;
+    /* Make the background image cover the entire element */
+    background-position: center;
+    /* Center the background image */
+    opacity: 0.9;
+    /* Adjust the opacity of the background image */
+}
+
+.btttn {
+    box-shadow: -5px 0px 10px -2px #01010149;
+    height: 40px;
+    color: white;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
+    border-radius: 15%;
+    font-weight: 700;
+}

@@ -5,16 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\DoctorVerfiy;
 use App\Models\Doctor;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage; 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class DoctorVerfiyController extends Controller
 {
 
     //this function for verfiy the doctor by his or her document or photo it's work
-    // in the front i have to send the doctor id with the document or photp 
+    // in the front i have to send the doctor id with the document or photp
     public function uploadFile(Request $request, $doctorId)
-    { 
+    {
         // Check if a file already exists for the doctor
         $existingFile = DoctorVerfiy::where('doctor_id', $doctorId)->first();
         if ($existingFile) {
@@ -23,7 +23,7 @@ class DoctorVerfiyController extends Controller
         $request->validate([
             'file' => 'required|image', // Adjust the allowed file types and maximum size as needed
         ]);
-       
+
         // Get the file from the request
         $file = $request->file('file');
         // Generate a unique file name
@@ -38,7 +38,7 @@ class DoctorVerfiyController extends Controller
            $fileModel->filename = $imagePath;
            $fileModel->original_filename = $file->getClientOriginalName();
            $fileModel->doctor_id = $doctorId; // Associate the file with the doctor
-           $fileModel->isVerfiy = 0; 
+           $fileModel->isVerfiy = 0;
            $fileModel->save();
         } // Save the file information in the database
         catch (\Exception $e) {
@@ -52,6 +52,6 @@ class DoctorVerfiyController extends Controller
             'message' => 'File uploaded successfully',
             'document' => $fileModel
         ]);
-        
+
     }
 }

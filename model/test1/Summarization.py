@@ -13,14 +13,16 @@ os.environ["OPENAI_API_KEY"] = Key.OPENAI_API_KEY
 llm = ChatOpenAI(
         temperature=0.7,
         model='gpt-3.5-turbo-1106',
-        max_tokens=2000  
+        max_tokens=3000  
     )
 
 def create_chain():
     combine_prompt = """
-    Write a concise summary of the following Notes delimited by triple backquotes. 
-    Analyze the notes to determine the approximate treatment duration and overall improvement status.
-    Return your response in bullet points which covers the key points of the text.
+    list all mental disorders the patient currently has and has had in the past .
+    list all medications.
+    Additionally Write a concise summary of the following Notes delimited by triple backquotes. 
+    Analyze the notes to determine and overall improvement status.
+    Return your response in bullet points with each point on a separate line and two empty lines after each point.
 
     `{text}`
     BULLET POINT SUMMARY:

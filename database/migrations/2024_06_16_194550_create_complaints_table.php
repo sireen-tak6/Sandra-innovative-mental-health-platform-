@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('lastName');
             $table->string('number');
             $table->string('email');
-            $table->string('description');
+            $table->string('description',2500);
             $table->string("firstImage")->nullable();
             $table->string("secondImage")->nullable();
             $table->string("thirdImage")->nullable();

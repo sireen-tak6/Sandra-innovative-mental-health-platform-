@@ -48,23 +48,26 @@ const SignUp = () => {
                     email,
                     user_name,
                     password,
-                    password_confirmation: confirmpassword,
+                    password_confirmation: confirmpassword, 
                 })
                 .then((response) => {
                     if (response.data.status === 200) {
                         console.log(response);
+                        {/*
                         JSON.stringify(response);
                         localStorage.setItem("user-info", response.data);
                         localStorage.setItem("token", response.data.token);
                         localStorage.setItem(
                             "user-type",
                             response.data.user_type
-                        );
+                        );    
+                            */}
+                        
                         console.log("data added successfully");
                         navigate("/login");
                         swalWithBootstrapButtons.fire(
                             "Your email added successfully",
-                            response.data.message,
+                            response.data.message[0],
                             "success"
                         );
                     }
@@ -95,10 +98,14 @@ const SignUp = () => {
                 .then((response) => {
                     //this values comes from the AuthController
                     JSON.stringify(response);
-                    localStorage.setItem("user-info", response.data);
-                    localStorage.setItem("token", response.data.token);
-                    localStorage.setItem("user-type", response.data.user_type);
-                    console.log("data added successfully");
+                    {
+                        /*
+                        localStorage.setItem("user-info", response.data);
+                        localStorage.setItem("token", response.data.token);
+                        localStorage.setItem("user-type", response.data.user_type);
+                        */
+                    }
+                        console.log("data added successfully");
                     navigate("/login");
                     swalWithBootstrapButtons.fire(
                         "Your email added successfully",

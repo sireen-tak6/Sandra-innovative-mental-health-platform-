@@ -31,10 +31,10 @@ class PatientInfo extends Model
     {
         return json_decode($value, true); // Cast to associative array
     }
-    public function Patient(): BelongsTo
+    public function patient(): BelongsTo
     {
-        return $this->belongsTo(Patient::class , 'patientID'); 
-    }  
+    return $this->belongsTo(Patient::class, 'patientID');
+    }
     public function setBanksAttribute($value)
     {
         $this->attributes['Banks'] = json_encode($value);
@@ -44,5 +44,6 @@ class PatientInfo extends Model
     {
         return json_decode($value, true); // Cast to associative array
     }
+
     
 }

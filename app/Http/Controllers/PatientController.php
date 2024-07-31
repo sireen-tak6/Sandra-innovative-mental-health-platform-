@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Patient;
+use App\Models\PatientInfo;
 use App\Models\SessionNote;
 
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class PatientController extends Controller
     {
         try{
             
-            $users = Patient::all();
+            $users = Patient::with('information')->get();
             return response()->json(
                 ['status' => 200
                 ,'patients'=>$users]

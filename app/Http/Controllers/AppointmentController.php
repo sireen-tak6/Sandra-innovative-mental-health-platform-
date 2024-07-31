@@ -900,8 +900,15 @@ class AppointmentController extends Controller
                                 $notification=new Notification();
                                 $notification->Type="Appointment";
                                 $notification->data=["appointmentID"=>$newAppointment->id,"date"=>$newAppointment->date,"time"=>$newAppointment->time,"doctorName"=>$newAppointment->doctor->user_name];
+                                if($newAppointment->doctor->Secretary){
+                                    
                                 $notification->userID=$newAppointment->doctor->Secretary->id;
                                 $notification->userType="secretary";
+                                }
+                                else{
+                                    $notification->userID=$newAppointment->doctor->id;
+                                    $notification->userType="doctor";
+                                }
                                 $notification->save();
                             
                             }
@@ -1098,7 +1105,8 @@ class AppointmentController extends Controller
                     $Note->appointmentID=$request->appointmentID;
                     $Note->save();
                     
-                    return response()->json(['status'=>200,'message'=>"Note saved successfully"]);
+                    $notes=SessionNote::where('patientID',$request->patientID)->with('doctor','patient','appointment')->orderBy('created_at', 'desc')->get();
+                    return response()->json(['status'=>200,'message'=>"Note saved successfully","notes"=>$notes]);
                 }
                 return response()->json(['status'=>200,'message'=>"the appointment not found"]);
 

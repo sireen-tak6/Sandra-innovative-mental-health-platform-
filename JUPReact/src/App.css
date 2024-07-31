@@ -59,6 +59,23 @@ div.swal2-icon.swal2-warning.swal2-icon-show {
     min-width: 45px;
     font-size: max(2.5vmin, 10px);
 }
+button.swal2-confirm.swal2-styled {
+    font-weight: 500;
+    padding: 0.5vh 1vw;
+    background-color: #b9f7eb;
+    border-radius: 6px;
+    min-height: 25px;
+    font-size: max(2vmin, 11px);
+    font-weight: 600;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
+    color: white;
+    border: none;
+    height: 5vh;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+    min-width: 15px;
+}
 div.swal2-icon.swal2-error.swal2-icon-show {
     height: 11vmin;
     min-height: 45px;

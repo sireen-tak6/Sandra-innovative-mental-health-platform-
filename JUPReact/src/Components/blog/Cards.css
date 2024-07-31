@@ -25,12 +25,11 @@
 
 .blog .ButtonContainer .LoadMoreButton {
     padding: 0.5vmin 2vmin;
-    background-color: #b9f7eb;
     min-height: 25px;
     font-size: max(2.3vmin, 11px);
     font-weight: 600;
-    background-image: linear-gradient(140deg, #b9f7eb8c 20%, #87bed28c 60%);
-    color: #1c627e;
+    color: white;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
     border: none;
     height: 5vmin;
     font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
@@ -44,12 +43,10 @@
 
 .blog .ButtonContainer .LoadMoreButton:hover {
     padding: 0.5vmin 2.5vmin;
-    background-color: #b9f7eb;
     min-height: 25px;
     font-size: max(2.4vmin, 12px);
-    font-weight: 600;
-    background-image: linear-gradient(140deg, #b9f7eb8c 20%, #87bed28c 60%);
-    color: #1c627e;
+    font-weight: 600;    color: white;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
     border: none;
     height: 5.5vmin;
     font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",

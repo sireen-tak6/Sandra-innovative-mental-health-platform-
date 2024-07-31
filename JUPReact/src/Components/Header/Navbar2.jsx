@@ -31,7 +31,7 @@ function Navbarr() {
     const { query, setQuery, click, setClick } = useContext(SearchContext);
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
-
+//    const user=useRef();
     function Logout() {
         const Type = localStorage.getItem("user-type");
         const userId = localStorage.getItem("user-id");
@@ -51,8 +51,11 @@ function Navbarr() {
     }
     let id = localStorage.getItem("user-id");
     let Type = localStorage.getItem("user-type");
-    let user = JSON.parse(localStorage.getItem("user-info"));
+    if (typeof localStorage.getItem("user-info") == "string") {
 
+        var user = JSON.parse(localStorage.getItem("user-info"));
+    }
+    console.log(user)
     let Secretary = JSON.parse(localStorage.getItem("user-Secretary"));
     console.log(Secretary);
 
@@ -81,7 +84,7 @@ function Navbarr() {
                                     className="logoImage"
                                 />
                             </div>
-                            {t("BrandName")}
+                            {/*{t("BrandName")}*/}
                         </div>
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarNav" />
@@ -90,6 +93,10 @@ function Navbarr() {
                             <Nav.Link href="/home" className="l">
                                 {t("NavbarHome")}
                             </Nav.Link>
+                            {Type!="admin" &&
+                            <Nav.Link href="/posts" className="l">
+                                {t("posts")}
+                            </Nav.Link>}
                             {Type != "admin" ? (
                                 <Nav.Link href="/doctor" className="l">
                                     {t("NavbarDoctors")}
@@ -131,24 +138,36 @@ function Navbarr() {
                                             >
                                                 {t("NavbarDoctors")}
                                             </Nav.Link>
-                                        </>
-                                    ) : null}
-                                    <Nav.Link
-                                        href={`/appointments`}
-                                        // href={`/newAppointment/${Type=="secretary"?user.doctorID:id}`}
-                                        className="l"
-                                    >
-                                        {t("NavbarAppointments")}
-                                    </Nav.Link>
-                                    {Type != "admin" && Type != "patient" ? (
-                                        <>
                                             <Nav.Link
-                                                href="/Schedule"
+                                                href="/admin/posts"
                                                 className="l"
                                             >
-                                                {t("NavbarSchedule")}
+                                                {t("postManage")}
                                             </Nav.Link>
                                         </>
+                                    ) : null}
+                                    {Type == "doctor" &&
+                                    user?.isVerfiy == 0 ? null : (
+                                        <Nav.Link
+                                            href={`/appointments`}
+                                            // href={`/newAppointment/${Type=="secretary"?user.doctorID:id}`}
+                                            className="l"
+                                        >
+                                            {t("NavbarAppointments")}
+                                        </Nav.Link>
+                                    )}
+                                    {Type != "admin" && Type != "patient" ? (
+                                        Type == "doctor" &&
+                                        user?.isVerfiy == 0 ? null : (
+                                            <>
+                                                <Nav.Link
+                                                    href="/Schedule"
+                                                    className="l"
+                                                >
+                                                    {t("NavbarSchedule")}
+                                                </Nav.Link>
+                                            </>
+                                        )
                                     ) : null}
                                     {Type != "admin" ? (
                                         <>
@@ -270,14 +289,17 @@ function Navbarr() {
                                                     >
                                                         {t("NavbarProfile")}
                                                     </NavDropdown.Item>
-                                                    {!Secretary && (
-                                                        <NavDropdown.Item
-                                                            href={`/AddSecretary`}
-                                                            className="o"
-                                                        >
-                                                            {t("NavbarAddSec")}
-                                                        </NavDropdown.Item>
-                                                    )}
+                                                    {!Secretary &&
+                                                        user?.isVerfiy == 1 && (
+                                                            <NavDropdown.Item
+                                                                href={`/AddSecretary`}
+                                                                className="o"
+                                                            >
+                                                                {t(
+                                                                    "NavbarAddSec"
+                                                                )}
+                                                            </NavDropdown.Item>
+                                                        )}
                                                 </>
                                             ) : null}
                                             {Type === "patient" ? (

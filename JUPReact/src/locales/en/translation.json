@@ -1,7 +1,7 @@
 {
     "BrandName": "Sandra",
     "NavbarHome": "Home",
-    "NavbarDoctors":"psychotherapists",
+    "NavbarDoctors":"Psychotherapists",
     "NavbarPatients":"Patients",
     "NavbarArticles":"Articles",
     "NavbarTalk":"Talk-to-Sandra",
@@ -95,6 +95,37 @@
     "ConfRules2":"- Conference information is stored, and complaints can be filed.",
     "ConfRules3":"- Conference end automatically if a participant leaves for over 15 minutes.",
     "ConfRules4":"- time counts only when both are present.",
-    "ConfContinue":"Continue"
+    "ConfContinue":"Continue",
+
+    "user":"user",
+    "doctor":"doctor",
+    "messagehint":"Message",
+    "myAccount":"My Account",
+    "chats":"Chats",
+    "online":"online",
+    "ofline":"ofline",
+    "nochats":"No chats yet",
+    "rules":"Rules",
+    "firstRule":"You must share the session link with only one patient",
+    "secondRule":"The session link is activated only once to maintain security",
+    "thirdRule":"If the page is updated or refreshed,the session link will be canceled",
+    "completethirdRule":"and you must create another session",
+    "readRules":"Read Terms",
+    "talktosandra":"Talk To Sandra",
+    "doctors":"Doctors",
+    "Articals":"Articals",
+    "Settings":"Settings",
+    "home":"Home",
+    "verfiy":"Verfiy",
+    "signupdoctor":"Signup Doctor",
+    "login":"Login",
+    "logout":"Logout",
+    "email":"Email",
+    "more":"More Information",
+    "chattingwith":"Chatting With",
+    "posts":"Posts",
+    "savePost":"Saved Post",
+    "postManage":"Post Manage"
+
     
   }

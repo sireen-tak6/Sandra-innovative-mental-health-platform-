@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 
 export default function Patients() {
     const patientImg = "../images/MaleUser.jpg";
+    const FpatientImg = "../images/FemaleUser.jpg";
 
     const navigate = useNavigate();
     const [patients, setPatients] = useState([]);
@@ -92,7 +93,7 @@ export default function Patients() {
                                         <div className="flex justify-content-between">
                                             <img
                                                 className="object-fit-cover rounded-full border border-secondary border-3 border-info-subtle"
-                                                src={patientImg}
+                                                src={patient?.information?.data?.gender=="Female"?FpatientImg:patientImg}
                                                 alt=""
                                                 height="90"
                                                 width="90"

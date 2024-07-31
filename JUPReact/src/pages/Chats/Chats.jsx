@@ -176,7 +176,7 @@ const Chats = () => {
                                             <div className="items-center flex">
                                                 <li
                                                     key={chat.id}
-                                                    className="flex items-center text-bg-secondary my-2 border border-secondary li rounded-full cursor-auto overflow-hidden"
+                                                    className="flex items-center text-bg-secondary h-[60px] my-2 border border-secondary li rounded-full cursor-auto overflow-hidden"
                                                     onClick={() =>
                                                         handleSelected(
                                                             chat.chat_id

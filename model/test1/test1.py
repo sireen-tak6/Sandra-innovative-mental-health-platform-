@@ -126,7 +126,7 @@ def chat():
     if query_times:
         total_time = sum(query_times)
         qps = total_queries / total_time
-        avgResponseTime=total_time/total_queries
+        
     # Return response as JSON
     return jsonify({'response': response,'qps':qps,'art':avgResponseTime,'qt':query_time})
 

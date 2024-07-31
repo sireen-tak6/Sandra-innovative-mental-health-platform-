@@ -73,6 +73,8 @@
     font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
         "Lucida Sans", Arial, sans-serif;
     display: flex;
+    height: 6vh;
+    width: 33   vw;
 }
 
 .AdminDoctors .doctors {
@@ -89,9 +91,8 @@
 .AdminDoctors .profile {
     border-radius: 10%;
     border: none;
-    color: rgba(255, 255, 250, 0.87);
-    background-color: #b9f7eb;
-    background-image: linear-gradient(190deg, #b9f7eb8c 1%, #87bed28c 30%);
+    color: rgba(255, 255, 250, 0.87);   
+    background: linear-gradient(135deg, #226e8c, #0d4155);
     box-shadow: -5px 0px 10px -2px #01010152;
 }
 

@@ -64,8 +64,7 @@
         "Lucida Sans", Arial, sans-serif;
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
     width: fit-content;
-    background: linear-gradient(135deg, #226e8c, #0d4155);
-    background-color: #b9f7eb;
     color: white;
+    background: linear-gradient(135deg, #226e8c, #0d4155);
     margin-top: 2vh;
 }

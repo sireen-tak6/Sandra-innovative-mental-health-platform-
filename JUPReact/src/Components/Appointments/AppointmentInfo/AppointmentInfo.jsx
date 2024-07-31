@@ -335,10 +335,14 @@ const AppointmentInfo = ({
                                 </div>
                             </div>
                         </div>
-                        <div className="rowData">
+                        <div className="rowData three">
                             <div>
                                 Cost :
                                 <div className="data">{appointment.cost}</div>
+                            </div>
+                            <div>
+                                pay :
+                                <div className="data">{appointment.pay}</div>
                             </div>
                             <div>
                                 Duration :
@@ -455,7 +459,7 @@ const AppointmentInfo = ({
                                 </div>
                             ) : null}
                             {(appointment.type == "waiting" ||
-                                appointment.type == "approved") &&
+                                appointment.type == "approved") && appointment.state =="online"&&
                             userType !== "admin" &&
                             userType != "patient" ? (
                                 <div>
